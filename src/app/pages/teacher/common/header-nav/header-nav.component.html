@@ -1,0 +1,44 @@
+<mat-toolbar class="header">
+  <div class="logo dashbord-logo-margin">
+    <!-- <img src="../../../assets/logo.png" alt=""> -->
+    <span>{{schoolName}}</span>
+  </div>
+  <div class="col-lg-7">
+    <button mat-icon-button>
+      <svg class="hamburger-icon" (click)="hamburgerMenu(true)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 25 25">
+        <rect x="0" y="3" width="24" height="1.5"/>
+        <rect x="0" y="10" width="24" height="1.5"/>
+        <rect x="0" y="17" width="24" height="1.5"/>
+      </svg>
+    </button>
+  </div>
+</mat-toolbar>
+<div [ngClass]="{'top-hamburger-menu' : false==nav}">
+  <mat-toolbar class="hamburger-menu">
+    <mat-icon class="close-icon" (click)="hamburgerMenu(false)">close</mat-icon>
+    <button mat-menu-item [routerLink]="['/teacher/dashboard']" routerLinkActive="active-link" (click)="hamburgerMenu(true)">
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+    </button>
+      <button mat-menu-item class="menu-button" [routerLink]="['/teacher/student/admission']" routerLinkActive="active-link">
+        <mat-icon>assignment</mat-icon>
+        <span>Admission</span>
+      </button>
+      <button mat-menu-item class="menu-button" [routerLink]="['/teacher/student/student']" routerLinkActive="active-link">
+        <mat-icon>content_paste_search</mat-icon>
+        <span>Students</span>
+      </button>
+      <button mat-menu-item class="menu-button" [routerLink]="['/teacher/student/admit-card']" routerLinkActive="active-link">
+        <mat-icon>assignment</mat-icon>
+        <span>Admit Cards</span>
+      </button>
+      <button mat-menu-item class="menu-button" [routerLink]="['/teacher/student/result']" routerLinkActive="active-link">
+        <mat-icon>content_paste_search</mat-icon>
+        <span>Exam Results</span>
+      </button>
+      <button mat-menu-item class="menu-button" [routerLink]="['/teacher/student/fees']" routerLinkActive="active-link">
+        <mat-icon>content_paste_search</mat-icon>
+        <span>Fee Management</span>
+      </button>
+  </mat-toolbar>
+</div>

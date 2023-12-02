@@ -1,0 +1,149 @@
+<app-header-nav></app-header-nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-12 col-lg-10">
+      <div class="row">
+        <div class="col-12 big-container">
+          <div class="col-lg-12 offset-lg-0">
+            <div class="main-card">
+              <div class="row pt-4 pb-2">
+                <div class="col-8 col-lg-5">
+                  <input type="text" class="form-control" placeholder="Student Search..." id="searchText"
+                    name="searchText" #searchText="ngModel" [(ngModel)]="filters.searchText"
+                    (keyup)="getStudents({page : 1, limit : 0})">
+                </div>
+                <div class="col-4 col-lg-2 offset-lg-5">
+                  <button class="submit-button" mat-raised-button (click)="addStudentModel()"><mat-icon
+                      style="font-size: 20px;">add</mat-icon>Create</button>
+                </div>
+              </div>
+              <table class="table table-hover align-middle mt-1 mb-0 bg-white">
+                <thead class="bg-light">
+                  <tr class="text-muted">
+                    <th>No.</th>
+                    <th>Student</th>
+                    <th>Class</th>
+                    <th>Roll Number</th>
+                    <th>Otp</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="studentInfo && studentInfo.length>0">
+                  <tr *ngFor="let students of studentInfo,let i=index">
+                    <td>
+                      <p class="mb-0">{{number*10+i+1-10}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{students.name}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{students.class}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{students.rollNumber}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{students.otp}}</p>
+                    </td>
+                    <td>
+                      <a class="mb-0 status-active" (click)="changeStatus(students._id,0)"
+                        *ngIf="students.status == 'Active'"
+                        href="javascript:void(0)">&nbsp;&nbsp;&nbsp;{{students.status}}</a>
+                      <a class="mb-0 status-inactive" (click)="changeStatus(students._id,1)"
+                        *ngIf="students.status == 'Inactive'" href="javascript:void(0)">{{students.status}}</a>
+                    </td>
+                    <td class="mb-0">
+                      <mat-icon (click)="updateStudentModel(students)" style="cursor: pointer;">edit_note</mat-icon>
+                      <mat-icon (click)="deleteStudentModel(students._id)" style="cursor: pointer;">delete</mat-icon>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+              <div class="pagination">
+                <!-- <app-pagination [paginationValues]="paginationValues" (onChange)="getStudents($event)">
+                </app-pagination> -->
+              </div>
+
+              <div class="modal fade show" [class.show]="showModal">
+                <div class="modal-dialog modal-dialog-top" role="document">
+
+                  <div class="modal-content" *ngIf="successMsg">
+                    <div class="modal-header">
+                      <h5 class="modal-title" style="color: transparent;">&nbsp;</h5>
+                    </div>
+                    <div class="modal-body">
+                      <p class="success-message">{{successMsg}}</p>
+                    </div>
+                    <div class="modal-footer">
+                      <mat-icon></mat-icon>
+                    </div>
+                  </div>
+
+                  <div class="modal-content" *ngIf="!successMsg">
+                    <div class="modal-header">
+                      <h5 class="modal-title">{{updateMode?'Update': deleteMode ? 'Delete' :'Add'}} Student</h5>
+                      <mat-icon matRipple (click)="closeModal()" style="cursor: pointer;">close</mat-icon>
+                    </div>
+
+                    <div class="modal-body">
+                      <div *ngIf="errorCheck">
+                        <p class="error-message">{{errorMsg}}</p>
+                      </div>
+
+                      <form [formGroup]="studentForm" (ngSubmit)="studentAddUpdate()" *ngIf="!deleteMode">
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>Student Name</mat-label>
+                          <input matInput type="text" formControlName="name">
+                          <mat-hint *ngIf="!studentForm.get('name')?.valid && studentForm.get('name')?.touched"
+                            class="form-text text-danger">Please enter student name.</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>Select class name</mat-label>
+                          <mat-select type="number" matInput formControlName="class">
+                            <div *ngFor="let classInfo of classInfo">
+                              <mat-option value="{{classInfo.class}}">{{classInfo.class}}</mat-option>
+                            </div>
+                          </mat-select>
+                          <mat-hint *ngIf="!studentForm.get('class')?.valid && studentForm.get('class')?.touched"
+                            class="form-text text-danger">Please select class name.</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>Roll Number</mat-label>
+                          <input matInput type="number" formControlName="rollNumber">
+                          <mat-hint
+                            *ngIf="!studentForm.get('rollNumber')?.valid && studentForm.get('rollNumber')?.touched"
+                            class="form-text text-danger">Please enter student roll number.</mat-hint>
+                        </mat-form-field>
+
+                        <div class="modal-footer">
+                          <button class="submit-button" mat-raised-button type="submit"
+                            [disabled]="!studentForm.valid">{{updateMode? 'Update' :
+                            'Add'}} Student</button>
+                        </div>
+                      </form>
+                      <div *ngIf="deleteMode">
+                        <h4>To delete student detail, click ok to confirm.</h4>
+                        <div class="modal-footer">
+                          <button class="delete-button" mat-raised-button type="button"
+                            (click)="studentDelete(deleteById)">Ok</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

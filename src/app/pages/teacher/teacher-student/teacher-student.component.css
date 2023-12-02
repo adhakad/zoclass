@@ -1,0 +1,233 @@
+.container-fluid {
+   background-color: transparent;
+   height: 90vh;
+   width: 100%;
+}
+
+.big-container {
+   background-color: #fff;
+   width: 100%;
+   height: 70vh;
+   margin-top: 1vh;
+}
+
+.main-card {
+   height: 70vh;
+   width: 100%;
+   background-color: transparent;
+}
+
+.form-control {
+   height: 45px;
+   color: #7d719bc7;
+   border: 2px solid #e1dfeed7;
+}
+
+.form-control::placeholder {
+   color: #b7b5c5f7;
+   font-size: 15px;
+}
+
+.form-control:focus {
+   border-color: #d2d0dfe0;
+   box-shadow: 0 0 0 1px #e1dfee66
+}
+
+.submit-button {
+   height: 42px;
+   background: #8d6dff;
+   color: #dedeff;
+}
+
+.submit-button.mat-button-disabled:not([class*=mat-elevation-z]) {
+   background: #e7e6f897;
+   color: #8d6dff9a;
+}
+
+.table {
+   height: 72vh;
+   display: block;
+   width: 100%;
+   overflow-y: auto;
+   overflow-x: auto;
+}
+.status-active {
+   color: #8d6dff;
+   cursor: pointer;
+   text-decoration: none;
+}
+
+.status-inactive {
+   color: #7d719bc7;
+   cursor: pointer;
+   text-decoration: none;
+}
+.table mat-icon,
+p {
+   color: #7d719bc7;
+}
+
+.pagination {
+   display: flex;
+   justify-content: center;
+}
+
+.modal.fade.show {
+   display: block;
+   z-index: 10 !important;
+   background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-title {
+   color: #8c88ff;
+   font-size: 20px;
+}
+
+.delete-button {
+   background: #eeecf5;
+   color: #4a4a71;
+   box-shadow: none;
+}
+
+.success-message {
+   color: #16b978;
+   font-size: 20px;
+}
+
+.error-message {
+   color: rgb(228, 64, 154);
+}
+
+::ng-deep mat-form-field {
+   width: 100% !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+   color: #8c88ff !important;
+
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+   color: #8c88ff !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+   color: #8c88ff !important;
+   opacity: 0.8 !important;
+}
+
+::ng-deep .mat-input-element {
+   caret-color: #8c88ff !important;
+}
+
+::ng-deep .mat-form-field-invalid .mat-input-element,
+.mat-warn .mat-input-element {
+   caret-color: #8c88ff !important;
+}
+
+::ng-deep .mat-form-field-label {
+   color: #8c88ff !important;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+   color: #8c88ff !important;
+}
+
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+   color: #8c88ff !important;
+}
+
+@media (min-width: 576px) and (max-width:991.98px){
+   .container-fluid{
+      display: none;
+   }
+}
+
+
+@media (min-width: 992px) {
+   .container-fluid {
+      background-color: #d1ceee3e;
+   }
+
+   .big-container {
+      background-color: #fff;
+      height: 86.5vh;
+      width: 98%;
+      margin-top: 1.75vh;
+      margin-left: 1%;
+      border-radius: 10px;
+   }
+
+   .main-card {
+      padding-left: 2px;
+      padding-right: 2px;
+   }
+
+   .form-control {
+      height: 45px;
+      color: #7d719bc7;
+      border: 2px solid #e1dfeed7;
+   }
+
+   .form-control::placeholder {
+      color: #b7b5c5f7;
+      font-size: 15px;
+   }
+
+   .form-control:focus {
+      border-color: #d2d0dfe0;
+      box-shadow: 0 0 0 1px #e1dfee66
+   }
+
+   .submit-button {
+      background: #8d6dff;
+      color: #dedeff;
+   }
+
+   .submit-button.mat-button-disabled:not([class*=mat-elevation-z]) {
+      background: #e7e6f897;
+      color: #8d6dff9a;
+   }
+
+   .table {
+      display: inline-table;
+      width: 100%;
+      height: auto;
+   }
+
+   .table mat-icon,
+   p {
+      color: #7d719bc7;
+   }
+
+   .pagination {
+      display: flex;
+      justify-content: center;
+   }
+
+   .modal.fade.show {
+      display: block;
+      z-index: 10 !important;
+      background: rgba(0, 0, 0, 0.5);
+   }
+
+   .modal-title {
+      color: #8c88ff;
+      font-size: 20px;
+   }
+
+   .delete-button {
+      background: #eeecf5;
+      color: #4a4a71;
+      box-shadow: none;
+   }
+
+   .success-message {
+      color: #16b978;
+      font-size: 20px;
+   }
+
+   .error-message {
+      color: rgb(228, 64, 154);
+   }
+}
