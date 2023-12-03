@@ -34,6 +34,9 @@ export class StudentService {
   studentPaginationByAdmission(studentData:any){
     return this.http.post(`${this.url}/student-admission-pagination`,studentData);
   }
+  studentPaginationByAdmissionAndClass(studentData:any){
+    return this.http.post(`${this.url}/student-admission-pagination/class`,studentData);
+  }
   studentAdmissionEnquiryPagination(studentData:any){
     return this.http.post(`${this.url}/student-admission-enquiry-pagination`,studentData);
   }

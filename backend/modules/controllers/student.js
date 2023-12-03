@@ -36,6 +36,30 @@ let GetStudentPaginationByAdmission = async (req, res, next) => {
         return res.status(500).json('Internal Server Error !');
     }
 }
+let GetStudentPaginationByAdmissionAndClass = async (req, res, next) => {
+    
+    let searchText = req.body.filters.searchText;
+    let className = req.body.class;
+    let searchObj = {};
+    if (searchText) {
+        searchObj = /^(?:\d*\.\d{1,2}|\d+)$/.test(searchText) ? { $or: [{ class: searchText }, { rollNumber: searchText }, { admissionNo: searchText }] } : { name: new RegExp(`${searchText.toString().trim()}`, 'i') }
+    }
+    try {
+        let limit = (req.body.limit) ? parseInt(req.body.limit) : 10;
+        let page = req.body.page || 1;
+        const studentList = await StudentModel.find({ admissionType: 'New' }).find({class:className}).find(searchObj).sort({ _id: -1 })
+            .limit(limit * 1)
+            .skip((page - 1) * limit)
+            .exec();
+        const countStudent = await StudentModel.count({ admissionType: 'New' }).find({class:className});
+        let studentData = { countStudent: 0 };
+        studentData.studentList = studentList;
+        studentData.countStudent = countStudent;
+        return res.json(studentData);
+    } catch (error) {
+        return res.status(500).json('Internal Server Error !');
+    }
+}
 
 let GetStudentAdmissionEnquiryPagination = async (req, res, next) => {
     let searchText = req.body.filters.searchText;
@@ -554,6 +578,7 @@ let DeleteAdmissionEnquiry = async (req, res, next) => {
 module.exports = {
     countStudent,
     GetStudentPaginationByAdmission,
+    GetStudentPaginationByAdmissionAndClass,
     GetStudentAdmissionEnquiryPagination,
     GetStudentPaginationByClass,
     GetAllStudentByClass,

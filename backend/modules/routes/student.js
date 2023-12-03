@@ -1,12 +1,13 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-const { GetAllStudentByClass, countStudent, GetSingleStudent, CreateStudent, CreateStudentAdmissionEnquiry, CreateBulkStudentRecord, UpdateStudent, ChangeStatus, DeleteStudent, GetStudentPaginationByClass, GetStudentPaginationByAdmission, GetStudentAdmissionEnquiryPagination, StudentClassPromote, DeleteAdmissionEnquiry } = require('../controllers/student');
+const { GetAllStudentByClass, countStudent, GetSingleStudent, CreateStudent, CreateStudentAdmissionEnquiry, CreateBulkStudentRecord, UpdateStudent, ChangeStatus, DeleteStudent, GetStudentPaginationByClass, GetStudentPaginationByAdmission, GetStudentAdmissionEnquiryPagination, StudentClassPromote, DeleteAdmissionEnquiry, GetStudentPaginationByAdmissionAndClass } = require('../controllers/student');
 
 router.get('/student-count', countStudent);
 router.get('/student/:class', GetAllStudentByClass);
 router.post('/student-pagination', GetStudentPaginationByClass);
 router.post('/student-admission-pagination', GetStudentPaginationByAdmission);
+router.post('/student-admission-pagination/class', GetStudentPaginationByAdmissionAndClass);
 router.post('/student-admission-enquiry-pagination', GetStudentAdmissionEnquiryPagination);
 router.get('/:id', GetSingleStudent);
 router.post('/', CreateStudent);

@@ -47,11 +47,10 @@
                     <th>Admission No.</th>
                     <th>Roll Number</th>
                     <th>Otp</th>
+                    <th>Session</th>
                     <th>Status</th>
-                    <th>Class Promote</th>
+                    <!-- <th>Class Promote</th> -->
                     <th>View</th>
-                    <!-- <th>Edit</th> -->
-                    <th>Remove</th>
                   </tr>
                 </thead>
                 <tbody *ngIf="studentInfo && studentInfo.length>0">
@@ -75,25 +74,22 @@
                       <p class="mb-0">{{students.otp}}</p>
                     </td>
                     <td>
+                      <p class="mb-0">{{students.session}}</p>
+                    </td>
+                    <td>
                       <a class="mb-0 status-active" (click)="changeStatus(students._id,0)"
                         *ngIf="students.status == 'Active'"
                         href="javascript:void(0)">{{students.status}}&nbsp;&nbsp;</a>
                       <a class="mb-0 status-inactive" (click)="changeStatus(students._id,1)"
                         *ngIf="students.status == 'Inactive'" href="javascript:void(0)">{{students.status}}</a>
                     </td>
-                    <td>
+                    <!-- <td>
                       <button style="background-color: transparent;color: #8d6dff;border: 1px solid #8d6dff;"
                         class="submit-button" (click)="addStudentClassPromoteModel(students)"
                         mat-raised-button>Promote</button>
-                    </td>
-                    <td class="mb-0">
-                      <mat-icon (click)="addStudentInfoViewModel(students)">visibility</mat-icon>
-                    </td>
-                    <!-- <td class="mb-0">
-                      <mat-icon (click)="updateStudentModel(students)">edit</mat-icon>
                     </td> -->
                     <td class="mb-0">
-                      <mat-icon (click)="deleteStudentModel(students._id)">delete</mat-icon>
+                      <mat-icon (click)="addStudentInfoViewModel(students)">visibility</mat-icon>
                     </td>
                   </tr>
                 </tbody>

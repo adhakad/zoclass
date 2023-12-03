@@ -47,6 +47,7 @@
                     <th>Admission No.</th>
                     <th>Roll Number</th>
                     <th>Otp</th>
+                    <th>Session</th>
                     <th>Status</th>
                     <th>Class Promote</th>
                     <th>View</th>
@@ -73,6 +74,9 @@
                     </td>
                     <td>
                       <p class="mb-0">{{students.otp}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{students.session}}</p>
                     </td>
                     <td>
                       <a class="mb-0 status-active" (click)="changeStatus(students._id,0)"

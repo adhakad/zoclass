@@ -88,7 +88,7 @@ export class TeacherAdmissionComponent implements OnInit {
   ngOnInit(): void {
     this.getSchool();
     this.className = this.activatedRoute.snapshot.paramMap.get('id');
-    let load:any = this.getStudentsByAdmission({ page: 1 });
+    let load:any = this.getStudentsByAdmissionAndClass({ page: 1 });
     this.getClass();
     this.allOptions();
     if(load){
@@ -213,24 +213,25 @@ export class TeacherAdmissionComponent implements OnInit {
     setTimeout(() => {
       this.closeModal();
       this.successMsg = '';
-      this.getStudentsByAdmission({ page: this.page });
+      this.getStudentsByAdmissionAndClass({ page: this.page });
     }, 1000)
   }
 
-  getStudentsByAdmission($event: any) {
+  getStudentsByAdmissionAndClass($event: any) {
     this.page = $event.page
     return new Promise((resolve, reject) => {
       let params: any = {
         filters: {},
         page: $event.page,
-        limit: $event.limit ? $event.limit : this.recordLimit
+        limit: $event.limit ? $event.limit : this.recordLimit,
+        class:this.className
       };
       this.recordLimit = params.limit;
       if (this.filters.searchText) {
         params["filters"]["searchText"] = this.filters.searchText.trim();
       }
 
-      this.studentService.studentPaginationByAdmission(params).subscribe((res: any) => {
+      this.studentService.studentPaginationByAdmissionAndClass(params).subscribe((res: any) => {
         if (res) {
           this.studentInfo = res.studentList;
           this.number = params.page;

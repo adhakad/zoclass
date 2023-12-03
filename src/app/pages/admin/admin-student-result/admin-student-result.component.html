@@ -41,6 +41,7 @@
                     <th>Name</th>
                     <th>Roll Number</th>
                     <th>Stream</th>
+                    <th>Exam</th>
                   </tr>
                 </thead>
 
@@ -60,6 +61,9 @@
                     </td>
                     <td>
                       <p class="mb-0">{{students.stream}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{students.examType | titlecase}}</p>
                     </td>
                   </tr>
                 </tbody>

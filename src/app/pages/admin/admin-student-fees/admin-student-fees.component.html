@@ -23,7 +23,6 @@
                                 <thead class="bg-light">
                                     <tr class="text-muted">
                                         <th>No.</th>
-                                        <th>Session</th>
                                         <th>Fee Payment</th>
                                         <th>Student Name</th>
                                         <th>Admission No.</th>
@@ -32,15 +31,13 @@
                                         <th>Due Fee</th>
                                         <th>Total Fee</th>
                                         <th>Fee Statement</th>
+                                        <th>Session</th>
                                     </tr>
                                 </thead>
                                 <tbody *ngFor="let student of studentList,let i=index">
                                     <tr>
                                         <td>
                                             <p class="mb-0">{{i+1}}</p>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0">{{student.session}}</p>
                                         </td>
                                         <th>
                                             <button
@@ -74,6 +71,9 @@
                                             <mat-icon
                                                 routerLink="/admin/students/fees/class/statement/{{student.class}}/{{student.studentId}}"
                                                 style="cursor: pointer;">launch</mat-icon>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0">{{student.session}}</p>
                                         </td>
                                     </tr>
 
