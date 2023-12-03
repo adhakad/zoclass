@@ -146,6 +146,9 @@ const StudentModel = mongoose.model('student', {
         required: true,
         trim: true,
     },
+    createdBy:{
+        
+    },
     status: {
         type: String,
         required: true,

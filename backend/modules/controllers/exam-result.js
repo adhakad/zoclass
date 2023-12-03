@@ -149,7 +149,6 @@ let CreateExamResult = async (req, res, next) => {
         }
         let createExamResult = await ExamResultModel.create(examResultData);
         return res.status(200).json('Student exam result add successfully.');
-
     } catch (error) {
         return res.status(500).json('Internal Server Error !' );
     }

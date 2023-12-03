@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TeacherAdmitCardRoutingModule } from './teacher-admit-card-routing.module';
 import { TeacherAdmitCardComponent } from './teacher-admit-card.component';
+import { TeacherSharedModule } from '../teacher-shared/teacher-shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { TeacherAdmitCardComponent } from './teacher-admit-card.component';
   ],
   imports: [
     CommonModule,
-    TeacherAdmitCardRoutingModule
+    TeacherAdmitCardRoutingModule,
+    TeacherSharedModule
   ]
 })
 export class TeacherAdmitCardModule { }

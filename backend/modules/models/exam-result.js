@@ -23,11 +23,11 @@ const ExamResultModel = mongoose.model('exam-result', {
   },
   theoryMarks: {},
   practicalMarks: {},
-  createdBy:{
-    type: Number,
-    required: true,
-    trim: true,
-  }
+  // createdBy:{
+  //   type: String,
+  //   required: true,
+  //   trim: true,
+  // }
 });
 
 module.exports = ExamResultModel;

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TeacherFeesCollectionRoutingModule } from './teacher-fees-collection-routing.module';
 import { TeacherFeesCollectionComponent } from './teacher-fees-collection.component';
+import { TeacherSharedModule } from '../teacher-shared/teacher-shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { TeacherFeesCollectionComponent } from './teacher-fees-collection.compon
   ],
   imports: [
     CommonModule,
-    TeacherFeesCollectionRoutingModule
+    TeacherFeesCollectionRoutingModule,
+    TeacherSharedModule
   ]
 })
 export class TeacherFeesCollectionModule { }
