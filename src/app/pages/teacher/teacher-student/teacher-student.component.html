@@ -51,6 +51,7 @@
                     <th>Status</th>
                     <!-- <th>Class Promote</th> -->
                     <th>View</th>
+                    <th>Created By</th>
                   </tr>
                 </thead>
                 <tbody *ngIf="studentInfo && studentInfo.length>0">
@@ -90,6 +91,10 @@
                     </td> -->
                     <td class="mb-0">
                       <mat-icon (click)="addStudentInfoViewModel(students)">visibility</mat-icon>
+                    </td>
+                    <td>
+                      <p class="mb-0" *ngIf="students.createdBy == createdBy">{{students.createdBy}}</p>
+                      <p class="mb-0" *ngIf="students.createdBy !== createdBy">Other</p>
                     </td>
                   </tr>
                 </tbody>

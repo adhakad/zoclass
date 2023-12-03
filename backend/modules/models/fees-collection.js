@@ -52,11 +52,7 @@ const FeesCollectionModel = mongoose.model('fees-collection', {
   installment: {},
   receipt: {},
   paymentDate: {},
-  // collectedBy:{
-  //   type: String,
-  //   required: true,
-  //   trim: true,
-  // }
+  collectedBy: {}
 });
 
 module.exports = FeesCollectionModel;

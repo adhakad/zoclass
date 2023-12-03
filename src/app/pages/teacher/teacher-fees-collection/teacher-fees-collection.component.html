@@ -69,7 +69,7 @@
                                         </td>
                                         <td class="mb-0">
                                             <mat-icon
-                                                routerLink="/admin/students/fees/class/statement/{{student.class}}/{{student.studentId}}"
+                                                routerLink="/teacher/student/fees/class/statement/{{student.class}}/{{student.studentId}}"
                                                 style="cursor: pointer;">launch</mat-icon>
                                         </td>
                                         <td>
@@ -170,10 +170,8 @@
                                                     style="margin-right: 8px;" class="example-margin"
                                                     (click)="feesPay(payNow)">Allow {{paybleInstallment[0][0]}}
                                                     Installment</mat-checkbox>
-                                                <mat-checkbox *ngIf="paybleInstallment[0][0]=='Admission Fees'"
-                                                    style="margin-right: 8px;" class="example-margin"
-                                                    (click)="feesPay(payNow)">Allow
-                                                    {{paybleInstallment[0][0]}}</mat-checkbox>
+                                                <p *ngIf="paybleInstallment[0][0]=='Admission Fees'"
+                                                    style="margin-right: 8px;" class="example-margin">You are not allowed to pay the {{paybleInstallment[0][0] | lowercase}}</p>
 
                                                 <button class="submit-button" mat-raised-button type="button"
                                                     (click)="feesAddUpdate()" [disabled]="!payNow">Pay

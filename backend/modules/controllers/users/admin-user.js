@@ -64,7 +64,7 @@ let SignupAdmin = async (req, res, next) => {
         }
         const checkUser = await AdminUserModel.findOne({ email: email });
         if (checkUser) {
-            return res.status(400).json({ errorMsg: "Admin already signup !" });
+            return res.status(400).json({ errorMsg: "Admin already registered !" });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         let adminData = {

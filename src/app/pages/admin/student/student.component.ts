@@ -88,6 +88,7 @@ export class StudentComponent implements OnInit {
       motherOccupation: ['', Validators.required],
       motherContact: ['', [Validators.required, Validators.pattern('^[6789]\\d{9}$')]],
       motherAnnualIncome: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      createdBy:[''],
     })
 
     this.excelForm = this.fb.group({
@@ -290,6 +291,7 @@ export class StudentComponent implements OnInit {
         })
       } else {
         this.studentForm.value.admissionType = 'Old';
+        this.studentForm.value.createdBy = 'Admin';
         this.studentService.addStudent(this.studentForm.value).subscribe((res: any) => {
           if (res) {
             this.successDone();
@@ -399,7 +401,9 @@ export class StudentComponent implements OnInit {
   addBulkStudentRecord() {
     let studentRecordData = {
       bulkStudentRecord: this.bulkStudentRecord,
-      class: this.className
+      class: this.className,
+      createdBy:'Admin',
+
     }
     if (studentRecordData) {
       this.studentService.addBulkStudentRecord(studentRecordData).subscribe((res: any) => {

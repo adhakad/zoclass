@@ -9,7 +9,7 @@ let SignupTeacher = async (req, res, next) => {
     try {
         const checkUser = await TeacherUserModel.findOne({ email: email });
         if (checkUser) {
-            return res.status(400).json("Teacher already signup !");
+            return res.status(400).json("Teacher already registered !");
         }
         const teacher = await TeacherModel.findOne({ teacherUserId: teacherUserId });
         if (!teacher) {

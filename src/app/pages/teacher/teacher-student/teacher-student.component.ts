@@ -10,6 +10,8 @@ import { MatRadioChange } from '@angular/material/radio';
 import { ExcelService } from 'src/app/services/excel/excel.service';
 import { SchoolService } from 'src/app/services/school.service';
 import { HttpClient } from '@angular/common/http';
+import { TeacherAuthService } from 'src/app/services/auth/teacher-auth.service';
+import { TeacherService } from 'src/app/services/teacher.service';
 @Component({
   selector: 'app-teacher-student',
   templateUrl: './teacher-student.component.html',
@@ -52,12 +54,14 @@ export class TeacherStudentComponent implements OnInit {
   className: any;
   admissionType: string = '';
   schoolInfo: any;
+  teacherInfo:any;
+  createdBy:String = '';
   bulkStudentRecord: any;
   fileChoose: boolean = false;
   loader: Boolean = true;
   promotedClass: any;
   singleStudentInfo: any
-  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private schoolService: SchoolService, public ete: ExcelService, private classService: ClassService, private studentService: StudentService) {
+  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute,private teacherAuthService:TeacherAuthService,private teacherService:TeacherService, private schoolService: SchoolService, public ete: ExcelService, private classService: ClassService, private studentService: StudentService) {
     this.studentForm = this.fb.group({
       _id: [''],
       session: ['', Validators.required],
@@ -87,6 +91,7 @@ export class TeacherStudentComponent implements OnInit {
       motherOccupation: ['', Validators.required],
       motherContact: ['', [Validators.required, Validators.pattern('^[6789]\\d{9}$')]],
       motherAnnualIncome: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      createdBy:[''],
     })
 
     this.excelForm = this.fb.group({
@@ -104,6 +109,10 @@ export class TeacherStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.className = this.activatedRoute.snapshot.paramMap.get('id');
+    this.teacherInfo = this.teacherAuthService.getLoggedInTeacherInfo();
+    if(this.teacherInfo){
+      this.getTeacherById(this.teacherInfo.id)
+    }
     if (this.className) {
       let load: any = this.getStudents({ page: 1 });
       if (load) {
@@ -115,6 +124,14 @@ export class TeacherStudentComponent implements OnInit {
     this.getSchool();
     this.getClass();
     this.allOptions();
+  }
+  getTeacherById(id:string){
+    this.teacherService.getTeacherById(id).subscribe((res:any)=> {
+      if(res){
+        this.createdBy = `${res.name} (${res.teacherUserId})`;
+      }
+
+    })
   }
   getSchool() {
     this.schoolService.getSchool().subscribe((res: any) => {
@@ -289,6 +306,7 @@ export class TeacherStudentComponent implements OnInit {
         })
       } else {
         this.studentForm.value.admissionType = 'Old';
+        this.studentForm.value.createdBy = this.createdBy;
         this.studentService.addStudent(this.studentForm.value).subscribe((res: any) => {
           if (res) {
             this.successDone();
@@ -398,7 +416,8 @@ export class TeacherStudentComponent implements OnInit {
   addBulkStudentRecord() {
     let studentRecordData = {
       bulkStudentRecord: this.bulkStudentRecord,
-      class: this.className
+      class: this.className,
+      createdBy:this.createdBy,
     }
     if (studentRecordData) {
       this.studentService.addBulkStudentRecord(studentRecordData).subscribe((res: any) => {

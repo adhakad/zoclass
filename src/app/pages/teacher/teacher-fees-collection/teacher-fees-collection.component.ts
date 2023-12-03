@@ -8,6 +8,8 @@ import { MatRadioChange } from '@angular/material/radio';
 import { FeesStructureService } from 'src/app/services/fees-structure.service';
 import { PrintPdfService } from 'src/app/services/print-pdf/print-pdf.service';
 import { SchoolService } from 'src/app/services/school.service';
+import { TeacherAuthService } from 'src/app/services/auth/teacher-auth.service';
+import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
   selector: 'app-teacher-fees-collection',
@@ -47,13 +49,16 @@ export class TeacherFeesCollectionComponent implements OnInit {
   payNow: boolean = false;
   receiptInstallment: any = {};
   receiptMode: boolean = false;
+  teacherInfo:any;
+  collectedBy:String='';
   loader:Boolean=true;
-  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private schoolService: SchoolService, private printPdfService: PrintPdfService, private feesService: FeesService, private feesStructureService: FeesStructureService) {
+  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute,private teacherAuthService:TeacherAuthService,private teacherService:TeacherService, private schoolService: SchoolService, private printPdfService: PrintPdfService, private feesService: FeesService, private feesStructureService: FeesStructureService) {
     this.feesForm = this.fb.group({
       class: [''],
       studentId: [''],
       feesAmount: [''],
-      feesInstallment: ['']
+      feesInstallment: [''],
+      collectedBy:[''],
     });
   }
 
@@ -63,8 +68,20 @@ export class TeacherFeesCollectionComponent implements OnInit {
     this.getSchool();
     // this.getFees({ page: 1 });
     this.cls = this.activatedRoute.snapshot.paramMap.get('id');
+    this.teacherInfo = this.teacherAuthService.getLoggedInTeacherInfo();
+    if(this.teacherInfo){
+      this.getTeacherById(this.teacherInfo.id)
+    }
     this.feesStructureByClass(this.cls);
     this.getAllStudentFeesCollectionByClass(this.cls);
+  }
+  getTeacherById(id:string){
+    this.teacherService.getTeacherById(id).subscribe((res:any)=> {
+      if(res){
+        this.collectedBy = `${res.name} (${res.teacherUserId})`;
+      }
+
+    })
   }
 
   printReceipt() {
@@ -216,6 +233,7 @@ export class TeacherFeesCollectionComponent implements OnInit {
         })
       } else {
         this.feesForm.value.class = this.singleStudent.class;
+        this.feesForm.value.collectedBy = this.collectedBy;
         this.feesForm.value.studentId = this.singleStudent.studentId;
         this.feesForm.value.feesInstallment = this.paybleInstallment[0][0];
         this.feesForm.value.feesAmount = this.paybleInstallment[0][1];
@@ -240,6 +258,7 @@ export class TeacherFeesCollectionComponent implements OnInit {
             this.errorMsg = err.error;
           })
         } else {
+          console.log(this.feesForm.value)
           this.feesService.addFees(this.feesForm.value).subscribe((res: any) => {
             if (res) {
               this.receiptMode = true;

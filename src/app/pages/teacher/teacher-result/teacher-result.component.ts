@@ -6,6 +6,8 @@ import { read, utils, writeFile } from 'xlsx';
 import { ExamResultService } from 'src/app/services/exam-result.service';
 import { MatRadioChange } from '@angular/material/radio';
 import { ExamResultStructureService } from 'src/app/services/exam-result-structure.service';
+import { TeacherAuthService } from 'src/app/services/auth/teacher-auth.service';
+import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
   selector: 'app-teacher-result',
@@ -40,16 +42,19 @@ export class TeacherResultComponent implements OnInit {
   bulkResult: any[] = [];
   selectedExam: any = '';
   stream: string = '';
+  teacherInfo:any;
+  createdBy:String = '';
   notApplicable: String = "stream";
   examType: any[] = ["quarterly", "half yearly", "final"];
   streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)'];
   loader:Boolean=true;
 
-  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private examResultService: ExamResultService, private examResultStructureService: ExamResultStructureService) {
+  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute,private teacherAuthService:TeacherAuthService,private teacherService:TeacherService, private examResultService: ExamResultService, private examResultStructureService: ExamResultStructureService) {
     this.examResultForm = this.fb.group({
       rollNumber: ['', Validators.required],
       examType: [''],
       stream: [''],
+      createdBy:[''],
       type: this.fb.group({
         theoryMarks: this.fb.array([]),
         practicalMarks: this.fb.array([]),
@@ -60,7 +65,19 @@ export class TeacherResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.cls = this.activatedRoute.snapshot.paramMap.get('id');
+    this.teacherInfo = this.teacherAuthService.getLoggedInTeacherInfo();
+    if(this.teacherInfo){
+      this.getTeacherById(this.teacherInfo.id)
+    }
     this.getStudentExamResultByClass(this.cls);
+  }
+  getTeacherById(id:string){
+    this.teacherService.getTeacherById(id).subscribe((res:any)=> {
+      if(res){
+        this.createdBy = `${res.name} (${res.teacherUserId})`;
+      }
+
+    })
   }
 
   addExamResultModel() {
@@ -142,6 +159,7 @@ export class TeacherResultComponent implements OnInit {
               class: examResult.class,
               examType: examResult.examType,
               stream: examResult.stream,
+              createdBy:examResult.createdBy,
               status: examResult.status || "",
               name: studentInfo.name,
               rollNumber: studentInfo.rollNumber,
@@ -265,6 +283,7 @@ export class TeacherResultComponent implements OnInit {
           delete this.examResultForm.value.type.practicalMarks;
         }
         this.examResultForm.value.examType = this.selectedExam;
+        this.examResultForm.value.createdBy = this.createdBy;
         this.examResultForm.value.stream = this.stream;
         this.examResultForm.value.class = this.cls;
         this.examResultService.addExamResult(this.examResultForm.value).subscribe((res: any) => {
@@ -315,7 +334,8 @@ export class TeacherResultComponent implements OnInit {
     let resultData = {
       examType: this.selectedExam,
       stream: this.stream,
-      bulkResult: this.bulkResult
+      bulkResult: this.bulkResult,
+      createdBy:this.createdBy,
     }
 
     this.examResultService.addBulkExamResult(resultData).subscribe((res: any) => {

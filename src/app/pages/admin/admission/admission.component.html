@@ -31,6 +31,7 @@
                     <th>Admission Type</th>
                     <th>Otp</th>
                     <th>Session</th>
+                    <th>Created By</th>
                   </tr>
                 </thead>
                 <tbody *ngIf="studentInfo && studentInfo.length>0">
@@ -58,6 +59,9 @@
                     </td>
                     <td>
                       <p class="mb-0">{{students.session}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{students.createdBy}}</p>
                     </td>
                   </tr>
                 </tbody>

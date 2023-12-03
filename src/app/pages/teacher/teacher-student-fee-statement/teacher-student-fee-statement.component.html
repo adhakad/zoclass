@@ -1,8 +1,8 @@
-<app-header-navbar></app-header-navbar>
+<app-header-nav></app-header-nav>
 <div class="container-fluid dashboard-container">
     <div class="row">
         <div class="col-12 col-lg-2">
-            <app-side-navbar></app-side-navbar>
+            <app-side-nav></app-side-nav>
         </div>
         <div class="col-12 col-lg-10">
             <div class="row">
@@ -111,8 +111,9 @@
                                                     (click)="feeReceipt(fee.installment)">launch</mat-icon>
                                             </td>
                                             <td>
-                                                <span *ngIf="fee.paymentDate==0">-</span>
-                                                <span *ngIf="fee.paymentDate!==0">{{ fee.collectedBy }}</span>
+                                                <span *ngIf="fee.collectedBy==0">-</span>
+                                                <span *ngIf="fee.collectedBy!==0 && collectBy==fee.collectedBy">{{ fee.collectedBy }}</span>
+                                                <span *ngIf="fee.collectedBy!==0 && collectBy !==fee.collectedBy">Other</span>
                                             </td>
                                         </tr>
                                     </ng-container>

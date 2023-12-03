@@ -118,7 +118,7 @@ let GetAllStudentExamResultByClass = async (req, res, next) => {
 
 let CreateExamResult = async (req, res, next) => {
     let className = req.body.class;
-    let { rollNumber, examType, stream } = req.body;
+    let { rollNumber, examType, stream ,createdBy} = req.body;
     let { theoryMarks, practicalMarks } = req.body.type;
     if (stream === "stream") {
         stream = "N/A";
@@ -143,6 +143,7 @@ let CreateExamResult = async (req, res, next) => {
             stream:stream,
             class: className,
             theoryMarks: theoryMarks,
+            createdBy:createdBy,
         }
         if (practicalMarks) {
             examResultData.practicalMarks = practicalMarks;
@@ -155,7 +156,7 @@ let CreateExamResult = async (req, res, next) => {
 }
 
 let CreateBulkExamResult = async (req, res, next) => {
-    let { examType, stream } = req.body;
+    let { examType, stream,createdBy } = req.body;
     let className = req.body.bulkResult[0].Class
     if (stream === "stream") {
         stream = "N/A";
@@ -185,7 +186,8 @@ let CreateBulkExamResult = async (req, res, next) => {
             examType: examType,
             stream:stream,
             class: studentClass,
-            theoryMarks: theoryMarks
+            theoryMarks: theoryMarks,
+            createdBy:createdBy,
         };
         if (practicalMarks.length > 0) {
             resultEntry.practicalMarks = practicalMarks;

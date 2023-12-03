@@ -49,6 +49,7 @@ export class AdminStudentResultComponent implements OnInit {
       rollNumber: ['', Validators.required],
       examType: [''],
       stream: [''],
+      createdBy:[''],
       type: this.fb.group({
         theoryMarks: this.fb.array([]),
         practicalMarks: this.fb.array([]),
@@ -141,6 +142,7 @@ export class AdminStudentResultComponent implements OnInit {
               class: examResult.class,
               examType: examResult.examType,
               stream: examResult.stream,
+              createdBy: examResult.createdBy,
               status: examResult.status || "",
               name: studentInfo.name,
               rollNumber: studentInfo.rollNumber,
@@ -263,6 +265,7 @@ export class AdminStudentResultComponent implements OnInit {
         if (this.practicalSubjects.length === 0) {
           delete this.examResultForm.value.type.practicalMarks;
         }
+        this.examResultForm.value.createdBy = "Admin";
         this.examResultForm.value.examType = this.selectedExam;
         this.examResultForm.value.stream = this.stream;
         this.examResultForm.value.class = this.cls;
@@ -314,6 +317,7 @@ export class AdminStudentResultComponent implements OnInit {
     let resultData = {
       examType: this.selectedExam,
       stream: this.stream,
+      createdBy:"Admin",
       bulkResult: this.bulkResult
     }
 

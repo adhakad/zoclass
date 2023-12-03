@@ -7,6 +7,8 @@ import { FeesStructureService } from 'src/app/services/fees-structure.service';
 import { PrintPdfService } from 'src/app/services/print-pdf/print-pdf.service';
 import { SchoolService } from 'src/app/services/school.service';
 import { ActivatedRoute } from '@angular/router';
+import { TeacherAuthService } from 'src/app/services/auth/teacher-auth.service';
+import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
   selector: 'app-teacher-admission',
@@ -47,9 +49,11 @@ export class TeacherAdmissionComponent implements OnInit {
   clsFeesStructure: any;
   schoolInfo: any;
   admissionrReceiptInfo: any;
+  teacherInfo:any;
+  createdBy:String='';
   receiptMode: boolean = false;
   loader:Boolean=true;
-  constructor(private fb: FormBuilder,private activatedRoute:ActivatedRoute, private schoolService: SchoolService, private printPdfService: PrintPdfService, private classService: ClassService, private studentService: StudentService, private feesStructureService: FeesStructureService) {
+  constructor(private fb: FormBuilder,private activatedRoute:ActivatedRoute,private teacherAuthService:TeacherAuthService,private teacherService:TeacherService, private schoolService: SchoolService, private printPdfService: PrintPdfService, private classService: ClassService, private studentService: StudentService, private feesStructureService: FeesStructureService) {
     this.studentForm = this.fb.group({
       _id: [''],
       session: ['', Validators.required],
@@ -81,12 +85,17 @@ export class TeacherAdmissionComponent implements OnInit {
       motherOccupation: ['', Validators.required],
       motherContact: ['', [Validators.required, Validators.pattern('^[6789]\\d{9}$')]],
       motherAnnualIncome: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      createdBy:[''],
       
     })
   }
 
   ngOnInit(): void {
     this.getSchool();
+    this.teacherInfo = this.teacherAuthService.getLoggedInTeacherInfo();
+    if(this.teacherInfo){
+      this.getTeacherById(this.teacherInfo.id)
+    }
     this.className = this.activatedRoute.snapshot.paramMap.get('id');
     let load:any = this.getStudentsByAdmissionAndClass({ page: 1 });
     this.getClass();
@@ -96,6 +105,14 @@ export class TeacherAdmissionComponent implements OnInit {
         this.loader = false;
       },1000);
     }
+  }
+  getTeacherById(id:string){
+    this.teacherService.getTeacherById(id).subscribe((res:any)=> {
+      if(res){
+        this.createdBy = `${res.name} (${res.teacherUserId})`;
+      }
+
+    })
   }
   printReceipt() {
     this.printPdfService.printElement(this.receipt.nativeElement);
@@ -109,12 +126,17 @@ export class TeacherAdmissionComponent implements OnInit {
     })
   }
   chooseClass(event: any) {
+    this.errorCheck = false;
+    this.errorMsg = '';
+    this.cls = 0;
+    this.clsFeesStructure = {};
     if (event) {
       if (this.stream) {
         this.studentForm.get('stream')?.setValue(null);
       }
       this.cls = event.value;
       if (this.cls) {
+        this.studentForm.get('admissionFees')?.setValue(null);
         const cls = this.cls;
         this.feesStructureByClass(cls);
       }
@@ -134,12 +156,6 @@ export class TeacherAdmissionComponent implements OnInit {
 
   chooseAdmissionFeesPayment(event: any) {
     if (event) {
-      if (event.value == 'Immediate') {
-        this.admissionFeesPaymentType = event.value;
-        const admissionFees = this.clsFeesStructure?.admissionFees;
-        this.studentForm.get('admissionFees')?.setValue(admissionFees);
-
-      }
       if (event.value == 'Later') {
         this.admissionFeesPaymentType = event.value;
         const admissionFees = 0;
@@ -245,12 +261,13 @@ export class TeacherAdmissionComponent implements OnInit {
   studentAddUpdate() {
     if (this.studentForm.valid) {
       this.studentForm.value.admissionType = 'New';
+      this.studentForm.value.createdBy = this.createdBy;
       this.studentService.addStudent(this.studentForm.value).subscribe((res: any) => {
         if (res) {
-          if (res.studentAdmissionData.admissionType == "New" && res.studentAdmissionData.admissionFeesPaymentType == 'Immediate') {
-            this.receiptMode = true;
-            this.admissionrReceiptInfo = res.studentAdmissionData;
-          }
+          // if (res.studentAdmissionData.admissionType == "New" && res.studentAdmissionData.admissionFeesPaymentType == 'Immediate') {
+          //   this.receiptMode = true;
+          //   this.admissionrReceiptInfo = res.studentAdmissionData;
+          // }
           if (res.studentAdmissionData.admissionType == "New" && res.studentAdmissionData.admissionFeesPaymentType == 'Later') {
             this.successDone();
             this.successMsg = res.successMsg;

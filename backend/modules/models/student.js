@@ -153,10 +153,10 @@ const StudentModel = mongoose.model('student', {
         enum: ['Active', 'Inactive'],
         default: 'Active'
     },
-    // createdBy:{
-    //     type: String,
-    //     required: true,
-    //     trim: true,
-    // },
+    createdBy:{
+        type: String,
+        required: true,
+        trim: true,
+    },
 });
 module.exports = StudentModel;

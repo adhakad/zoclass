@@ -46,7 +46,7 @@ export class AdmissionComponent implements OnInit {
   schoolInfo: any;
   admissionrReceiptInfo: any;
   receiptMode: boolean = false;
-  loader:Boolean=true;
+  loader: Boolean = true;
   constructor(private fb: FormBuilder, private schoolService: SchoolService, private printPdfService: PrintPdfService, private classService: ClassService, private studentService: StudentService, private feesStructureService: FeesStructureService) {
     this.studentForm = this.fb.group({
       _id: [''],
@@ -60,8 +60,8 @@ export class AdmissionComponent implements OnInit {
       stream: ['', Validators.required],
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
       dob: ['', Validators.required],
-      aadharNumber:['',[Validators.required, Validators.pattern('^\\d{12}$')]],
-      samagraId:['',[Validators.required, Validators.pattern('^\\d{9}$')]],
+      aadharNumber: ['', [Validators.required, Validators.pattern('^\\d{12}$')]],
+      samagraId: ['', [Validators.required, Validators.pattern('^\\d{9}$')]],
       gender: ['', Validators.required],
       category: ['', Validators.required],
       religion: ['', Validators.required],
@@ -79,19 +79,20 @@ export class AdmissionComponent implements OnInit {
       motherOccupation: ['', Validators.required],
       motherContact: ['', [Validators.required, Validators.pattern('^[6789]\\d{9}$')]],
       motherAnnualIncome: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-      
+      createdBy: [''],
+
     })
   }
 
   ngOnInit(): void {
     this.getSchool();
-    let load:any = this.getStudentsByAdmission({ page: 1 });
+    let load: any = this.getStudentsByAdmission({ page: 1 });
     this.getClass();
     this.allOptions();
-    if(load){
-      setTimeout(()=>{
+    if (load) {
+      setTimeout(() => {
         this.loader = false;
-      },1000);
+      }, 1000);
     }
   }
   printReceipt() {
@@ -106,12 +107,17 @@ export class AdmissionComponent implements OnInit {
     })
   }
   chooseClass(event: any) {
+    this.errorCheck = false;
+    this.errorMsg = '';
+    this.cls = 0;
+    this.clsFeesStructure = {};
     if (event) {
       if (this.stream) {
         this.studentForm.get('stream')?.setValue(null);
       }
       this.cls = event.value;
       if (this.cls) {
+        this.studentForm.get('admissionFees')?.setValue(null);
         const cls = this.cls;
         this.feesStructureByClass(cls);
       }
@@ -123,9 +129,12 @@ export class AdmissionComponent implements OnInit {
   feesStructureByClass(cls: any) {
     this.feesStructureService.feesStructureByClass(cls).subscribe((res: any) => {
       if (res) {
-        res.feesType = [{Admission:res.admissionFees},...res.feesType];
+        res.feesType = [{ Admission: res.admissionFees }, ...res.feesType];
         this.clsFeesStructure = res;
       }
+    }, err => {
+      this.errorCheck = true;
+      this.errorMsg = err.error;
     })
   }
 
@@ -133,9 +142,10 @@ export class AdmissionComponent implements OnInit {
     if (event) {
       if (event.value == 'Immediate') {
         this.admissionFeesPaymentType = event.value;
-        const admissionFees = this.clsFeesStructure?.admissionFees;
-        this.studentForm.get('admissionFees')?.setValue(admissionFees);
-
+        if (this.clsFeesStructure) {
+          const admissionFees = this.clsFeesStructure.admissionFees;
+          this.studentForm.get('admissionFees')?.setValue(admissionFees);
+        }
       }
       if (event.value == 'Later') {
         this.admissionFeesPaymentType = event.value;
@@ -241,6 +251,7 @@ export class AdmissionComponent implements OnInit {
   studentAddUpdate() {
     if (this.studentForm.valid) {
       this.studentForm.value.admissionType = 'New';
+      this.studentForm.value.createdBy = 'Admin';
       this.studentService.addStudent(this.studentForm.value).subscribe((res: any) => {
         if (res) {
           if (res.studentAdmissionData.admissionType == "New" && res.studentAdmissionData.admissionFeesPaymentType == 'Immediate') {

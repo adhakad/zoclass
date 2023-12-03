@@ -9,6 +9,9 @@ let GetSingleClassFeesStructure = async (req, res, next) => {
     let className = req.params.id;
     try {
         const singleFeesStr = await FeesStructureModel.findOne({ class: className });
+        if(!singleFeesStr){
+            return res.status(404).json('Fee Structure not found !')
+        }
         return res.status(200).json(singleFeesStr);
     } catch (error) {
         return res.status(500).json('Internal Server Error !');

@@ -31,6 +31,7 @@
                     <th>Admission Type</th>
                     <th>Otp</th>
                     <th>Session</th>
+                    <th>Created By</th>
                   </tr>
                 </thead>
                 <tbody *ngIf="studentInfo && studentInfo.length>0">
@@ -58,6 +59,10 @@
                     </td>
                     <td>
                       <p class="mb-0">{{students.session}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0" *ngIf="students.createdBy == createdBy">{{students.createdBy}}</p>
+                      <p class="mb-0" *ngIf="students.createdBy !== createdBy">Other</p>
                     </td>
                   </tr>
                 </tbody>
@@ -98,8 +103,36 @@
                         <div class="container">
                           <div class="row">
                             <ng-container>
-                              <h3>Admission Fee</h3>
+                              <h3>Academic Info</h3>
                             </ng-container>
+                            <div class="col-12 col-lg-6">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Admission No.</mat-label>
+                                <input matInput type="number" formControlName="admissionNo" readonly>
+                                <mat-error
+                                  *ngIf="studentForm.get('admissionNo')?.hasError('required') && studentForm.get('admissionNo')?.touched">
+                                  Admission no. is required
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="studentForm.get('admissionNo')?.hasError('pattern') && studentForm.get('admissionNo')?.touched">
+                                  Please enter a valid Admission no. (numeric characters only)
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Session</mat-label>
+                                <mat-select type="text" matInput formControlName="session">
+                                  <div *ngFor="let session of sessions">
+                                    <mat-option value="{{session.year}}">{{session.year}}</mat-option>
+                                  </div>
+                                </mat-select>
+                                <mat-error
+                                  *ngIf="studentForm.get('session')?.hasError('required') && studentForm.get('session')?.touched">
+                                  Session is required
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
                             <div class="col-12 col-lg-6">
                               <mat-form-field appearance="outline">
                                 <mat-label>Class</mat-label>
@@ -153,9 +186,6 @@
                                 <mat-label>Admission Fee Payment</mat-label>
                                 <mat-select type="text" matInput formControlName="admissionFeesPaymentType">
                                   <div>
-                                    <mat-option value="Immediate"
-                                      (click)="chooseAdmissionFeesPayment(studentForm.get('admissionFeesPaymentType'))">Admission
-                                      Fee Payment Immediate</mat-option>
                                     <mat-option value="Later"
                                       (click)="chooseAdmissionFeesPayment(studentForm.get('admissionFeesPaymentType'))">Admission
                                       Fee Payment Later</mat-option>
@@ -163,61 +193,21 @@
                                 </mat-select>
                                 <mat-error
                                   *ngIf="studentForm.get('admissionFeesPaymentType')?.hasError('required') && studentForm.get('admissionFeesPaymentType')?.touched">
-                                  Admission Fee Payment is required
-                                </mat-error>
-                              </mat-form-field>
-                            </div>
-                            <div class="col-12 col-lg-6"
-                              *ngIf="admissionFeesPaymentType !=='Immediate' && admissionFeesPaymentType !=='Later'">
-                              <mat-form-field appearance="outline">
-                                <mat-label>Admission Fee</mat-label>
-                                <input matInput readonly>
-                              </mat-form-field>
-                            </div>
-                            <div class="col-12 col-lg-6" *ngIf="admissionFeesPaymentType=='Immediate'">
-                              <mat-form-field appearance="outline">
-                                <mat-label>Admission Fee In &#8377;</mat-label>
-                                <input matInput type="number" formControlName="admissionFees" readonly>
-                                <mat-error
-                                  *ngIf="studentForm.get('admissionFees')?.hasError('required') && studentForm.get('admissionFees')?.touched">
-                                  Admission fee is required
-                                </mat-error>
-                              </mat-form-field>
-                            </div>
-                            <div class="col-12 col-lg-6" *ngIf="admissionFeesPaymentType=='Later'">
-                              <mat-form-field appearance="outline">
-                                <mat-label>Admission Fee</mat-label>
-                                <input matInput readonly>
-                              </mat-form-field>
-                            </div>
-                            <ng-container>
-                              <h3>Academic Info</h3>
-                            </ng-container>
-                            <div class="col-12 col-lg-6">
-                              <mat-form-field appearance="outline">
-                                <mat-label>Admission No.</mat-label>
-                                <input matInput type="number" formControlName="admissionNo" readonly>
-                                <mat-error
-                                  *ngIf="studentForm.get('admissionNo')?.hasError('required') && studentForm.get('admissionNo')?.touched">
-                                  Admission no. is required
-                                </mat-error>
-                                <mat-error
-                                  *ngIf="studentForm.get('admissionNo')?.hasError('pattern') && studentForm.get('admissionNo')?.touched">
-                                  Please enter a valid Admission no. (numeric characters only)
+                                  Admission fee payment type is required
                                 </mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-12 col-lg-6">
                               <mat-form-field appearance="outline">
-                                <mat-label>Session</mat-label>
-                                <mat-select type="text" matInput formControlName="session">
-                                  <div *ngFor="let session of sessions">
-                                    <mat-option value="{{session.year}}">{{session.year}}</mat-option>
-                                  </div>
-                                </mat-select>
+                                <mat-label>Last School Optional</mat-label>
+                                <input matInput type="text" formControlName="lastSchool">
                                 <mat-error
-                                  *ngIf="studentForm.get('session')?.hasError('required') && studentForm.get('session')?.touched">
-                                  Session is required
+                                  *ngIf="studentForm.get('lastSchool')?.hasError('pattern') && studentForm.get('lastSchool')?.touched">
+                                  Please enter a valid Last School (only letters and spaces are allowed)
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="studentForm.get('lastSchool')?.hasError('maxlength') && studentForm.get('lastSchool')?.touched">
+                                  Maximum length exceeded (maximum 50 characters allowed)
                                 </mat-error>
                               </mat-form-field>
                             </div>
@@ -431,20 +421,6 @@
                                 </mat-error>
                                 <mat-error
                                   *ngIf="studentForm.get('address')?.hasError('maxlength') && studentForm.get('address')?.touched">
-                                  Maximum length exceeded (maximum 50 characters allowed)
-                                </mat-error>
-                              </mat-form-field>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                              <mat-form-field appearance="outline">
-                                <mat-label>Last School Optional</mat-label>
-                                <input matInput type="text" formControlName="lastSchool">
-                                <mat-error
-                                  *ngIf="studentForm.get('lastSchool')?.hasError('pattern') && studentForm.get('lastSchool')?.touched">
-                                  Please enter a valid Last School (only letters and spaces are allowed)
-                                </mat-error>
-                                <mat-error
-                                  *ngIf="studentForm.get('lastSchool')?.hasError('maxlength') && studentForm.get('lastSchool')?.touched">
                                   Maximum length exceeded (maximum 50 characters allowed)
                                 </mat-error>
                               </mat-form-field>

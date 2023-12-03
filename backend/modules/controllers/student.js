@@ -136,7 +136,7 @@ let CreateStudent = async (req, res, next) => {
     const currentDateIst = DateTime.now().setZone('Asia/Kolkata');
     const istDateTimeString = currentDateIst.toFormat('dd-MM-yyyy hh:mm:ss a');
     const doa = currentDateIst.toFormat('dd-MM-yyyy');
-    let { name, rollNumber, aadharNumber, samagraId, session, admissionFees, admissionFeesPaymentType, admissionType, stream, admissionNo, dob, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome } = req.body;
+    let { name, rollNumber, aadharNumber, samagraId, session, admissionFees, admissionFeesPaymentType, admissionType, stream, admissionNo, dob, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome,createdBy } = req.body;
     let className = req.body.class;
     let onlineAdmissionStatus = req.body.status;
     let onlineAdmObjId = req.body._id;
@@ -156,7 +156,7 @@ let CreateStudent = async (req, res, next) => {
         dob = DateTime.fromISO(dob).toFormat("dd-MM-yyyy");
     }
     const studentData = {
-        name, rollNumber, aadharNumber, samagraId, otp, session, admissionType, stream, admissionNo, class: className, dob: dob, doa: doa, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome
+        name, rollNumber, aadharNumber, samagraId, otp, session, admissionType, stream, admissionNo, class: className, dob: dob, doa: doa, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome,createdBy
     }
     try {
         const checkFeesStr = await FeesStructureModel.findOne({ class: className });
@@ -214,6 +214,7 @@ let CreateStudent = async (req, res, next) => {
             receipt: installment,
             installment: installment,
             paymentDate: installment,
+            collectedBy:installment
         }
         if (admissionType == 'New' && admissionFeesPaymentType == 'Immediate') {
             studentFeesData.admissionFeesReceiptNo = receiptNo,
@@ -289,6 +290,7 @@ let CreateStudentAdmissionEnquiry = async (req, res, next) => {
 let CreateBulkStudentRecord = async (req, res, next) => {
     let bulkStudentRecord = req.body.bulkStudentRecord;
     let className = req.body.class;
+    let createdBy = req.body.createdBy;
     className = parseInt(className);
     const classMappings = {
         "Nursery": 200,
@@ -342,6 +344,7 @@ let CreateBulkStudentRecord = async (req, res, next) => {
             motherOccupation: student.motherOccupation,
             motherContact: student.motherContact,
             motherAnnualIncome: student.motherAnnualIncome,
+            collectedBy:createdBy,
         });
     }
     try {
@@ -437,6 +440,7 @@ let CreateBulkStudentRecord = async (req, res, next) => {
                 receipt: installment,
                 installment: installment,
                 paymentDate: installment,
+                createdBy:installment,
             };
             if (student.admissionType === 'New') {
                 feesObject.admissionFeesPayable = true;

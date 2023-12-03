@@ -1,16 +1,19 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TeacherAuthService } from 'src/app/services/auth/teacher-auth.service';
 import { FeesStructureService } from 'src/app/services/fees-structure.service';
 import { FeesService } from 'src/app/services/fees.service';
 import { PrintPdfService } from 'src/app/services/print-pdf/print-pdf.service';
 import { SchoolService } from 'src/app/services/school.service';
+import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
-  selector: 'app-admin-student-fees-statement',
-  templateUrl: './admin-student-fees-statement.component.html',
-  styleUrls: ['./admin-student-fees-statement.component.css']
+  selector: 'app-teacher-student-fee-statement',
+  templateUrl: './teacher-student-fee-statement.component.html',
+  styleUrls: ['./teacher-student-fee-statement.component.css']
 })
-export class AdminStudentFeesStatementComponent implements OnInit {
+export class TeacherStudentFeeStatementComponent implements OnInit {
+
   @ViewChild('content') content!: ElementRef;
   @ViewChild('receipt') receipt!: ElementRef;
   cls: any;
@@ -22,14 +25,28 @@ export class AdminStudentFeesStatementComponent implements OnInit {
   singleReceiptInstallment: any[] = [];
   studentInfo: any[] = [];
   schoolInfo: any;
+  teacherInfo:any;
+  collectBy:String='';
   loader:Boolean=true;
-  constructor(public activatedRoute: ActivatedRoute, private schoolService: SchoolService, private printPdfService: PrintPdfService, private feesService: FeesService, private feesStructureService: FeesStructureService) { }
+  constructor(public activatedRoute: ActivatedRoute, private schoolService: SchoolService,private teacherAuthService:TeacherAuthService,private teacherService:TeacherService,private printPdfService: PrintPdfService, private feesService: FeesService, private feesStructureService: FeesStructureService) { }
 
   ngOnInit(): void {
     this.getSchool();
+    this.teacherInfo = this.teacherAuthService.getLoggedInTeacherInfo();
+    if(this.teacherInfo){
+      this.getTeacherById(this.teacherInfo.id)
+    }
     this.cls = this.activatedRoute.snapshot.paramMap.get('class');
     this.studentId = this.activatedRoute.snapshot.paramMap.get('id');
     this.singleStudentFeesCollectionById(this.studentId)
+  }
+  getTeacherById(id:string){
+    this.teacherService.getTeacherById(id).subscribe((res:any)=> {
+      if(res){
+        this.collectBy = `${res.name} (${res.teacherUserId})`;
+      }
+
+    })
   }
   getSchool() {
     this.schoolService.getSchool().subscribe((res: any) => {
