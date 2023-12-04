@@ -32,7 +32,7 @@ let SignupTeacher = async (req, res, next) => {
         }
         const createSignupTeacher = await TeacherUserModel.create(teacherData);
         if(createSignupTeacher){
-            return res.status(200).json('Sign up teacher successfully.');
+            return res.status(200).json('Teacher register successfully.');
         }
     } catch (error) {
         return res.status(500).json({ errorMsg: 'Internal Server Error !' });;

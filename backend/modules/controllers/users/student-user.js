@@ -32,7 +32,7 @@ let SignupStudent = async (req, res, next) => {
         }
         const createSignupStudent = await StudentUserModel.create(studentData);
         if (createSignupStudent) {
-            return res.status(200).json('Sign up student successfully.');
+            return res.status(200).json('Student register successfully.');
         }
     } catch (error) {
         console.log(error);

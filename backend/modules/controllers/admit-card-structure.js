@@ -171,8 +171,6 @@ let ChangeAdmitCardPublishStatus = async (req, res, next) => {
     }
 }
 
-
-
 module.exports = {
     GetSingleClassAdmitCardStructure,
     CreateAdmitCardStructure,

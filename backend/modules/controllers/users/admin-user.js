@@ -80,7 +80,7 @@ let SignupAdmin = async (req, res, next) => {
         if (updateProductKeyStatus) {
             const createSignupAdmin = await AdminUserModel.create(adminData);
             if (createSignupAdmin) {
-                return res.status(200).json({ successMsg: 'Admin sign up successfully.' });
+                return res.status(200).json({ successMsg: 'Admin register successfully.' });
             }
         }
     } catch (error) {

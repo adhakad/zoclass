@@ -1,14 +1,17 @@
 'use strict';
+const { KEY_ID,KEY_SECRET } = process.env;
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const { DateTime } = require('luxon');
 const FeesCollectionModel = require('../models/fees-collection');
 const FeesStructureModel = require('../models/fees-structure');
 const Payment = require('../models/payment');
+const key_id = KEY_ID;
+const key_secret = KEY_SECRET;
 
 const razorpay = new Razorpay({
-  key_id: "rzp_test_ARoUa9Hxw3scSz",
-  key_secret: "TVIz565DG7GB1kzF4Q8uVayK",
+  key_id: key_id,
+  key_secret: key_secret,
 });
 
 let CreatePayment = async (req, res) => {

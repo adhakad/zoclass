@@ -4,7 +4,6 @@ const ExamResultModel = require('../models/exam-result');
 const NotificationModel = require('../models/notification');
 const classModel = require('../models/class');
 
-
 let GetSingleClassExamResultStructure = async (req, res, next) => {
     let className = req.params.id;
     try {

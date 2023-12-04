@@ -245,7 +245,6 @@ let CreateBulkExamResult = async (req, res, next) => {
     }
 }
 
-
 module.exports = {
     GetSingleStudentExamResult,
     GetSingleStudentExamResultById,

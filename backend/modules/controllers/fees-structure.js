@@ -4,7 +4,6 @@ const ClassModel = require('../models/class');
 const FeesCollectionModel = require('../models/fees-collection');
 const StudentModel = require('../models/student');
 
-
 let GetSingleClassFeesStructure = async (req, res, next) => {
     let className = req.params.id;
     try {
@@ -129,7 +128,6 @@ let DeleteFeesStructure = async (req, res, next) => {
         return res.status(500).json('Internal Server Error!');
     }
 }
-
 
 module.exports = {
     GetSingleClassFeesStructure,
