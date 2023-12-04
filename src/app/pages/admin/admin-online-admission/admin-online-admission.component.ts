@@ -60,6 +60,7 @@ export class AdminOnlineAdmissionComponent implements OnInit {
       motherContact: ['', Validators.required],
       motherAnnualIncome: ['', Validators.required],
       status:[''],
+      createdBy:[''],
     })
   }
 
@@ -145,6 +146,7 @@ export class AdminOnlineAdmissionComponent implements OnInit {
     if (this.admissionEnquiryForm.valid) {
       if (this.updateMode) {
         this.admissionEnquiryForm.value.admissionType = 'New';
+        this.admissionEnquiryForm.value.createdBy = 'Admin';
         this.admissionEnquiryForm.value.admissionFeesPaymentType = 'Later';
         this.admissionEnquiryForm.value.admissionFees = 0;
         this.admissionEnquiryForm.value.status = 'Complete';
