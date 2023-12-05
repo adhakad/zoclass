@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { Class } from 'src/app/modal/class.model';
 // import { Subject } from 'src/app/modal/subject.model';
@@ -14,7 +14,7 @@ import { ClassSubjectService } from 'src/app/services/class-subject.service';
   styleUrls: ['./class-subject.component.css']
 })
 export class ClassSubjectComponent implements OnInit {
-  cls:any;
+  cls: any;
   classSubjectForm: FormGroup;
   showModal: boolean = false;
   updateMode: boolean = false;
@@ -27,30 +27,30 @@ export class ClassSubjectComponent implements OnInit {
   subjectInfo: any[] = [];
   classSubjectInfo: any[] = [];
   selectedSubjectGroup: any[] = [];
-  streamMainSubject: any[] = ['Mathematics(Science)','Biology(Science)','History(Arts)','Sociology(Arts)','Political Science(Arts)','Accountancy(Commerce)','Economics(Commerce)'];
+  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)'];
 
   recordLimit: number = 5;
-  filters:any = {};
-  number:number=0;
+  filters: any = {};
+  number: number = 0;
   paginationValues: Subject<any> = new Subject();
-  loader:Boolean=true;
-  constructor(private fb: FormBuilder,private classService:ClassService, private subjectService: SubjectService,private classSubjectService:ClassSubjectService) {
+  loader: Boolean = true;
+  constructor(private fb: FormBuilder, private classService: ClassService, private subjectService: SubjectService, private classSubjectService: ClassSubjectService) {
     this.classSubjectForm = this.fb.group({
       _id: [''],
-      class:['',Validators.required],
-      subject:[''],
-      stream:['',Validators.required],
+      class: ['', Validators.required],
+      subject: [''],
+      stream: ['', Validators.required],
     })
   }
 
   ngOnInit(): void {
     this.getClass();
     this.getSubject();
-    let load:any=this.getClassSubject({page:1});
-    if(load){
-      setTimeout(()=>{
+    let load: any = this.getClassSubject({ page: 1 });
+    if (load) {
+      setTimeout(() => {
         this.loader = false;
-      },1000);
+      }, 1000);
     }
   }
 
@@ -84,22 +84,21 @@ export class ClassSubjectComponent implements OnInit {
     setTimeout(() => {
       this.closeModal();
       this.successMsg = '';
-      this.getClassSubject({page:1});
+      this.getClassSubject({ page: 1 });
     }, 1000)
   }
 
   subjectGroup(option: any) {
-    const index = this.selectedSubjectGroup.indexOf(option);
-    if (index > -1) {
-      this.selectedSubjectGroup.splice(index, 1);
+    const checkSubjectindex = this.selectedSubjectGroup.indexOf(option);
+    if (checkSubjectindex > -1) {
+      this.selectedSubjectGroup.splice(checkSubjectindex, 1);
     } else {
-      this.selectedSubjectGroup.push(option)
+      this.selectedSubjectGroup.push(option);
     }
   }
 
-  chooseClass(cls:any){
+  chooseClass(cls: any) {
     this.cls = cls;
-    console.log(this.cls)
   }
 
   getClass() {
@@ -117,18 +116,18 @@ export class ClassSubjectComponent implements OnInit {
     })
   }
 
-  getClassSubject($event:any) {
+  getClassSubject($event: any) {
     return new Promise((resolve, reject) => {
-      let params:any = {
+      let params: any = {
         filters: {},
         page: $event.page,
         limit: $event.limit ? $event.limit : this.recordLimit
       };
       this.recordLimit = params.limit;
-      if(this.filters.searchText) {
+      if (this.filters.searchText) {
         params["filters"]["searchText"] = this.filters.searchText.trim();
       }
-      
+
       this.classSubjectService.classSubjectPaginationList(params).subscribe((res: any) => {
         if (res) {
           this.classSubjectInfo = res.classSubjectList;
