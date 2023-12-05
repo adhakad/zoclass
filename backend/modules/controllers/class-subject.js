@@ -86,10 +86,10 @@ let CreateClassSubject = async (req, res, next) => {
         }
         let checkClassSubject = await ClassSubjectModel.findOne({ class: className, stream: stream });
         if(checkClassSubject){
-            return res.status(400).json(`Class ${className} ${stream} stream already exist !`)
+            return res.status(400).json(`This class and subject group already exist !`)
         }
         const createClassSubject = await ClassSubjectModel.create(classSubjectData);
-        return res.status(200).json("Class and subject combination created successfully.");
+        return res.status(200).json("Class and subject group created successfully.");
     } catch (error) {
         return res.status(500).json( 'Internal Server Error !' );
     }
@@ -102,7 +102,7 @@ let UpdateClassSubject = async (req, res, next) => {
             subject: req.body.subject,
         }
         const updateClassSubject = await ClassSubjectModel.findByIdAndUpdate(id, { $set: classSubjectData }, { new: true });
-        return res.status(200).json('Class and subject combination update successfully.');
+        return res.status(200).json('Class and subject group update successfully.');
     } catch (error) {
         return res.status(500).json( 'Internal Server Error !' );
     }
@@ -111,7 +111,7 @@ let DeleteClassSubject = async (req, res, next) => {
     try {
         const id = req.params.id;
         const deleteClassSubject = await ClassSubjectModel.findByIdAndRemove(id);
-        return res.status(200).json('Class and subject combination delete successfully.');
+        return res.status(200).json('Class and subject group delete successfully.');
     } catch (error) {
         return res.status(500).json( 'Internal Server Error !' );;
     }
