@@ -477,7 +477,10 @@ let UpdateStudent = async (req, res, next) => {
 let StudentClassPromote = async (req, res, next) => {
     try {
         const studentId = req.params.id;
-        let { session, rollNumber } = req.body;
+        let { session, rollNumber,stream } = req.body;
+        if(stream=="stream"){
+            stream = "N/A";
+        }
         let className = parseInt(req.body.class);
         let checkStudent = await StudentModel.findOne({ _id: studentId });
         if (!checkStudent) {
@@ -501,7 +504,7 @@ let StudentClassPromote = async (req, res, next) => {
         if (!checkFeesStr) {
             return res.status(404).json({ errorMsg: 'Please create fees structure for this class', className: className });
         }
-        const studentData = { rollNumber, class: className, admissionType: 'Old' };
+        const studentData = { rollNumber, class: className,stream, admissionType: 'Old' };
         const updateStudent = await StudentModel.findByIdAndUpdate(studentId, { $set: studentData }, { new: true });
         if (updateStudent) {
             await Promise.all([

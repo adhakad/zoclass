@@ -43,9 +43,10 @@
                   <tr class="text-muted">
                     <th>No.</th>
                     <th>Student</th>
-                    <th>Class</th>
                     <th>Admission No.</th>
                     <th>Roll Number</th>
+                    <th>Class</th>
+                    <th>Stream</th>
                     <th>Otp</th>
                     <th>Session</th>
                     <th>Status</th>
@@ -64,13 +65,16 @@
                       <p class="mb-0">{{students.name}}</p>
                     </td>
                     <td>
-                      <p class="mb-0">{{students.class | classSuffix}}</p>
-                    </td>
-                    <td>
                       <p class="mb-0">{{students.admissionNo}}</p>
                     </td>
                     <td>
                       <p class="mb-0">{{students.rollNumber}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{students.class | classSuffix}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{students.stream}}</p>
                     </td>
                     <td>
                       <p class="mb-0">{{students.otp}}</p>
@@ -727,7 +731,7 @@
                                   </div>
                                 </mat-select>
                                 <mat-error
-                                  *ngIf="studentForm.get('session')?.hasError('required') && studentForm.get('session')?.touched">
+                                  *ngIf="studentClassPromoteForm.get('session')?.hasError('required') && studentClassPromoteForm.get('session')?.touched">
                                   Session is required
                                 </mat-error>
                               </mat-form-field>
@@ -739,6 +743,33 @@
                                 <mat-hint
                                   *ngIf="!studentClassPromoteForm.get('rollNumber')?.valid && studentClassPromoteForm.get('rollNumber')?.touched"
                                   class="form-text text-danger">Roll number is required</mat-hint>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Stream</mat-label>
+                                <mat-select type="text" matInput formControlName="stream">
+                                  <ng-container *ngIf="singleStudentInfo?.class==10 || singleStudentInfo?.class==11">
+                                    <div *ngFor="let subject of streamMainSubject">
+                                      <mat-option (click)="chooseStream(subject)"
+                                        value="{{subject}}">{{subject}}</mat-option>
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngIf="singleStudentInfo?.class<10 && singleStudentInfo?.class!==0 || singleStudentInfo?.class == 200 || singleStudentInfo?.class==201 || singleStudentInfo?.class==202">
+                                    <div>
+                                      <mat-option value="{{notApplicable}}"
+                                        (click)="chooseStream(notApplicable)">N/A</mat-option>
+                                    </div>
+                                  </ng-container>
+                                </mat-select>
+                                <mat-error
+                                  *ngIf="studentClassPromoteForm.get('stream')?.hasError('required') && studentClassPromoteForm.get('stream')?.touched">
+                                  Stream is required
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="studentClassPromoteForm.get('stream')?.hasError('pattern') && studentClassPromoteForm.get('stream')?.touched">
+                                  Please enter a valid Stream (only letters are allowed)
+                                </mat-error>
                               </mat-form-field>
                             </div>
                           </div>
