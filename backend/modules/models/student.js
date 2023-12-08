@@ -20,12 +20,14 @@ const StudentModel = mongoose.model('student', {
     admissionNo: {
         type: Number,
         required: true,
-        trim: true
+        trim: true,
+        unique:true,
     },
     rollNumber: {
         type: Number,
         required: true,
-        trim: true
+        trim: true,
+        unique:true,
     },
     admissionType: {
         type: String,
@@ -70,11 +72,15 @@ const StudentModel = mongoose.model('student', {
     aadharNumber: {
         type: Number,
         trim: true,
+        required:true,
+        unique:true,
 
     },
     samagraId: {
         type: Number,
         trim: true,
+        required:true,
+        unique:true,
 
     },
     contact: {

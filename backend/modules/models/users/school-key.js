@@ -6,6 +6,7 @@ const SchoolKeyModel = mongoose.model('school-key', {
         type: String,
         required: true,
         trim: true,
+        unique:true
     },
     status: {
         type: String,
