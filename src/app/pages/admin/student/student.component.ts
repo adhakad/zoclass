@@ -199,6 +199,7 @@ export class StudentComponent implements OnInit {
     this.showClassPromoteModal = true;
     this.singleStudentInfo = student;
     this.studentClassPromoteForm.patchValue(student);
+    this.studentClassPromoteForm.get('stream')?.setValue(null);
   }
   addStudentInfoViewModel(student: any) {
     this.showStudentInfoViewModal = true;
