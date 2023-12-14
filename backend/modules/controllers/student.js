@@ -490,7 +490,7 @@ let StudentClassPromote = async (req, res, next) => {
         if (className == cls && className === 12) {
             return res.status(400).json({ errorMsg: `In this school, students cannot be promoted after the ${className}th class` });
         }
-        if (className == 10 || className == 11 && stream=="N/A") {
+        if (className === 10 && stream=="N/A" || className === 11 && stream=="N/A") {
             return res.status(400).json({ errorMsg: `Invalid stream for this class !` });
         }
 
