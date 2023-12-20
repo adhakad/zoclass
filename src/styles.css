@@ -26,12 +26,13 @@ Header section
   display: flex;
   justify-content: space-around;
   box-shadow: 0 0 1px -10px #64748d15,
-    0 0 0 1px #64748d15,
+    0 0 0 1px #4d5c7615,
     0 0 4px 0 #64748d15;
 }
 
 .header .logo img {
-  height: 40px;
+  height: 35px;
+  margin-top: -8px;
 }
 
 .header .logo span {
@@ -454,7 +455,8 @@ Header section
   } */
 
   .header .logo img {
-    height: 40px;
+    height: 50px;
+    margin-top: -10px;
     margin-right: 10px;
   }
 

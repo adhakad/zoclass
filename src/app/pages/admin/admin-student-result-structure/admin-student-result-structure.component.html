@@ -424,7 +424,6 @@
                                                         <table class="custom-table" *ngIf="processedPracticalData && processedPracticalData.length > 0">
                                                             <tr>
                                                                 <th>S.No.</th>
-                                                                <th>Subject Code</th>
                                                                 <th>Subject</th>
                                                                 <th>Practical Maximum Marks</th>
                                                                 <th>Practical Passing Marks</th>
@@ -433,9 +432,6 @@
                                                                 <tr *ngFor="let exam of processedPracticalData; let i = index">
                                                                     <td>
                                                                         {{ i + 1 }}
-                                                                    </td>
-                                                                    <td>
-                                                                        100
                                                                     </td>
                                                                     <td>
                                                                         {{ exam.subject | titlecase}}
