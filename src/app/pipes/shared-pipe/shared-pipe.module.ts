@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChunkPipe } from '../chunk.pipe';
 import { ClassSuffixPipe } from '../class-suffix.pipe';
+import { DateToWordsPipe } from '../date-to-words.pipe';
 
 
 
@@ -9,6 +10,7 @@ import { ClassSuffixPipe } from '../class-suffix.pipe';
   declarations: [
     ChunkPipe,
     ClassSuffixPipe,
+    DateToWordsPipe
   ],
   imports: [
     CommonModule
@@ -16,6 +18,7 @@ import { ClassSuffixPipe } from '../class-suffix.pipe';
   exports:[
     ChunkPipe,
     ClassSuffixPipe,
+    DateToWordsPipe
   ]
 })
 export class SharedPipeModule { }

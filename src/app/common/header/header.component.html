@@ -17,7 +17,7 @@
     <button mat-button>
       <span class="menu-item" [routerLink]="['/']">Home</span>
     </button>
-    <button #button mat-button (click)="addBannerModel()">
+    <button #button mat-button (click)="admissionModel()">
       <span class="menu-item">Admission</span>
     </button>
     <button #button mat-button [matMenuTriggerFor]="aboutMenu">
@@ -118,7 +118,7 @@
       <mat-icon *ngIf="!notificationCount" class="material-icons mat-badge-small">notifications</mat-icon>
       <span>Notification</span>
     </button>
-    <button mat-menu-item (click)="addBannerModel()">
+    <button mat-menu-item (click)="admissionModel()">
       <mat-icon>app_registration</mat-icon>
       <span>Online Admission</span>
     </button>

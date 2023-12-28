@@ -17,7 +17,7 @@ Header section
 .header {
   background-color: var(--common-color);
   width: 100%;
-  height: var(--header-height);
+  min-height: var(--header-height);
   left: 0;
   top: 0;
   position: fixed;
@@ -31,7 +31,7 @@ Header section
 }
 
 .header .logo img {
-  height: 35px;
+  height: 40px;
   margin-top: -8px;
 }
 
@@ -455,8 +455,8 @@ Header section
   } */
 
   .header .logo img {
-    height: 50px;
-    margin-top: -10px;
+    height: 55px;
+    margin-top: -8px;
     margin-right: 10px;
   }
 

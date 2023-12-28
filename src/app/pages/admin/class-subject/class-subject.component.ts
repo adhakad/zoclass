@@ -27,7 +27,7 @@ export class ClassSubjectComponent implements OnInit {
   subjectInfo: any[] = [];
   classSubjectInfo: any[] = [];
   selectedSubjectGroup: any[] = [];
-  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)'];
+  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)', 'Agriculture', 'Home Science'];
 
   recordLimit: number = 5;
   filters: any = {};

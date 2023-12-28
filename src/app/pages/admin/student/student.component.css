@@ -1,4 +1,8 @@
 @import'../../../../styles.css';
+@import'../admin-student-fees/admin-student-fees.component.css';
+.text-bold{
+    font-weight:bold;
+}
 .file-input {
     height: 50px;
     color: #4e4caacd;

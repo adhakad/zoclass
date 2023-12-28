@@ -41,7 +41,7 @@ export class AdminStudentResultComponent implements OnInit {
   stream: string = '';
   notApplicable: String = "stream";
   examType: any[] = ["quarterly", "half yearly", "final"];
-  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)'];
+  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)', 'Agriculture', 'Home Science'];
   loader:Boolean=true;
 
   constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private examResultService: ExamResultService, private examResultStructureService: ExamResultStructureService) {

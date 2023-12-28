@@ -38,7 +38,7 @@ export class AdmissionComponent implements OnInit {
   occupations: any;
   stream: string = '';
   notApplicable: String = "stream";
-  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)'];
+  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)', 'Agriculture', 'Home Science'];
   cls: number = 0;
   rollNumberType: string = '';
   admissionFeesPaymentType: string = '';

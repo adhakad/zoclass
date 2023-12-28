@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ElementRef,ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { read, utils, writeFile } from 'xlsx';
@@ -10,6 +10,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { ExcelService } from 'src/app/services/excel/excel.service';
 import { SchoolService } from 'src/app/services/school.service';
 import { HttpClient } from '@angular/common/http';
+import { PrintPdfService } from 'src/app/services/print-pdf/print-pdf.service';
 
 @Component({
   selector: 'app-student',
@@ -17,6 +18,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./student.component.css']
 })
 export class StudentComponent implements OnInit {
+  @ViewChild('content') content!: ElementRef;
   studentForm: FormGroup;
   excelForm: FormGroup;
   studentClassPromoteForm: FormGroup;
@@ -25,6 +27,7 @@ export class StudentComponent implements OnInit {
   showBulkExportModal: boolean = false;
   showClassPromoteModal: boolean = false;
   showStudentInfoViewModal: boolean = false;
+  showStudentTCModal: boolean = false;
   updateMode: boolean = false;
   deleteMode: boolean = false;
   deleteById: String = '';
@@ -48,7 +51,7 @@ export class StudentComponent implements OnInit {
   occupations: any;
   stream: string = '';
   notApplicable: String = "stream";
-  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)'];
+  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)', 'Agriculture', 'Home Science'];
   cls: number = 0;
   className: any;
   admissionType: string = '';
@@ -58,7 +61,7 @@ export class StudentComponent implements OnInit {
   loader: Boolean = true;
   promotedClass: any;
   singleStudentInfo: any
-  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private schoolService: SchoolService, public ete: ExcelService, private classService: ClassService, private studentService: StudentService) {
+  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute,private printPdfService:PrintPdfService, private schoolService: SchoolService, public ete: ExcelService, private classService: ClassService, private studentService: StudentService) {
     this.studentForm = this.fb.group({
       _id: [''],
       session: ['', Validators.required],
@@ -119,6 +122,9 @@ export class StudentComponent implements OnInit {
     this.getClass();
     this.allOptions();
   }
+  printContent() {
+    this.printPdfService.printElement(this.content.nativeElement);
+  }
   getSchool() {
     this.schoolService.getSchool().subscribe((res: any) => {
       if (res) {
@@ -166,6 +172,7 @@ export class StudentComponent implements OnInit {
     this.showBulkExportModal = false;
     this.showClassPromoteModal = false;
     this.showStudentInfoViewModal = false;
+    this.showStudentTCModal = false;
     this.updateMode = false;
     this.deleteMode = false;
     this.fileChoose = false;
@@ -203,6 +210,10 @@ export class StudentComponent implements OnInit {
   }
   addStudentInfoViewModel(student: any) {
     this.showStudentInfoViewModal = true;
+    this.singleStudentInfo = student;
+  }
+  addStudentTCModel(student: any) {
+    this.showStudentTCModal = true;
     this.singleStudentInfo = student;
   }
   updateStudentModel(student: any) {
@@ -533,4 +544,27 @@ export class StudentComponent implements OnInit {
       })
     }
   }
+
+  // studentClassPromote() {
+  //   if (this.studentClassPromoteForm.valid) {
+  //     this.studentClassPromoteForm.value.class = parseInt(this.className);
+  //     this.studentService.studentClassPromote(this.studentClassPromoteForm.value).subscribe((res: any) => {
+  //       if (res) {
+  //         setTimeout(() => {
+  //           this.successDone();
+  //         }, 2000)
+  //         this.promotedClass;
+  //         this.promotedClass = res.className;
+  //         this.successMsg = res.successMsg;
+  //       }
+  //     }, err => {
+  //       this.errorCheck = true;
+  //       this.promotedClass;
+  //       if (err.error.className) {
+  //         this.promotedClass = parseInt(err.error.className);
+  //       }
+  //       this.errorMsg = err.error.errorMsg;
+  //     })
+  //   }
+  // }
 }

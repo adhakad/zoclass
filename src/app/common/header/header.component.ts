@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   occupations: any;
   stream: string = '';
   notApplicable: String = "stream";
-  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)'];
+  streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)', 'Agriculture', 'Home Science'];
   cls: number = 0;
 
   ModulesList: any = [{
@@ -215,7 +215,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.errorCheck = false;
     this.studentForm.reset();
   }
-  addBannerModel() {
+  admissionModel() {
     this.nav = false;
     this.showModal = true;
   }
