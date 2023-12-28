@@ -3,6 +3,9 @@
 .text-bold{
     font-weight:bold;
 }
+p{
+    color:#313070cd;
+}
 .file-input {
     height: 50px;
     color: #4e4caacd;
