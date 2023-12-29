@@ -3,8 +3,9 @@
 .text-bold{
     font-weight:bold;
 }
-p{
-    color:#313070cd;
+.table-container p{
+    color:#2e2d6a !important;
+    font-size: 12px !important;
 }
 .file-input {
     height: 50px;

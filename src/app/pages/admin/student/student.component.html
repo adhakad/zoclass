@@ -51,7 +51,7 @@
                     <th>Session</th>
                     <th>Status</th>
                     <th>Class Promote</th>
-                    <th>Transfer Certificte</th>
+                    <th>Transfer Certificate</th>
                     <th>View</th>
                     <!-- <th>Edit</th> -->
                     <th>Remove</th>
@@ -934,18 +934,10 @@
                             <div class="container">
                               <div class="row">
                                 <div class="col-6">
-                                  <p>1. Name of the Student</p>
+                                  <p>1. Name of the Pupil</p>
                                 </div>
                                 <div class="col-6">
                                   <p>: <span class="text-bold">{{singleStudentInfo.name | uppercase}}</span></p>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>2. Mother's Name</p>
-                                </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">{{singleStudentInfo.motherName | uppercase}}</span></p>
                                 </div>
                               </div>
                               <div class="row">
@@ -956,12 +948,20 @@
                                   <p>: <span class="text-bold">{{singleStudentInfo.fatherName | uppercase}}</span></p>
                                 </div>
                               </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>2. Mother's Name</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">{{singleStudentInfo.motherName | uppercase}}</span></p>
+                                </div>
+                              </div>
 
 
 
                               <div class="row">
                                 <div class="col-6">
-                                  <p>4. Date of Birth according to Admission</p>
+                                  <p>4. Date of Birth according to Admission & Withdrawal Register</p>
                                 </div>
                                 <div class="col-6">
                                   <p>: (In figures) : <span class="text-bold">{{singleStudentInfo.dob}}</span></p>
@@ -970,18 +970,122 @@
                               </div>
                               <div class="row">
                                 <div class="col-6">
-                                  <p>2. Mother's Name</p>
+                                  <p>5. Nationality</p>
                                 </div>
                                 <div class="col-6">
-                                  <p>: <span class="text-bold">{{singleStudentInfo.motherName | uppercase}}</span></p>
+                                  <p>: <span class="text-bold">INDIAN</span></p>
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col-6">
-                                  <p>3. Father's/Guardian's Name</p>
+                                  <p>6. Whether the pupil belongs to General/OBC/SC/ST</p>
                                 </div>
                                 <div class="col-6">
-                                  <p>: <span class="text-bold">{{singleStudentInfo.fatherName | uppercase}}</span></p>
+                                  <p>: <span class="text-bold">{{singleStudentInfo.category}}</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>7. Date of first admission in the school with class</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">01/07/2023 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Class : 6th</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>8. Class in which the pupil last studied</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">8th</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>9. School/Board Annual Examination last taken with result</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">8th PASSED</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>10. Subject studied</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">HINDI</span></p>
+                                  <p>&nbsp; <span class="text-bold">ENGLISH</span></p>
+                                  <p>&nbsp; <span class="text-bold">MATHEMATICS</span></p>
+                                  <p>&nbsp; <span class="text-bold">PARYABARAN</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>11. Whether qualified for promotion to the higher class</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">YES</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>12. Total no. of working days in the acedemic session</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">210</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>13. Total no. of presence in the acedemic session</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">208</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>14. Date of issue of Certificate</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">01/07/2024</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>15. Reasion for leaving the school</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">HIGHER STUDIES</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>16. General conduct</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">GOOD</span></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>17. Any other remarks</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>: <span class="text-bold">NIL</span></p>
+                                </div>
+                              </div>
+
+
+                              <div class="row" style="margin-top: 50px;">
+                                <div class="col-4 text-center">
+                                  <p>Class Teacher</p>
+                                </div>
+                                <div class="col-4 text-center">
+                                  <p>Principle</p>
+                                </div>
+                                <div class="col-4 text-center">
+                                  <p>abc</p>
                                 </div>
                               </div>
                             </div>
