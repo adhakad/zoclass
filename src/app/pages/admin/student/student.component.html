@@ -900,202 +900,245 @@
 
 
                     <ng-container *ngIf="singleStudentInfo">
-                    <div class="modal-body">
-                      <div class="row">
-                        <div #content class="custom-container">
-                          <div class="table-container">
-                            <table class="logo-table text-bold text-center">
-                              <tr>
-                              <tr>
-                                <td>
-                                  <img src="../../../../assets/logo.png" alt="">
-                                  <!-- {{schoolInfo?.schoolName}} -->
-                                  abc
-                                </td>
-                              </tr>
-                            </table>
-                            <table class="info-table text-center">
-                              <tr>
-                                <td>
-                                  <!-- School Code : {{schoolInfo?.schoolCode}} -->
-                                  2345
-                                </td>
-                                <td>
-                                  <!-- School Fee Receipt - {{studentInfo[0]?.session}} -->
-                                  23456
-                                </td>
-                                <td>
-                                  Affiliation No. :
-                                  <!-- {{schoolInfo?.affiliationNumber}} -->
-                                  12345678
-                                </td>
-                              </tr>
-                            </table>
-                            <div class="container">
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>1. Name of the Pupil</p>
-                                </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">{{singleStudentInfo.name | uppercase}}</span></p>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div #content class="custom-container">
+                            <div class="table-container" style="margin-top: -25px !important;">
+                              <div class="row text-center">
+                                <div class="col-12 tc-school-name">
+                                  <img class="tc-logo" src="../../../../assets/logo.png" alt="">
+                                  <h3 class="text-bold">{{schoolInfo?.schoolName}}</h3>
+                                  <p>{{schoolInfo?.board}}, Affiliation No.- {{schoolInfo?.affiliationNumber}}</p>
+                                  <p class="school-address"><span>{{schoolInfo?.street}},{{schoolInfo?.city}},
+                                      {{schoolInfo?.state}}-{{schoolInfo?.pinCode}}</span></p>
+                                  <p class="school-address"><span>Contact - {{schoolInfo?.phoneOne}} &nbsp;
+                                      {{schoolInfo?.phoneOne}} , Email - {{schoolInfo?.email}}</span></p>
                                 </div>
                               </div>
                               <div class="row">
-                                <div class="col-6">
-                                  <p>3. Father's/Guardian's Name</p>
-                                </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">{{singleStudentInfo.fatherName | uppercase}}</span></p>
+                                <div class="col-12 tc-title">
+                                  <p>TRANSFER CERTIFICATE</p>
                                 </div>
                               </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>2. Mother's Name</p>
+                              <div class="row tc-codes">
+                                <div class="col-6" style="text-align: left;">
+                                  <p>School Code <span class="text-bold">: {{schoolInfo?.schoolCode}}</span></p>
+                                  <p>S.No. <span class="text-bold">: 1</span></p>
                                 </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">{{singleStudentInfo.motherName | uppercase}}</span></p>
+                                <div class="col-6" style="text-align: right;">
+                                  <p>Affiliation No. <span class="text-bold">: {{schoolInfo?.affiliationNumber}}</span>
+                                  </p>
+                                  <p>Admission No. <span class="text-bold">: {{singleStudentInfo?.admissionNo}}</span>
+                                  </p>
                                 </div>
                               </div>
+                              <div class="container">
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>1. Name of the Pupil</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.name |
+                                        uppercase}}</span></p>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>3. Father's/Guardian's Name</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.fatherName |
+                                        uppercase}}</span></p>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>2. Mother's Name</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.motherName |
+                                        uppercase}}</span></p>
+                                  </div>
+                                </div>
 
 
 
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>4. Date of Birth according to Admission & Withdrawal Register</p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>4. Date of Birth according to Admission & Withdrawal Register</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p class="text-bold">:&nbsp;&nbsp; (In figures) &nbsp;:&nbsp; <span
+                                        class="text-bold">{{singleStudentInfo.dob}}</span></p>
+                                    <p class="text-bold">&nbsp;&nbsp;&nbsp; (In Words) &nbsp;:&nbsp; <span
+                                        class="text-bold">{{singleStudentInfo.dob |
+                                        dateToWords}}</span></p>
+                                  </div>
                                 </div>
-                                <div class="col-6">
-                                  <p>: (In figures) : <span class="text-bold">{{singleStudentInfo.dob}}</span></p>
-                                  <p>&nbsp; (In Words) : <span class="text-bold">{{singleStudentInfo.dob | dateToWords}}</span></p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>5. Aadhar Number</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.aadharNumber}}</span>
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>5. Nationality</p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>6. Samagra Id</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.samagraId}}</span></p>
+                                  </div>
                                 </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">INDIAN</span></p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>7. Nationality</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; INDIAN</span></p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>6. Whether the pupil belongs to General/OBC/SC/ST</p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>8. Whether the pupil belongs to General/OBC/SC/ST</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.category}}</span></p>
+                                  </div>
                                 </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">{{singleStudentInfo.category}}</span></p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>9. Date of first admission in the school with class</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; 01-07-2020 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Class :
+                                        6th</span></p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>7. Date of first admission in the school with class</p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>10. Class in which the pupil last studied</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.class | classSuffix}}</span></p>
+                                  </div>
                                 </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">01/07/2023 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Class : 6th</span></p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>11. School/Board Annual Examination last taken with result</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.class | classSuffix}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        PASSED</span></p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>8. Class in which the pupil last studied</p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>12. Subject studied</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <table>
+                                      
+                                      <tr
+                                        *ngFor="let subjects of classSubject | chunk: 3; let i = index">
+                                        <ng-container>
+                                          <ng-container
+                                            *ngFor="let subjectObject of subjects; let j = index">
+                                            <ng-container *ngFor="let entry of subjectObject | keyvalue">
+                                              <td>
+                                                <p class="text-bold"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ entry.value }}</p>
+                                              </td>
+                                            </ng-container>
+                                          </ng-container>
+                                        </ng-container>
+                                      </tr>
+                                    </table>
+                                  </div>
                                 </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">8th</span></p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>13. Whether qualified for promotion to the higher class</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; YES</span></p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>9. School/Board Annual Examination last taken with result</p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>14. Total no. of working days in the acedemic session</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; 210</span></p>
+                                  </div>
                                 </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">8th PASSED</span></p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>15. Total no. of presence in the acedemic session</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; 208</span></p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>10. Subject studied</p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>16. Date of issue of Certificate</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; 01-07-2024</span></p>
+                                  </div>
                                 </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">HINDI</span></p>
-                                  <p>&nbsp; <span class="text-bold">ENGLISH</span></p>
-                                  <p>&nbsp; <span class="text-bold">MATHEMATICS</span></p>
-                                  <p>&nbsp; <span class="text-bold">PARYABARAN</span></p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>17. Reasion for leaving the school</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; HIGHER STUDIES</span></p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>11. Whether qualified for promotion to the higher class</p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>18. General conduct</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; GOOD</span></p>
+                                  </div>
                                 </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">YES</span></p>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <p>19. Any other remarks</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p><span class="text-bold">: &nbsp;&nbsp; NIL</span></p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>12. Total no. of working days in the acedemic session</p>
-                                </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">210</span></p>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>13. Total no. of presence in the acedemic session</p>
-                                </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">208</span></p>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>14. Date of issue of Certificate</p>
-                                </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">01/07/2024</span></p>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>15. Reasion for leaving the school</p>
-                                </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">HIGHER STUDIES</span></p>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>16. General conduct</p>
-                                </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">GOOD</span></p>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  <p>17. Any other remarks</p>
-                                </div>
-                                <div class="col-6">
-                                  <p>: <span class="text-bold">NIL</span></p>
-                                </div>
-                              </div>
 
 
-                              <div class="row" style="margin-top: 50px;">
-                                <div class="col-4 text-center">
-                                  <p>Class Teacher</p>
-                                </div>
-                                <div class="col-4 text-center">
-                                  <p>Principle</p>
-                                </div>
-                                <div class="col-4 text-center">
-                                  <p>abc</p>
+                                <div class="row" style="margin-top: 50px;">
+                                  <div class="col-4 text-center">
+                                    <p class="text-bold">Class Teacher</p>
+                                    <p>(Signature)</p>
+                                  </div>
+                                  <div class="col-4 text-center">
+                                    <p class="text-bold">Checked By</p>
+                                    <p>(Name & Designation)</p>
+                                  </div>
+                                  <div class="col-4 text-center">
+                                    <p class="text-bold">Principal</p>
+                                    <p>(Sign. with official seal)</p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+                        <button class="submit-button print-pdf" mat-raised-button
+                          (click)="printContent()">Print</button>
                       </div>
-                      <button class="submit-button print-pdf" mat-raised-button (click)="printContent()">Print</button>
-                    </div>
 
-</ng-container>
+                    </ng-container>
 
 
 

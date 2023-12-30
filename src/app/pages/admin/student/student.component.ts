@@ -11,6 +11,7 @@ import { ExcelService } from 'src/app/services/excel/excel.service';
 import { SchoolService } from 'src/app/services/school.service';
 import { HttpClient } from '@angular/common/http';
 import { PrintPdfService } from 'src/app/services/print-pdf/print-pdf.service';
+import { ClassSubjectService } from 'src/app/services/class-subject.service';
 
 @Component({
   selector: 'app-student',
@@ -61,7 +62,8 @@ export class StudentComponent implements OnInit {
   loader: Boolean = true;
   promotedClass: any;
   singleStudentInfo: any
-  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute,private printPdfService:PrintPdfService, private schoolService: SchoolService, public ete: ExcelService, private classService: ClassService, private studentService: StudentService) {
+  classSubject: any[] = [];
+  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute,private printPdfService:PrintPdfService, private schoolService: SchoolService, public ete: ExcelService, private classService: ClassService,private classSubjectService:ClassSubjectService, private studentService: StudentService) {
     this.studentForm = this.fb.group({
       _id: [''],
       session: ['', Validators.required],
@@ -180,6 +182,7 @@ export class StudentComponent implements OnInit {
     this.errorMsg = '';
     this.stream = '';
     this.cls = 0;
+    this.classSubject = [];
     this.promotedClass;
     this.singleStudentInfo;
     this.admissionType = '';
@@ -215,6 +218,15 @@ export class StudentComponent implements OnInit {
   addStudentTCModel(student: any) {
     this.showStudentTCModal = true;
     this.singleStudentInfo = student;
+    let stream:String = student.stream;
+    if(stream=="N/A"){
+      stream = this.notApplicable;
+    }
+    let params = {
+      cls : student.class,
+      stream : stream
+    }
+    this.getSingleClassSubjectByStream(params);
   }
   updateStudentModel(student: any) {
     this.showModal = true;
@@ -233,6 +245,17 @@ export class StudentComponent implements OnInit {
     this.classService.getClassList().subscribe((res: any) => {
       if (res) {
         this.classInfo = res;
+      }
+    })
+  }
+  getSingleClassSubjectByStream(params: any) {
+    this.classSubjectService.getSingleClassSubjectByStream(params).subscribe((res: any) => {
+      if (res) {
+        this.classSubject = res.subject;
+        console.log(this.classSubject)
+      }
+      if (!res) {
+        this.classSubject = [];
       }
     })
   }

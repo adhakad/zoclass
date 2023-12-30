@@ -42,13 +42,16 @@ let GetAllClassSubject = async (req, res, next) => {
     }
 }
 let GetSingleClassSubjectByStream = async (req, res, next) => {
-    let className = req.params.class;
+    let className = parseInt(req.params.class);
     let stream = req.params.stream;
     if(stream==="stream"){
         stream = "N/A"
     }
     try {
         const classSubjectList = await ClassSubjectModel.findOne({class:className,stream:stream});
+        if(!classSubjectList){
+            return res.status(404).json( 'This class and subject group not found. !' );
+        }
         return res.status(200).json(classSubjectList);
     } catch (error) {
         return res.status(500).json( 'Internal Server Error !' );
