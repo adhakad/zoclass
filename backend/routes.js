@@ -21,5 +21,6 @@ module.exports = app => {
     app.use('/v1/fees-structure', require('./modules/routes/fees-structure'));
     app.use('/v1/admit-card-structure', require('./modules/routes/admit-card-structure'));
     app.use('/v1/admit-card', require('./modules/routes/admit-card'));
+    app.use('/v1/issued-transfer-certificate', require('./modules/routes/issued-transfer-certificate'));
     app.use('/v1/payment', require('./modules/routes/payment'));
 };

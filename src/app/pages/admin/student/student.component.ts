@@ -1,4 +1,4 @@
-import { Component,ElementRef,ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { read, utils, writeFile } from 'xlsx';
@@ -12,6 +12,7 @@ import { SchoolService } from 'src/app/services/school.service';
 import { HttpClient } from '@angular/common/http';
 import { PrintPdfService } from 'src/app/services/print-pdf/print-pdf.service';
 import { ClassSubjectService } from 'src/app/services/class-subject.service';
+import { IssuedTransferCertificateService } from 'src/app/services/issued-transfer-certificate.service';
 
 @Component({
   selector: 'app-student',
@@ -63,7 +64,7 @@ export class StudentComponent implements OnInit {
   promotedClass: any;
   singleStudentInfo: any
   classSubject: any[] = [];
-  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute,private printPdfService:PrintPdfService, private schoolService: SchoolService, public ete: ExcelService, private classService: ClassService,private classSubjectService:ClassSubjectService, private studentService: StudentService) {
+  constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private printPdfService: PrintPdfService, private schoolService: SchoolService, public ete: ExcelService, private issuedTransferCertificate: IssuedTransferCertificateService, private classService: ClassService, private classSubjectService: ClassSubjectService, private studentService: StudentService) {
     this.studentForm = this.fb.group({
       _id: [''],
       session: ['', Validators.required],
@@ -124,8 +125,15 @@ export class StudentComponent implements OnInit {
     this.getClass();
     this.allOptions();
   }
-  printContent() {
-    this.printPdfService.printElement(this.content.nativeElement);
+  printContent(singleStudentInfo:any) {
+    this.issuedTransferCertificate.createTransferCertificate(singleStudentInfo).subscribe((res: any) => {
+      if (res == 'IssueTransferCertificate') {
+        this.printPdfService.printElement(this.content.nativeElement)
+      }
+    }, err => {
+      this.errorCheck = true;
+      this.errorMsg = err.error;
+    })
   }
   getSchool() {
     this.schoolService.getSchool().subscribe((res: any) => {
@@ -218,13 +226,13 @@ export class StudentComponent implements OnInit {
   addStudentTCModel(student: any) {
     this.showStudentTCModal = true;
     this.singleStudentInfo = student;
-    let stream:String = student.stream;
-    if(stream=="N/A"){
+    let stream: String = student.stream;
+    if (stream == "N/A") {
       stream = this.notApplicable;
     }
     let params = {
-      cls : student.class,
-      stream : stream
+      cls: student.class,
+      stream: stream
     }
     this.getSingleClassSubjectByStream(params);
   }

@@ -1,7 +1,7 @@
 @import'../../../../styles.css';
 @import'../admin-student-fees/admin-student-fees.component.css';
 .tc-logo{
-    height: 65px;display: inline;margin-top: 30px;
+    height: 65px;display: inline;margin-top: 20px;
 }
 .tc-school-name h3{
     color:#2e2d6a !important;

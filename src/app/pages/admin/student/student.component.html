@@ -892,14 +892,15 @@
 
               <div class="modal fade show" [class.show]="showStudentTCModal">
                 <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Transfer Certificate</h5>
-                      <mat-icon matRipple (click)="closeModal()">close</mat-icon>
-                    </div>
+                  <ng-container *ngIf="singleStudentInfo">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Transfer Certificate</h5>
+                        <mat-icon matRipple (click)="closeModal()">close</mat-icon>
+                      </div>
 
 
-                    <ng-container *ngIf="singleStudentInfo">
+
                       <div class="modal-body">
                         <div class="row">
                           <div #content class="custom-container">
@@ -907,12 +908,12 @@
                               <div class="row text-center">
                                 <div class="col-12 tc-school-name">
                                   <img class="tc-logo" src="../../../../assets/logo.png" alt="">
-                                  <h3 class="text-bold">{{schoolInfo?.schoolName}}</h3>
-                                  <p>{{schoolInfo?.board}}, Affiliation No.- {{schoolInfo?.affiliationNumber}}</p>
+                                  <h3 class="text-bold">{{schoolInfo?.schoolName}}, {{schoolInfo?.city}}</h3>
+                                  <p>({{schoolInfo?.board}}, Affiliation No.- {{schoolInfo?.affiliationNumber}})</p>
                                   <p class="school-address"><span>{{schoolInfo?.street}},{{schoolInfo?.city}},
                                       {{schoolInfo?.state}}-{{schoolInfo?.pinCode}}</span></p>
-                                  <p class="school-address"><span>Contact - {{schoolInfo?.phoneOne}} &nbsp;
-                                      {{schoolInfo?.phoneOne}} , Email - {{schoolInfo?.email}}</span></p>
+                                  <p class="school-address"><span>Contact - {{schoolInfo?.phoneOne}} &nbsp; Email -
+                                      {{schoolInfo?.email}}</span></p>
                                 </div>
                               </div>
                               <div class="row">
@@ -1023,7 +1024,8 @@
                                     <p>10. Class in which the pupil last studied</p>
                                   </div>
                                   <div class="col-6">
-                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.class | classSuffix}}</span></p>
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.class |
+                                        classSuffix}}</span></p>
                                   </div>
                                 </div>
                                 <div class="row">
@@ -1031,7 +1033,8 @@
                                     <p>11. School/Board Annual Examination last taken with result</p>
                                   </div>
                                   <div class="col-6">
-                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.class | classSuffix}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentInfo.class | classSuffix}}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         PASSED</span></p>
                                   </div>
                                 </div>
@@ -1041,15 +1044,14 @@
                                   </div>
                                   <div class="col-6">
                                     <table>
-                                      
-                                      <tr
-                                        *ngFor="let subjects of classSubject | chunk: 3; let i = index">
+
+                                      <tr *ngFor="let subjects of classSubject | chunk: 3; let i = index">
                                         <ng-container>
-                                          <ng-container
-                                            *ngFor="let subjectObject of subjects; let j = index">
+                                          <ng-container *ngFor="let subjectObject of subjects; let j = index">
                                             <ng-container *ngFor="let entry of subjectObject | keyvalue">
                                               <td>
-                                                <p class="text-bold"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ entry.value }}</p>
+                                                <p class="text-bold"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ entry.value }}
+                                                </p>
                                               </td>
                                             </ng-container>
                                           </ng-container>
@@ -1134,104 +1136,18 @@
                             </div>
                           </div>
                         </div>
+                      </div>
+
+                      <div class="modal-footer" style="border-top: 1px solid #bababa;">
                         <button class="submit-button print-pdf" mat-raised-button
-                          (click)="printContent()">Print</button>
-                      </div>
-
-                    </ng-container>
-
-
-
-
-
-
-                    <!-- <div class="modal-body">
-                    <div class="container">
-                      <div class="row">
-                        <ng-container *ngIf="singleStudentInfo">
-                          <ng-container>
-                            <h3 style="color: #8d6dff;">Academic Info</h3>
-                          </ng-container>
-                          <div class="col-12 col-lg-6">
-                            <p>Academic Session - {{singleStudentInfo.session}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Last School - <span *ngIf="singleStudentInfo.lastSchool">{{singleStudentInfo.lastSchool|
-                                titlecase}}</span><span *ngIf="!singleStudentInfo.lastSchool">N/A</span></p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Admission No. - {{singleStudentInfo.admissionNo}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Admission Date - {{singleStudentInfo?.doa}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Roll Number - {{singleStudentInfo.rollNumber}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Stream - {{singleStudentInfo.stream}}</p>
-                          </div>
-                          <ng-container>
-                            <h3 style="color: #8d6dff;">Student Info</h3>
-                          </ng-container>
-                          <div class="col-12 col-lg-6">
-                            <p>Name - {{singleStudentInfo.name | titlecase}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Date Of Birth - {{singleStudentInfo?.dob}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Aadhar Number - {{singleStudentInfo.aadharNumber}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Samagra Id - {{singleStudentInfo.samagraId}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Gender - {{singleStudentInfo.gender | titlecase}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Category - {{singleStudentInfo.category | titlecase}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Religion - {{singleStudentInfo.religion | titlecase}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Nationality - {{singleStudentInfo.nationality | titlecase}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Contact - {{singleStudentInfo.contact}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Address - {{singleStudentInfo.address | titlecase}}</p>
-                          </div>
-                          <ng-container>
-                            <h3 style="color: #8d6dff;">Parent's Info</h3>
-                          </ng-container>
-                          <div class="col-12 col-lg-6">
-                            <p>Father Name - {{singleStudentInfo.fatherName | titlecase}}</p>
-                            <p>Father Qualification - {{singleStudentInfo.fatherQualification | titlecase}}</p>
-                            <p>Father Occupation - {{singleStudentInfo.fatherOccupation | titlecase}}</p>
-                            <p>Father Contact - {{singleStudentInfo.fatherContact}}</p>
-                            <p>Father AnnualIncome - {{singleStudentInfo.fatherAnnualIncome}}</p>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <p>Mother Name - {{singleStudentInfo.motherName | titlecase}}</p>
-                            <p>Mother Qualification - {{singleStudentInfo.motherQualification | titlecase}}</p>
-                            <p>Mother Occupation - {{singleStudentInfo.motherOccupation | titlecase}}</p>
-                            <p>Mother Contact - {{singleStudentInfo.motherContact}}</p>
-                            <p>Mother AnnualIncome - {{singleStudentInfo.motherAnnualIncome}}</p>
-                          </div>
-                        </ng-container>
+                          (click)="printContent(singleStudentInfo)">Print</button>
                       </div>
                     </div>
-                  </div> -->
-                    <div class="modal-footer">
-                      <button style="background-color: transparent;" class="submit-button" mat-raised-button
-                        type="submit"></button>
-                    </div>
-                  </div>
+                  </ng-container>
                 </div>
               </div>
+
+
 
 
             </div>
