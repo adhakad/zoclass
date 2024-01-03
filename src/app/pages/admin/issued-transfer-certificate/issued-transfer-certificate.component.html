@@ -11,7 +11,7 @@
                         <div class="main-card">
                             <div class="row mt-4 mb-2">
                                 <div class="col-8 col-lg-5">
-                                    <input type="text" class="form-control" placeholder="Student Search..."
+                                    <input type="text" class="form-control" placeholder="T & C Search..."
                                         id="searchText" name="searchText" #searchText="ngModel"
                                         [(ngModel)]="filters.searchText"
                                         (keyup)="getIssuedTransferCertificate({page : 1, limit : 0})">
@@ -27,6 +27,7 @@
                                         <th>Class</th>
                                         <th>Roll Number</th>
                                         <th>Session</th>
+                                        <th>Remove</th>
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="studentInfo && studentInfo.length>0">
@@ -52,6 +53,9 @@
                                         <td>
                                             <p class="mb-0">{{students.session}}</p>
                                         </td>
+                                        <td class="mb-0">
+                                            <mat-icon (click)="deleteTransferCertificateModel(students._id)">delete</mat-icon>
+                                          </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -60,6 +64,56 @@
                                     (onChange)="getIssuedTransferCertificate($event)">
                                 </app-pagination>
                             </div>
+
+
+
+
+                            <div class="modal fade show" [class.show]="showModal">
+                                <div class="modal-dialog modal-dialog-top" role="document">
+                                    <div class="modal-content" *ngIf="successMsg && !errorCheck">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" style="color: transparent;">Class</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="success-message">{{successMsg}}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <mat-icon></mat-icon>
+                                        </div>
+                                    </div>
+                                    <div class="modal-content" *ngIf="!successMsg && errorCheck">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Delete Issued Transfer Certificate</h5>
+                                            <mat-icon matRipple (click)="closeModal()">close</mat-icon>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="error-message">{{errorMsg}}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <mat-icon></mat-icon>
+                                        </div>
+                                    </div>
+                                    <div class="modal-content" *ngIf="!successMsg && !errorCheck">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Delete Issued Transfer Certificate</h5>
+                                            <mat-icon matRipple (click)="closeModal()">close</mat-icon>
+                                        </div>
+                                        <div *ngIf="deleteMode && !errorCheck">
+                                            <div class="modal-body">
+                                                <h4>To delete issued transfer certificate detail, click ok to confirm.</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="delete-button" mat-raised-button type="button"
+                                                    (click)="transferCertificateDelete(deleteById)">Ok</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,6 @@ import { IssuedTransferCertificateService } from 'src/app/services/issued-transf
 export class IssuedTransferCertificateComponent implements OnInit {
   @ViewChild('receipt') receipt!: ElementRef;
   showModal: boolean = false;
-  updateMode: boolean = false;
   deleteMode: boolean = false;
   deleteById: String = '';
   successMsg: String = '';
@@ -52,6 +51,36 @@ export class IssuedTransferCertificateComponent implements OnInit {
       }
     })
   }
+  closeModal() {
+    this.showModal = false;
+    this.deleteMode = false;
+    this.errorCheck = false;
+    this.errorMsg = '';
+  }
+  deleteTransferCertificateModel(id: String) {
+    this.showModal = true;
+    this.deleteMode = true;
+    this.deleteById = id;
+  }
+  successDone() {
+    setTimeout(() => {
+      this.closeModal();
+      this.successMsg = '';
+      this.getIssuedTransferCertificate({ page: this.page });
+    }, 1000)
+  }
+  transferCertificateDelete(id:any){
+    this.issuedTransferCertificate.deleteIssuedTransferCertificate(id).subscribe((res: any) => {
+      if (res) {
+        this.successDone();
+        this.successMsg = res;
+        this.deleteById = '';
+      }
+    },err=>{
+      this.errorCheck = true;
+      this.errorMsg = err.error;
+    })
+  }
   getIssuedTransferCertificate($event: any) {
     this.page = $event.page
     return new Promise((resolve, reject) => {
@@ -68,7 +97,6 @@ export class IssuedTransferCertificateComponent implements OnInit {
       this.issuedTransferCertificate.issuedTransferCertificatePagination(params).subscribe((res: any) => {
         if (res) {
           this.studentInfo = res.admissionEnquiryList;
-          console.log(res)
           this.number = params.page;
           this.paginationValues.next({ type: 'page-init', page: params.page, totalTableRecords: res.countStudent });
           return resolve(true);

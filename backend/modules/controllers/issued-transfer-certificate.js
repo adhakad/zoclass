@@ -5,7 +5,7 @@ const AdmissionEnquiryModel = require('../models/admission-enquiry');
 const FeesCollectionModel = require('../models/fees-collection');
 const AdmitCardModel = require('../models/admit-card');
 const ExamResultModel = require('../models/exam-result');
-const IssuedTransferCertificate = require('../models/issued-transfer-certificate');
+const IssuedTransferCertificateModel = require('../models/issued-transfer-certificate');
 const { DateTime } = require('luxon');
 
 let countIssuedTransferCertificate = async (req, res, next) => {
@@ -27,11 +27,11 @@ let GetIssuedTransferCertificatePagination = async (req, res, next) => {
     try {
         let limit = (req.body.limit) ? parseInt(req.body.limit) : 10;
         let page = req.body.page || 1;
-        const admissionEnquiryList = await IssuedTransferCertificate.find(searchObj).sort({ _id: -1 })
+        const admissionEnquiryList = await IssuedTransferCertificateModel.find(searchObj).sort({ _id: -1 })
             .limit(limit * 1)
             .skip((page - 1) * limit)
             .exec();
-        const countAdmissionEnquiry = await IssuedTransferCertificate.count();
+        const countAdmissionEnquiry = await IssuedTransferCertificateModel.count();
         let admissionEnquiryData = { countAdmissionEnquiry: 0 };
         admissionEnquiryData.admissionEnquiryList = admissionEnquiryList;
         admissionEnquiryData.countAdmissionEnquiry = countAdmissionEnquiry;
@@ -59,7 +59,7 @@ let CreateIssuedTransferCertificate = async (req, res, next) => {
     let id = req.body._id;
     let className = req.body.class;
     let serialNo = 0;
-    let lastIssuedTransferCertificate =  await IssuedTransferCertificate.findOne({}).sort({ _id: -1 });
+    let lastIssuedTransferCertificate =  await IssuedTransferCertificateModel.findOne({}).sort({ _id: -1 });
     if(!lastIssuedTransferCertificate){
         serialNo = 1;
     }
@@ -83,12 +83,12 @@ let CreateIssuedTransferCertificate = async (req, res, next) => {
                 FeesCollectionModel.deleteOne({ studentId: id }),
             ]);
             if (deleteStudentUser || deleteAdmitCard || deleteExamResult || deleteFeesCollection) {
-                let createIssuedTransferCertificate = await IssuedTransferCertificate.create(studentData);
+                let createIssuedTransferCertificate = await IssuedTransferCertificateModel.create(studentData);
                 if (createIssuedTransferCertificate) {
                     return res.status(200).json('IssueTransferCertificate');
                 }
             }
-            let createIssuedTransferCertificate = await IssuedTransferCertificate.create(studentData);
+            let createIssuedTransferCertificate = await IssuedTransferCertificateModel.create(studentData);
             if (createIssuedTransferCertificate) {
                 return res.status(200).json('IssueTransferCertificate');
             }
@@ -98,18 +98,19 @@ let CreateIssuedTransferCertificate = async (req, res, next) => {
     }
 }
 
-
-
-
-
-
 let DeleteIssuedTransferCertificate = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const admissionEnquiry = await AdmissionEnquiryModel.findByIdAndRemove(id);
-        return res.status(200).json('Student online admission form delete successfully.');
+        const lastIssuedTC = await IssuedTransferCertificateModel.findOne({}).sort({_id:-1});
+        const objectId = lastIssuedTC._id;
+        if(id==objectId){
+            return res.status(400).json('Last issued transfer certificate detail delete not possible !');
+        }
+        
+        const admissionEnquiry = await IssuedTransferCertificateModel.findByIdAndRemove(id);
+        return res.status(200).json('Issued transfer certificate detail delete successfully.');
     } catch (error) {
-        return res.status(500).json('Internal Server Error!');
+        return res.status(500).json('Internal Server Error !');
     }
 }
 
@@ -118,5 +119,5 @@ module.exports = {
     GetIssuedTransferCertificatePagination,
     // GetSingleIssuedTransferCertificate,
     CreateIssuedTransferCertificate,
-    // DeleteIssuedTransferCertificate
+    DeleteIssuedTransferCertificate
 }
