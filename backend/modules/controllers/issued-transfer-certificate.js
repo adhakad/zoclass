@@ -15,6 +15,7 @@ let countIssuedTransferCertificate = async (req, res, next) => {
 
 let GetIssuedTransferCertificatePagination = async (req, res, next) => {
     let searchText = req.body.filters.searchText;
+    
     let searchObj = {};
     if (searchText) {
         searchObj = /^(?:\d*\.\d{1,2}|\d+)$/.test(searchText)
@@ -26,11 +27,11 @@ let GetIssuedTransferCertificatePagination = async (req, res, next) => {
     try {
         let limit = (req.body.limit) ? parseInt(req.body.limit) : 10;
         let page = req.body.page || 1;
-        const admissionEnquiryList = await AdmissionEnquiryModel.find(searchObj).sort({ _id: -1 })
+        const admissionEnquiryList = await IssuedTransferCertificate.find(searchObj).sort({ _id: -1 })
             .limit(limit * 1)
             .skip((page - 1) * limit)
             .exec();
-        const countAdmissionEnquiry = await AdmissionEnquiryModel.count();
+        const countAdmissionEnquiry = await IssuedTransferCertificate.count();
         let admissionEnquiryData = { countAdmissionEnquiry: 0 };
         admissionEnquiryData.admissionEnquiryList = admissionEnquiryList;
         admissionEnquiryData.countAdmissionEnquiry = countAdmissionEnquiry;
@@ -114,7 +115,7 @@ let DeleteIssuedTransferCertificate = async (req, res, next) => {
 
 module.exports = {
     // countIssuedTransferCertificate,
-    // GetIssuedTransferCertificatePagination,
+    GetIssuedTransferCertificatePagination,
     // GetSingleIssuedTransferCertificate,
     CreateIssuedTransferCertificate,
     // DeleteIssuedTransferCertificate

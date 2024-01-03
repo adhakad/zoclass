@@ -61,6 +61,7 @@ const routes: Routes = [
   { path: 'admin/topper', loadChildren: () => import('src/app/pages/admin/topper/topper.module').then((module) => module.TopperModule), canActivate: [AdminAuthGuard] },
   { path: 'admin/testimonial', loadChildren: () => import('src/app/pages/admin/testimonial/testimonial.module').then((module) => module.TestimonialModule), canActivate: [AdminAuthGuard] },
   { path: 'admin/notification', loadChildren: () => import('src/app/pages/admin/notification-page/notification-page.module').then((module) => module.NotificationPageModule), canActivate: [AdminAuthGuard] },
+  { path: 'admin/issued-transfer-certificate', loadChildren: () => import('src/app/pages/admin/issued-transfer-certificate/issued-transfer-certificate.module').then((module) => module.IssuedTransferCertificateModule), canActivate: [AdminAuthGuard] },
 
   // Teacher Routing Section
   { path: 'teacher/signup', loadChildren: () => import('src/app/pages/auth/teacher-auth/teacher-signup/teacher-signup.module').then((module) => module.TeacherSignupModule) },

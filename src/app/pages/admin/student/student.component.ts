@@ -129,6 +129,8 @@ export class StudentComponent implements OnInit {
     this.issuedTransferCertificate.createTransferCertificate(singleStudentInfo).subscribe((res: any) => {
       if (res == 'IssueTransferCertificate') {
         this.printPdfService.printElement(this.content.nativeElement)
+        this.closeModal();
+        this.getStudents({ page: this.page });
       }
     }, err => {
       this.errorCheck = true;
@@ -188,6 +190,7 @@ export class StudentComponent implements OnInit {
     this.fileChoose = false;
     this.errorCheck = false;
     this.errorMsg = '';
+    this.successMsg = '';
     this.stream = '';
     this.cls = 0;
     this.classSubject = [];

@@ -32,9 +32,9 @@ export class IssuedTransferCertificateService {
   // studentPaginationList(studentData:any){
   //   return this.http.post(`${this.url}/student-pagination`,studentData);
   // }
-  // studentPaginationByAdmission(studentData:any){
-  //   return this.http.post(`${this.url}/student-admission-pagination`,studentData);
-  // }
+  issuedTransferCertificatePagination(studentData:any){
+    return this.http.post(`${this.url}/issued-transfer-certificate-pagination`,studentData);
+  }
   // studentPaginationByAdmissionAndClass(studentData:any){
   //   return this.http.post(`${this.url}/student-admission-pagination/class`,studentData);
   // }

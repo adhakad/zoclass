@@ -1,9 +1,10 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-const { CreateIssuedTransferCertificate} = require('../controllers/issued-transfer-certificate');
+const { CreateIssuedTransferCertificate,GetIssuedTransferCertificatePagination} = require('../controllers/issued-transfer-certificate');
 
 
+router.post('/issued-transfer-certificate-pagination', GetIssuedTransferCertificatePagination);
 router.post('/', CreateIssuedTransferCertificate);
 
 
