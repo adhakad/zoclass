@@ -16,6 +16,7 @@ import { IssuedTransferCertificateService } from 'src/app/services/issued-transf
 export class IssuedTransferCertificateComponent implements OnInit {
   @ViewChild('receipt') receipt!: ElementRef;
   showModal: boolean = false;
+  showStudentInfoViewModal:boolean = false;
   deleteMode: boolean = false;
   deleteById: String = '';
   successMsg: String = '';
@@ -29,7 +30,7 @@ export class IssuedTransferCertificateComponent implements OnInit {
   paginationValues: Subject<any> = new Subject();
   page: Number = 0;
 
-  
+  singleStudentInfo:any;
   cls: number = 0;
   schoolInfo: any;
   loader: Boolean = true;
@@ -53,11 +54,17 @@ export class IssuedTransferCertificateComponent implements OnInit {
   }
   closeModal() {
     this.showModal = false;
+    this.showStudentInfoViewModal = false;
     this.deleteMode = false;
     this.errorCheck = false;
     this.errorMsg = '';
+    this.singleStudentInfo=false;
   }
-  deleteTransferCertificateModel(id: String) {
+  addStudentInfoViewModel(student: any) {
+    this.showStudentInfoViewModal = true;
+    this.singleStudentInfo = student;
+  }
+  deleteIssuedTransferCertificateModel(id: String) {
     this.showModal = true;
     this.deleteMode = true;
     this.deleteById = id;
@@ -96,7 +103,7 @@ export class IssuedTransferCertificateComponent implements OnInit {
 
       this.issuedTransferCertificate.issuedTransferCertificatePagination(params).subscribe((res: any) => {
         if (res) {
-          this.studentInfo = res.admissionEnquiryList;
+          this.studentInfo = res.issuedTransferCertificateList;
           this.number = params.page;
           this.paginationValues.next({ type: 'page-init', page: params.page, totalTableRecords: res.countStudent });
           return resolve(true);

@@ -64,6 +64,7 @@ export class StudentComponent implements OnInit {
   promotedClass: any;
   singleStudentInfo: any
   classSubject: any[] = [];
+  serialNo!:number;
   constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private printPdfService: PrintPdfService, private schoolService: SchoolService, public ete: ExcelService, private issuedTransferCertificate: IssuedTransferCertificateService, private classService: ClassService, private classSubjectService: ClassSubjectService, private studentService: StudentService) {
     this.studentForm = this.fb.group({
       _id: [''],
@@ -126,6 +127,7 @@ export class StudentComponent implements OnInit {
     this.allOptions();
   }
   printContent(singleStudentInfo:any) {
+    singleStudentInfo.serialNo = this.serialNo;
     this.issuedTransferCertificate.createTransferCertificate(singleStudentInfo).subscribe((res: any) => {
       if (res == 'IssueTransferCertificate') {
         this.printPdfService.printElement(this.content.nativeElement)
@@ -263,7 +265,6 @@ export class StudentComponent implements OnInit {
     this.classSubjectService.getSingleClassSubjectByStream(params).subscribe((res: any) => {
       if (res) {
         this.classSubject = res.subject;
-        console.log(this.classSubject)
       }
       if (!res) {
         this.classSubject = [];
@@ -316,6 +317,7 @@ export class StudentComponent implements OnInit {
       this.studentService.studentPaginationList(params).subscribe((res: any) => {
         if (res) {
           this.studentInfo = res.studentList;
+          this.serialNo = res.serialNo;
           this.number = params.page;
           this.paginationValues.next({ type: 'page-init', page: params.page, totalTableRecords: res.countStudent });
           return resolve(true);

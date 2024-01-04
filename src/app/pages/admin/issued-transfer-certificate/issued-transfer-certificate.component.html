@@ -27,6 +27,7 @@
                                         <th>Class</th>
                                         <th>Roll Number</th>
                                         <th>Session</th>
+                                        <th>View</th>
                                         <th>Remove</th>
                                     </tr>
                                 </thead>
@@ -54,7 +55,10 @@
                                             <p class="mb-0">{{students.session}}</p>
                                         </td>
                                         <td class="mb-0">
-                                            <mat-icon (click)="deleteTransferCertificateModel(students._id)">delete</mat-icon>
+                                            <mat-icon (click)="addStudentInfoViewModel(students)">visibility</mat-icon>
+                                          </td>
+                                        <td class="mb-0">
+                                            <mat-icon (click)="deleteIssuedTransferCertificateModel(students._id)">delete</mat-icon>
                                           </td>
                                     </tr>
                                 </tbody>
@@ -66,7 +70,103 @@
                             </div>
 
 
-
+                            <div class="modal fade show" [class.show]="showStudentInfoViewModal">
+                                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Student Academic Detail</h5>
+                                      <mat-icon matRipple (click)="closeModal()">close</mat-icon>
+                                    </div>
+                
+                                    <div class="modal-body">
+                                      <div class="container">
+                                        <div class="row">
+                                          <ng-container *ngIf="singleStudentInfo">
+                                            <ng-container>
+                                              <h3 style="color: #8d6dff;">Academic Info</h3>
+                                            </ng-container>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Academic Session - {{singleStudentInfo.session}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Last School - <span
+                                                  *ngIf="singleStudentInfo.lastSchool">{{singleStudentInfo.lastSchool|
+                                                  titlecase}}</span><span *ngIf="!singleStudentInfo.lastSchool">N/A</span></p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Admission No. - {{singleStudentInfo.admissionNo}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Admission Date - {{singleStudentInfo?.doa}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Roll Number - {{singleStudentInfo.rollNumber}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Stream - {{singleStudentInfo.stream}}</p>
+                                            </div>
+                                            <ng-container>
+                                              <h3 style="color: #8d6dff;">Student Info</h3>
+                                            </ng-container>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Name - {{singleStudentInfo.name | titlecase}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Date Of Birth - {{singleStudentInfo?.dob}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Aadhar Number - {{singleStudentInfo.aadharNumber}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Samagra Id - {{singleStudentInfo.samagraId}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Gender - {{singleStudentInfo.gender | titlecase}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Category - {{singleStudentInfo.category | titlecase}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Religion - {{singleStudentInfo.religion | titlecase}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Nationality - {{singleStudentInfo.nationality | titlecase}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Contact - {{singleStudentInfo.contact}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Address - {{singleStudentInfo.address | titlecase}}</p>
+                                            </div>
+                                            <ng-container>
+                                              <h3 style="color: #8d6dff;">Parent's Info</h3>
+                                            </ng-container>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Father Name - {{singleStudentInfo.fatherName | titlecase}}</p>
+                                              <p>Father Qualification - {{singleStudentInfo.fatherQualification | titlecase}}</p>
+                                              <p>Father Occupation - {{singleStudentInfo.fatherOccupation | titlecase}}</p>
+                                              <p>Father Contact - {{singleStudentInfo.fatherContact}}</p>
+                                              <p>Father AnnualIncome - {{singleStudentInfo.fatherAnnualIncome}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Mother Name - {{singleStudentInfo.motherName | titlecase}}</p>
+                                              <p>Mother Qualification - {{singleStudentInfo.motherQualification | titlecase}}</p>
+                                              <p>Mother Occupation - {{singleStudentInfo.motherOccupation | titlecase}}</p>
+                                              <p>Mother Contact - {{singleStudentInfo.motherContact}}</p>
+                                              <p>Mother AnnualIncome - {{singleStudentInfo.motherAnnualIncome}}</p>
+                                            </div>
+                                          </ng-container>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button style="background-color: transparent;" class="submit-button" mat-raised-button
+                                        type="submit"></button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                
 
                             <div class="modal fade show" [class.show]="showModal">
                                 <div class="modal-dialog modal-dialog-top" role="document">
