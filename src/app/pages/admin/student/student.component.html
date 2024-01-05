@@ -892,7 +892,6 @@
 
               <div class="modal fade show" [class.show]="showStudentTCModal">
                 <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                  <ng-container *ngIf="singleStudentInfo">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title">Transfer Certificate</h5>
@@ -900,8 +899,90 @@
                       </div>
 
 
+                      
+                        <div class="modal-body" *ngIf="!readyTC && singleStudentInfo">
+                          <div class="container">
+                            <div class="row">
+                              <ng-container>
+                                <h3 style="color: #8d6dff;">Student Info</h3>
+                              </ng-container>
+                              <div class="col-12 col-lg-6">
+                                <p>Name - {{singleStudentInfo.name | titlecase}}</p>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <p>Date of Birth - {{singleStudentInfo.dob}}</p>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <p>Admission No. - {{singleStudentInfo.admissionNo}}</p>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <p>Roll Number - {{singleStudentInfo.rollNumber}}</p>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <p>Class - {{singleStudentInfo.class}}</p>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <p>Stream - {{singleStudentInfo.stream}}</p>
+                              </div>
+                            <br> <br> <br>
+                              <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Last Exam Status</mat-label>
+                                  <input matInput type="text">
+    
+                                </mat-form-field>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Reason for leaving the school</mat-label>
+                                  <input matInput type="text">
+    
+                                </mat-form-field>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Total no.of working days </mat-label>
+                                  <input matInput type="text">
+    
+                                </mat-form-field>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Total no.of presence days </mat-label>
+                                  <input matInput type="text">
+    
+                                </mat-form-field>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                  <mat-label>General Conduct</mat-label>
+                                  <input matInput type="text">
+    
+                                </mat-form-field>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Any other remarks</mat-label>
+                                  <input matInput type="text">
+    
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      
 
-                      <div class="modal-body">
+
+
+
+
+
+
+
+
+
+
+                      <div class="modal-body" *ngIf="readyTC && singleStudentInfo">
                         <div class="row">
                           <div #content class="custom-container">
                             <div class="table-container" style="margin-top: -25px !important;">
@@ -1139,11 +1220,12 @@
                       </div>
 
                       <div class="modal-footer" style="border-top: 1px solid #bababa;">
-                        <button class="submit-button print-pdf" mat-raised-button
+                        <button *ngIf="!readyTC && singleStudentInfo" class="submit-button print-pdf" mat-raised-button
+                          (click)="getTC()">Get T & C</button>
+                        <button *ngIf="readyTC && singleStudentInfo" class="submit-button print-pdf" mat-raised-button
                           (click)="printContent(singleStudentInfo)">Print</button>
                       </div>
                     </div>
-                  </ng-container>
                 </div>
               </div>
 

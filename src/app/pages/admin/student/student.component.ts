@@ -64,7 +64,8 @@ export class StudentComponent implements OnInit {
   promotedClass: any;
   singleStudentInfo: any
   classSubject: any[] = [];
-  serialNo!:number;
+  serialNo!: number;
+  readyTC: Boolean=false;
   constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private printPdfService: PrintPdfService, private schoolService: SchoolService, public ete: ExcelService, private issuedTransferCertificate: IssuedTransferCertificateService, private classService: ClassService, private classSubjectService: ClassSubjectService, private studentService: StudentService) {
     this.studentForm = this.fb.group({
       _id: [''],
@@ -126,7 +127,7 @@ export class StudentComponent implements OnInit {
     this.getClass();
     this.allOptions();
   }
-  printContent(singleStudentInfo:any) {
+  printContent(singleStudentInfo: any) {
     singleStudentInfo.serialNo = this.serialNo;
     this.issuedTransferCertificate.createTransferCertificate(singleStudentInfo).subscribe((res: any) => {
       if (res == 'IssueTransferCertificate') {
@@ -579,6 +580,9 @@ export class StudentComponent implements OnInit {
         this.errorMsg = err.error.errorMsg;
       })
     }
+  }
+  getTC(){
+    
   }
 
   // studentClassPromote() {
