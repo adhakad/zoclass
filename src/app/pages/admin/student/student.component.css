@@ -1,11 +1,11 @@
 @import'../../../../styles.css';
 @import'../admin-student-fees/admin-student-fees.component.css';
 .tc-logo{
-    height: 65px;display: inline;margin-top: 20px;
+    height: 80px;display: inline;margin-top: 20px;
 }
 .tc-school-name h3{
     color:#2e2d6a !important;
-    font-size: 16px !important;display: inline;margin-left: 15px;margin-bottom: 0 !important;
+    font-size: 22px !important;display: inline;margin-left: 15px;margin-bottom: 0 !important;
 }
 .tc-school-name p{
     display: block !important;margin-left: 70px !important;margin-top:-35px !important;margin-bottom:30px !important;font-size: 12px !important;

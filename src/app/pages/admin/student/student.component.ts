@@ -24,6 +24,7 @@ export class StudentComponent implements OnInit {
   studentForm: FormGroup;
   excelForm: FormGroup;
   studentClassPromoteForm: FormGroup;
+  tcForm: FormGroup;
   showModal: boolean = false;
   showBulkImportModal: boolean = false;
   showBulkExportModal: boolean = false;
@@ -63,9 +64,11 @@ export class StudentComponent implements OnInit {
   loader: Boolean = true;
   promotedClass: any;
   singleStudentInfo: any
+  singleStudentTCInfo: any
   classSubject: any[] = [];
   serialNo!: number;
-  readyTC: Boolean=false;
+  readyTC: Boolean = false;
+  baseURL!: string;
   constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private printPdfService: PrintPdfService, private schoolService: SchoolService, public ete: ExcelService, private issuedTransferCertificate: IssuedTransferCertificateService, private classService: ClassService, private classSubjectService: ClassSubjectService, private studentService: StudentService) {
     this.studentForm = this.fb.group({
       _id: [''],
@@ -111,6 +114,15 @@ export class StudentComponent implements OnInit {
       rollNumber: ['', Validators.required],
       stream: ['', Validators.required],
     })
+
+    this.tcForm = this.fb.group({
+      lastExamStatus: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
+      reasonForLeaving: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
+      totalWorkingDays: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      totalPresenceDays: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      generalConduct: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
+      anyOtherRemarks: ['',],
+    })
   }
 
   ngOnInit(): void {
@@ -126,6 +138,8 @@ export class StudentComponent implements OnInit {
     this.getSchool();
     this.getClass();
     this.allOptions();
+    var currentURL = window.location.href;
+    this.baseURL = new URL(currentURL).origin;
   }
   printContent(singleStudentInfo: any) {
     singleStudentInfo.serialNo = this.serialNo;
@@ -192,6 +206,7 @@ export class StudentComponent implements OnInit {
     this.deleteMode = false;
     this.fileChoose = false;
     this.errorCheck = false;
+    this.readyTC = false;
     this.errorMsg = '';
     this.successMsg = '';
     this.stream = '';
@@ -199,10 +214,12 @@ export class StudentComponent implements OnInit {
     this.classSubject = [];
     this.promotedClass;
     this.singleStudentInfo;
+    this.singleStudentTCInfo;
     this.admissionType = '';
     this.studentForm.reset();
     this.studentClassPromoteForm.reset();
     this.excelForm.reset();
+    this.tcForm.reset();
   }
   addStudentModel() {
     this.showModal = true;
@@ -581,9 +598,18 @@ export class StudentComponent implements OnInit {
       })
     }
   }
-  getTC(){
-    
+  getTC() {
+    if (this.tcForm.valid && this.singleStudentInfo) {
+      if (!this.tcForm.value.anyOtherRemarks) {
+        this.tcForm.value.anyOtherRemarks = 'Nil';
+      }
+      this.singleStudentTCInfo = { ...this.singleStudentInfo, ...this.tcForm.value }
+      this.readyTC = true;
+    }
+
   }
+
+
 
   // studentClassPromote() {
   //   if (this.studentClassPromoteForm.valid) {
