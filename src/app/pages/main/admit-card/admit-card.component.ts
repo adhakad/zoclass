@@ -22,7 +22,15 @@ export class AdmitCardComponent implements OnInit {
   admitCardInfo: any;
   processedData: any[] = [];
   loader: Boolean = false;
-
+  students = [
+    { id: 1, name: 'Student 1' },
+    { id: 2, name: 'Student 2' },
+    { id: 3, name: 'Student 3' },
+    { id: 4, name: 'Student 4' },
+    { id: 5, name: 'Student 5' },
+    { id: 6, name: 'Student 6' },
+    // Add more students as needed
+  ];
   constructor(private fb: FormBuilder, private schoolService: SchoolService, private printPdfService: PrintPdfService, private admitCardService: AdmitCardService, private classService: ClassService) {
     this.admitCardForm = this.fb.group({
       admissionNo: ['', Validators.required],
@@ -34,7 +42,82 @@ export class AdmitCardComponent implements OnInit {
     this.getClass();
     this.getSchool();
   }
+  printStudentData() {
+    const printContent = this.getPrintContent();
+    this.printPdfService.printContent(printContent);
+  }
 
+  private getPrintContent(): string {
+    let printHtml = '<html>';
+    printHtml += '<head>';
+    printHtml += '<style>';
+    printHtml += 'body { margin: 0; padding: 0; }'; // Set body styles
+    printHtml += 'div { margin: 0; padding: 0;background-color:aqua; }';
+    // Add your additional styles here
+    printHtml += '</style>';
+    printHtml += '</head>';
+    printHtml += '<body>';
+
+    // this.students.forEach((student, index) => {
+      const studentElement = document.getElementById(`student`);
+      if (studentElement) {
+        printHtml += studentElement.outerHTML;
+
+        // Add a page break after each student except the last one
+        // if (index < this.students.length - 1) {
+          printHtml += '<div style="page-break-after: always;"></div>';
+        // }
+      }
+    // });
+
+    printHtml += '</body></html>';
+
+    return printHtml;
+  }
+
+
+
+
+  // private getPrintContent(): string {
+  //   let printHtml = '<html>';
+  //   printHtml += '<head>';
+  //   printHtml += '<style>';
+  //   printHtml += 'body { margin: 0; padding: 0; }'; // Set body styles
+  //   printHtml += 'div { margin: 0; padding: 0;background-color:aqua; }';
+  //   // Add your additional styles here
+  //   printHtml += '</style>';
+  //   printHtml += '</head>';
+  //   printHtml += '<body>';
+
+  //   this.students.forEach((student, index) => {
+  //     const studentElement = document.getElementById(`student-${student.id}`);
+  //     if (studentElement) {
+  //       printHtml += studentElement.outerHTML;
+
+  //       // Add a page break after each student except the last one
+  //       if (index < this.students.length - 1) {
+  //         printHtml += '<div style="page-break-after: always;"></div>';
+  //       }
+  //     }
+  //   });
+
+  //   printHtml += '</body></html>';
+
+  //   return printHtml;
+  // }
+
+  // printStudentData() {
+  //   const studentElements: HTMLElement[] = this.students.map(student => {
+  //     const element = document.getElementById(`student-${student.id}`);
+  //     return element!;
+  //   });
+
+  //   if (studentElements.length > 0) {
+  //     this.printPdfService.printStudents(studentElements);
+  //   } else {
+  //     console.error('No matching elements found for printing.');
+  //   }
+  // }
   printContent() {
     this.printPdfService.printElement(this.content.nativeElement);
   }

@@ -39,6 +39,28 @@
     </div>
   </div>
 </div>
+
+
+<!-- <div *ngFor="let student of students" id="student-{{student.id}}">
+  <img src="../../../../assets/logo.png" alt="" style="height: 75px;">
+  <h2 style="color: aqua;">{{ student.name }} asdfghjksdfghjksdfghjksdfghjkasdfghjksdfghjasdfghjasdfgasdfghsdfghasdfghsdfg asdfghjksdfghjksdfghjksdfghjkasdfghjksdfghjasdfghjasdfgasdfghsdfghasdfghsdfg</h2>
+ 
+</div> -->
+
+
+<div id="student">
+  <img src="../../../../assets/logo.png" alt="" style="height: 75px;">
+  <h2 style="color: aqua;">abc asdfghjksdfghjksdfghjksdfghjkasdfghjksdfghjasdfghjasdfgasdfghsdfghasdfghsdfg asdfghjksdfghjksdfghjksdfghjkasdfghjksdfghjasdfghjasdfgasdfghsdfghasdfghsdfg</h2>
+  <!-- Add more student details as needed -->
+
+  <!-- Additional styling for the background color -->
+ 
+</div>
+
+<button (click)="printStudentData()">Print Student Data</button>
+
+
+
 <div class="container-fluid" *ngIf="admitCardInfo && studentAdmitCardInfo">
   <div class="row">
     <div #content class="col-lg-10 offset-lg-1 custom-container">
@@ -138,6 +160,7 @@
       <button class="submit-button print-pdf" mat-raised-button (click)="printContent()">Print</button>
     </div>
   </div>
+  
   <app-footer></app-footer>
 </div>
 <div class="spinner-container" *ngIf="loader">
