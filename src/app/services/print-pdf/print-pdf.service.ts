@@ -75,7 +75,8 @@ export class PrintPdfService {
   //   });
   // }
   printContent(content: string): void {
-    const printWindow = window.open('', '_blank');
+    const doc = new jsPDF("p", "mm", "a4");
+    const printWindow = window.open(doc.output('bloburl'), '_blank');
     if (printWindow) {
       printWindow.document.write(content);
       printWindow.document.close();
@@ -86,6 +87,8 @@ export class PrintPdfService {
       };
     }
   }
+
+  
 
   // printElement(element: HTMLElement): Promise<string> {
   //   return new Promise((resolve, reject) => {

@@ -23,12 +23,7 @@
   text-align: center;
 }
 .info-table {
-  width: 800px;
-  border: none;
-  font-size: 1em;
-  letter-spacing: .25px;
-  margin-bottom: 5vh;
-  display: inline-table;
+  width: 800px;border: none;font-size: 1em;letter-spacing: .25px;margin-bottom: 5vh;display: inline-table;
 }
 img{
   height: 35px;

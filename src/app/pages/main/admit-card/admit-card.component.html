@@ -41,26 +41,6 @@
 </div>
 
 
-<!-- <div *ngFor="let student of students" id="student-{{student.id}}">
-  <img src="../../../../assets/logo.png" alt="" style="height: 75px;">
-  <h2 style="color: aqua;">{{ student.name }} asdfghjksdfghjksdfghjksdfghjkasdfghjksdfghjasdfghjasdfgasdfghsdfghasdfghsdfg asdfghjksdfghjksdfghjksdfghjkasdfghjksdfghjasdfghjasdfgasdfghsdfghasdfghsdfg</h2>
- 
-</div> -->
-
-
-<div id="student">
-  <img src="../../../../assets/logo.png" alt="" style="height: 75px;">
-  <h2 style="color: aqua;">abc asdfghjksdfghjksdfghjksdfghjkasdfghjksdfghjasdfghjasdfgasdfghsdfghasdfghsdfg asdfghjksdfghjksdfghjksdfghjkasdfghjksdfghjasdfghjasdfgasdfghsdfghasdfghsdfg</h2>
-  <!-- Add more student details as needed -->
-
-  <!-- Additional styling for the background color -->
- 
-</div>
-
-<button (click)="printStudentData()">Print Student Data</button>
-
-
-
 <div class="container-fluid" *ngIf="admitCardInfo && studentAdmitCardInfo">
   <div class="row">
     <div #content class="col-lg-10 offset-lg-1 custom-container">
@@ -68,7 +48,7 @@
         <table class="logo-table text-bold">
           <tr>
             <td>
-              <img src="../../../../assets/logo.png" alt=""> {{schoolInfo?.schoolName}}
+              <img  src="../../../../assets/logo.png" alt=""> {{schoolInfo?.schoolName}}
             </td>
           </tr>
         </table>

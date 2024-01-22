@@ -1265,8 +1265,6 @@
                       </div>
                     </div>
                     <div class="modal-footer" style="border-top: 1px solid #bababa;">
-                      <button *ngIf="!readyTC && singleStudentInfo" class="submit-button print-pdf" mat-raised-button
-                        (click)="getTC()">Get T & C</button>
                       <button *ngIf="readyTC && singleStudentTCInfo" class="submit-button print-pdf" mat-raised-button
                         (click)="printContent(singleStudentTCInfo)">Print</button>
                     </div>
