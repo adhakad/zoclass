@@ -9,7 +9,7 @@ let GetSingleClassAdmitCardStructure = async (req, res, next) => {
     try {
         const singleAdmitCardStr = await AdmitCardStructureModel.find({ class: className });
         if(!singleAdmitCardStr){
-            return res.status(404).json('Fees structure not found !');;
+            return res.status(404).json('Fees structure not found !');
         }
         return res.status(200).json(singleAdmitCardStr);
     } catch (error) {

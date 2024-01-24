@@ -27,6 +27,7 @@
                     <th>Student</th>
                     <th>Roll Number</th>
                     <th>Class</th>
+                    <th>Stream</th>
                     <th>Exam</th>
                     <!-- <th>Status</th> -->
                   </tr>
@@ -49,6 +50,9 @@
                       <p class="mb-0">{{students.class | classSuffix}}</p>
                     </td>
                     <td>
+                      <p class="mb-0">{{students.stream | titlecase}}</p>
+                    </td>
+                    <td>
                       <p class="mb-0">{{students.examType | titlecase}}</p>
                     </td>
                     <!-- <td>
@@ -66,128 +70,147 @@
                 <div class="modal-dialog modal-dialog-scrollable" [class.modal-lg]="showModal">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Bulk Admit Card Print</h5>
+                      <h5 class="modal-title">Bulk Admit Card Print Class {{cls | classSuffix}}</h5>
                       <mat-icon matRipple (click)="closeModal()">close</mat-icon>
                     </div>
-                    <div class="modal-body">
-                      <ng-container *ngFor="let student of allAdmitCards">
-                        <div id="student-{{student.studentId}}">
-                          <div class="col-lg-10 offset-lg-1 custom-container">
-                            <div class="table-container">
-                              <div class="row text-center">
-                                <div class="col-12" style="text-align: center;">
-                                  <div class="school-name"> <img class="logo" src="../../../../assets/logo.png" alt="">
-                                    <h3 class="text-bold">{{schoolInfo?.schoolName | uppercase}}, KUMBHRAJ</h3>
-                                  </div>
-                                  <div class="address">
-                                    <p>( {{schoolInfo?.board}} Affiliation No.- {{schoolInfo?.affiliationNumber}} )</p>
-                                    <p><span>{{schoolInfo?.street}},{{schoolInfo?.city}},
-                                        {{schoolInfo?.state}}-{{schoolInfo?.pinCode}}</span></p>
-                                    <p><span>Contact - {{schoolInfo?.phoneOne}} &nbsp; Email -
-                                        {{schoolInfo?.email}}</span></p>
-                                    <p><span>Website - {{baseURL}}</span></p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-12" class="title-lable">
-                                  <p>{{student?.examType | uppercase}} EXAM ADMIT CARD</p>
-                                </div>
-                              </div>
-                              <div class="row codes" style="display: flex;">
-                                <div class="col-6 school-code">
-                                  <p style="text-align: left;">School Code <span class="text-bold">:
-                                      {{schoolInfo?.schoolCode}}</span></p>
-                                </div>
-                                <div class="col-6 school-aff">
-                                  <p style="text-align: right;">Affiliation No.<span class="text-bold">:
-                                      {{schoolInfo?.affiliationNumber}}</span>
-                                  </p>
-                                </div>
-                              </div>
-                              <table class="info-table">
-                                <tr>
-                                  <th>Admission No. :</th>
-                                  <td>{{student?.admissionNo}}</td>
-                                  <td class="text-bold">Roll Number :</td>
-                                  <td>{{student?.rollNumber}}</td>
-                                  <td class="text-bold">Class :</td>
-                                  <td>{{student?.class | classSuffix}}</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-bold">Student Name :</td>
-                                  <td>{{student?.name | titlecase}}</td>
-                                  <td class="text-bold">Father Name :</td>
-                                  <td>{{student?.fatherName | titlecase}}</td>
-                                  <td class="text-bold">Mother Name :</td>
-                                  <td>{{student?.motherName | titlecase}}</td>
-                                </tr>
-                              </table>
-                              <table class="custom-table">
-                                <tr>
-                                  <th>S.No.</th>
-                                  <th>Subject</th>
-                                  <th>Exam Date</th>
-                                  <th>Exam Timing</th>
-                                </tr>
-                                <ng-container *ngIf="processedData && processedData.length > 0">
-                                  <tr *ngFor="let exam of processedData; let i = index">
-                                    <td>
-                                      {{ i + 1 }}
-                                    </td>
-                                    <td>
-                                      {{ exam.subject | titlecase}}
-                                    </td>
-                                    <td>
-                                      {{ exam.date }}
-                                    </td>
-                                    <td>
-                                      {{ exam.timing }}
-                                    </td>
-                                  </tr>
-                                </ng-container>
-                              </table>
-                              <div>
-                                <h4 class="text-bold">Disclaimer:</h4>
-                                <p>This is your online admit card, issued in accordance with our institution's policies.
-                                  Please
-                                  take note of
-                                  the following:</p>
-                                <p>1. Identification: This admit card serves as your identification for the examination
-                                  or event
-                                  at gurukulam school.</p>
-                                <p>2. Verify Details: Review the admit card for accuracy, including your name, exam
-                                  details, and
-                                  date. Report
-                                  any discrepancies to the Examination Office for correction.</p>
-                                <p>3. Non-Transferable: This admit card is for your use only; it should not be shared or
-                                  used by
-                                  others.</p>
-                                <p>4. Keep Secure: Maintain this admit card in a secure place. You'll need it for
-                                  admission on the
-                                  examination
-                                  or event day.</p>
-                                <p>5. Lost or Damaged: In case of loss or damage to the admit card, please contact the
-                                  Examination
-                                  Office for
-                                  a duplicate or replacement. A fee may apply.</p>
-                                <p>6. Exam Rules: Follow the rules and instructions provided by the examination
-                                  authorities. Any
-                                  violation may
-                                  lead to disqualification.</p>
-                                <p>Your acceptance and retention of this admit card indicate your understanding and
-                                  agreement with
-                                  the terms
-                                  and conditions outlined in this document.</p>
 
+                    <div class="modal-body">
+                      <ng-container *ngIf="selectedStream!=='N/A' && cls==11 || cls==12 && streamSection==true">
+                        <section class="example-section">
+                          <div class="row">
+                            <div class="col-6" *ngFor="let subject of streamMainSubject,let i=index;">
+                              <mat-checkbox class="example-margin"
+                                (click)="selectStream(subject)">{{subject}}</mat-checkbox>
+                            </div>
+                          </div>
+                        </section>
+                      </ng-container>
+
+                      <ng-container *ngIf="selectedStream">
+                        <ng-container *ngFor="let student of allAdmitCardsByStream">
+                          <div id="student-{{student.studentId}}">
+                            <div class="col-lg-10 offset-lg-1 custom-container">
+                              <div class="table-container">
+                                <div class="row text-center">
+                                  <div class="col-12" style="text-align: center;">
+                                    <div class="school-name"> <img class="logo" src="../../../../assets/logo.png"
+                                        alt="">
+                                      <h3 class="text-bold">{{schoolInfo?.schoolName | uppercase}}, KUMBHRAJ</h3>
+                                    </div>
+                                    <div class="address">
+                                      <p>( {{schoolInfo?.board}} Affiliation No.- {{schoolInfo?.affiliationNumber}} )
+                                      </p>
+                                      <p><span>{{schoolInfo?.street}},{{schoolInfo?.city}},
+                                          {{schoolInfo?.state}}-{{schoolInfo?.pinCode}}</span></p>
+                                      <p><span>Contact - {{schoolInfo?.phoneOne}} &nbsp; Email -
+                                          {{schoolInfo?.email}}</span></p>
+                                      <p><span>Website - {{baseURL}}</span></p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12" class="title-lable">
+                                    <p>{{student?.examType | uppercase}} EXAM ADMIT CARD</p>
+                                  </div>
+                                </div>
+                                <div class="row codes" style="display: flex;">
+                                  <div class="col-6 school-code">
+                                    <p style="text-align: left;">School Code <span class="text-bold">:
+                                        {{schoolInfo?.schoolCode}}</span></p>
+                                  </div>
+                                  <div class="col-6 school-aff">
+                                    <p style="text-align: right;">Affiliation No.<span class="text-bold">:
+                                        {{schoolInfo?.affiliationNumber}}</span>
+                                    </p>
+                                  </div>
+                                </div>
+                                <table class="info-table">
+                                  <tr>
+                                    <th>Admission No. :</th>
+                                    <td>{{student?.admissionNo}}</td>
+                                    <td class="text-bold">Roll Number :</td>
+                                    <td>{{student?.rollNumber}}</td>
+                                    <td class="text-bold">Class :</td>
+                                    <td>{{student?.class | classSuffix}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-bold">Student Name :</td>
+                                    <td>{{student?.name | titlecase}}</td>
+                                    <td class="text-bold">Father Name :</td>
+                                    <td>{{student?.fatherName | titlecase}}</td>
+                                    <td class="text-bold">Mother Name :</td>
+                                    <td>{{student?.motherName | titlecase}}</td>
+                                  </tr>
+                                </table>
+                                <table class="custom-table">
+                                  <tr>
+                                    <th>S.No.</th>
+                                    <th>Subject</th>
+                                    <th>Exam Date</th>
+                                    <th>Exam Timing</th>
+                                  </tr>
+                                  <ng-container *ngIf="processedData && processedData.length > 0">
+                                    <tr *ngFor="let exam of processedData; let i = index">
+                                      <td>
+                                        {{ i + 1 }}
+                                      </td>
+                                      <td>
+                                        {{ exam.subject | titlecase}}
+                                      </td>
+                                      <td>
+                                        {{ exam.date }}
+                                      </td>
+                                      <td>
+                                        {{ exam.timing }}
+                                      </td>
+                                    </tr>
+                                  </ng-container>
+                                </table>
+                                <div>
+                                  <h4 class="text-bold">Disclaimer:</h4>
+                                  <p>This is your online admit card, issued in accordance with our institution's
+                                    policies.
+                                    Please
+                                    take note of
+                                    the following:</p>
+                                  <p>1. Identification: This admit card serves as your identification for the
+                                    examination
+                                    or event
+                                    at gurukulam school.</p>
+                                  <p>2. Verify Details: Review the admit card for accuracy, including your name, exam
+                                    details, and
+                                    date. Report
+                                    any discrepancies to the Examination Office for correction.</p>
+                                  <p>3. Non-Transferable: This admit card is for your use only; it should not be shared
+                                    or
+                                    used by
+                                    others.</p>
+                                  <p>4. Keep Secure: Maintain this admit card in a secure place. You'll need it for
+                                    admission on the
+                                    examination
+                                    or event day.</p>
+                                  <p>5. Lost or Damaged: In case of loss or damage to the admit card, please contact the
+                                    Examination
+                                    Office for
+                                    a duplicate or replacement. A fee may apply.</p>
+                                  <p>6. Exam Rules: Follow the rules and instructions provided by the examination
+                                    authorities. Any
+                                    violation may
+                                    lead to disqualification.</p>
+                                  <p>Your acceptance and retention of this admit card indicate your understanding and
+                                    agreement with
+                                    the terms
+                                    and conditions outlined in this document.</p>
+
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </ng-container>
                       </ng-container>
                     </div>
                     <div class="modal-footer">
-                      <button class="submit-button print-pdf" mat-raised-button
+                      <button *ngIf="selectedStream" class="submit-button print-pdf" mat-raised-button
                         (click)="printStudentData()">Print</button>
                     </div>
                   </div>

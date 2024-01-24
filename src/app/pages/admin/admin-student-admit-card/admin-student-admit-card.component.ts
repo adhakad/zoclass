@@ -13,16 +13,21 @@ import { SchoolService } from 'src/app/services/school.service';
 export class AdminStudentAdmitCardComponent implements OnInit {
 
   allAdmitCards: any[] = [];
+  allAdmitCardsByStream: any[] = [];
   cls: any;
   admitCardInfo: any;
   studentInfo: any;
-  loader:Boolean=true;
-  showModal:Boolean=false;
+  loader: Boolean = true;
+  showModal: Boolean = false;
   admitCardStrInfo: any;
+  admitCardStrInfoByStream: any;
   processedData: any[] = [];
   schoolInfo: any;
   baseURL!: string;
-  constructor(public activatedRoute: ActivatedRoute,private schoolService: SchoolService, private admitCardService: AdmitCardService,private printPdfService: PrintPdfService,private admitCardStructureService:AdmitCardStructureService) {
+  selectedStream: string = '';
+  streamSection: boolean = true;
+  streamMainSubject: any[] = [];
+  constructor(public activatedRoute: ActivatedRoute, private schoolService: SchoolService, private admitCardService: AdmitCardService, private printPdfService: PrintPdfService, private admitCardStructureService: AdmitCardStructureService) {
 
   }
 
@@ -34,12 +39,33 @@ export class AdminStudentAdmitCardComponent implements OnInit {
     var currentURL = window.location.href;
     this.baseURL = new URL(currentURL).origin;
   }
-
-  getAdmitCardStructureByClass(cls:any){
-    this.admitCardStructureService.admitCardStructureByClass(cls).subscribe((res:any) =>{
-      if(res){
+  closeModal() {
+    this.showModal = false;
+    this.streamSection = true;
+    this.selectedStream = '';
+    this.processedData = [];
+  }
+  bulkPrint() {
+    if (this.cls <= 10) {
+      this.selectedStream = 'N/A';
+      this.admitCardStrInfoByStream = this.admitCardStrInfo.filter((item: any) => item.stream === 'N/A');
+      this.processData(this.selectedStream);
+    }
+    this.showModal = true;
+  }
+  selectStream(subject: any) {
+    this.selectedStream = subject;
+    this.admitCardStrInfoByStream = this.admitCardStrInfo.filter((item: any) => item.stream === subject);
+    this.processData(this.selectedStream);
+    this.streamSection = false;
+  }
+  getAdmitCardStructureByClass(cls: any) {
+    this.admitCardStructureService.admitCardStructureByClass(cls).subscribe((res: any) => {
+      if (res) {
         this.admitCardStrInfo = res;
-          this.processData();
+        for(let i=0;i<res.length;i++){
+          this.streamMainSubject.push(res[i].stream);
+        }
       }
     })
   }
@@ -116,12 +142,13 @@ export class AdminStudentAdmitCardComponent implements OnInit {
     return printHtml;
   }
 
-  processData() {
-    for (let i = 0; i < this.admitCardStrInfo[0].examDate.length; i++) {
-      const subject = Object.keys(this.admitCardStrInfo[0].examDate[i])[0];
-      const date = Object.values(this.admitCardStrInfo[0].examDate[i])[0];
-      const startTime = Object.values(this.admitCardStrInfo[0].examStartTime[i])[0];
-      const endTime = Object.values(this.admitCardStrInfo[0].examEndTime[i])[0];
+  processData(selectedStream: any) {
+    this.allAdmitCardsByStream = this.allAdmitCards.filter((item: any) => item.stream === selectedStream);
+    for (let i = 0; i < this.admitCardStrInfoByStream[0].examDate.length; i++) {
+      const subject = Object.keys(this.admitCardStrInfoByStream[0].examDate[i])[0];
+      const date = Object.values(this.admitCardStrInfoByStream[0].examDate[i])[0];
+      const startTime = Object.values(this.admitCardStrInfoByStream[0].examStartTime[i])[0];
+      const endTime = Object.values(this.admitCardStrInfoByStream[0].examEndTime[i])[0];
 
       this.processedData.push({
         subject,
@@ -129,15 +156,8 @@ export class AdminStudentAdmitCardComponent implements OnInit {
         timing: `${startTime} to ${endTime}`
       });
     }
-    
+  }
 
-  }
-  closeModal(){
-    this.showModal = false;
-  }
-  bulkPrint(){
-    this.showModal = true;
-  }
   getStudentAdmitCardByClass(cls: any) {
     this.admitCardService.getAllStudentAdmitCardByClass(cls).subscribe((res: any) => {
       if (res) {
@@ -147,14 +167,15 @@ export class AdminStudentAdmitCardComponent implements OnInit {
         this.studentInfo.forEach((item: any) => {
           studentInfoMap.set(item._id, item);
         });
-        
+
         const combinedData = this.admitCardInfo.reduce((result: any, admitCard: any) => {
           const studentInfo = studentInfoMap.get(admitCard.studentId);
-        
+
           if (studentInfo) {
             result.push({
               studentId: admitCard.studentId,
               class: admitCard.class,
+              stream: admitCard.stream,
               examType: admitCard.examType,
               status: admitCard.status || "",
               name: studentInfo.name,
@@ -164,14 +185,14 @@ export class AdminStudentAdmitCardComponent implements OnInit {
               admissionNo: studentInfo.admissionNo
             });
           }
-        
+
           return result;
         }, []);
         if (combinedData) {
           this.allAdmitCards = combinedData;
-          setTimeout(()=>{
+          setTimeout(() => {
             this.loader = false;
-          },1000)
+          }, 1000)
         }
       }
     })
@@ -184,7 +205,7 @@ export class AdminStudentAdmitCardComponent implements OnInit {
         statusValue: statusValue,
       }
       this.admitCardService.changeStatus(params).subscribe((res: any) => {
-        if(res){
+        if (res) {
           this.getStudentAdmitCardByClass(this.cls);
         }
       })
