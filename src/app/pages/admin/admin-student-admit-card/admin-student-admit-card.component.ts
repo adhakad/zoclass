@@ -79,13 +79,14 @@ export class AdminStudentAdmitCardComponent implements OnInit {
   printStudentData() {
     const printContent = this.getPrintContent();
     this.printPdfService.printContent(printContent);
+    this.closeModal();
   }
   private getPrintContent(): string {
     let schoolName = this.schoolInfo.schoolName;
     let printHtml = '<html>';
     printHtml += '<head>';
     printHtml += '<style>';
-    printHtml += 'body { margin: 0; padding: 0; }'; // Set body styles and hide horizontal overflow
+    printHtml += 'body { margin: 0; padding: 0; }';
     printHtml += 'div { margin: 0; padding: 0;}';
     printHtml += '.custom-container {font-family: Arial, sans-serif;overflow: auto;}';
     printHtml += '.table-container {background-color: #fff;border: none;}';
@@ -99,7 +100,6 @@ export class AdminStudentAdmitCardComponent implements OnInit {
     printHtml += '.title-lable {max-height: 45px;text-align: center;margin-bottom: 15px;border:1px solid #2e2d6a;border-radius: 5px;margin-top: 25px;}';
     printHtml += '.title-lable p {color: #2e2d6a !important;font-size: 15px;font-weight: 500;letter-spacing: 1px;}';
     printHtml += '.codes .school-code  {margin-right:65%;}';
-    // printHtml += '.codes .school-aff p {margin-right:65%;}';
     printHtml += '.custom-table {width: 100%;color: #2e2d6a !important;border-collapse:collapse;font-size: 12px;letter-spacing: .25px;margin-bottom: 20px;display: inline-table;border-radius:5px}';
     printHtml += '.custom-table th{height:38px;text-align: center;border:1px solid #2e2d6a;}';
     printHtml += '.custom-table tr{height:38px;}';
@@ -107,10 +107,9 @@ export class AdminStudentAdmitCardComponent implements OnInit {
     printHtml += '.text-bold { font-weight: bold;}';
     printHtml += 'p {color: #2e2d6a !important;font-size:12px;}'
     printHtml += 'h4 {color: #2e2d6a !important;}'
-
     printHtml += '@media print {';
     printHtml += '  body::after {';
-    printHtml += `    content: "${schoolName}";`; // Change "Watermark" to your desired text or image
+    printHtml += `    content: "${schoolName}";`;
     printHtml += '    position: fixed;';
     printHtml += '    top: 45%;';
     printHtml += '    left:10%;';
@@ -122,7 +121,6 @@ export class AdminStudentAdmitCardComponent implements OnInit {
     printHtml += '    pointer-events: none;';
     printHtml += '  }';
     printHtml += '}';
-    // Add your additional styles here
     printHtml += '</style>';
     printHtml += '</head>';
     printHtml += '<body>';

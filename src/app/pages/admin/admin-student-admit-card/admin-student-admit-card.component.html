@@ -70,12 +70,15 @@
                 <div class="modal-dialog modal-dialog-scrollable" [class.modal-lg]="showModal">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Bulk Admit Card Print Class {{cls | classSuffix}}</h5>
+                      <h5 class="modal-title">Admit Cards Class {{cls | classSuffix}}</h5>
                       <mat-icon matRipple (click)="closeModal()">close</mat-icon>
                     </div>
 
                     <div class="modal-body">
                       <ng-container *ngIf="selectedStream!=='N/A' && cls==11 || cls==12 && streamSection==true">
+                        <ng-container>
+                          <h3>Choose Stream</h3>
+                        </ng-container>
                         <section class="example-section">
                           <div class="row">
                             <div class="col-6" *ngFor="let subject of streamMainSubject,let i=index;">
