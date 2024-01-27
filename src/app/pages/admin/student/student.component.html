@@ -264,6 +264,37 @@
                                 </mat-error>
                               </mat-form-field>
                             </div>
+                            <div class="col-12 col-lg-6">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Date of Admission</mat-label>
+                                <input matInput readonly [matDatepicker]="pickers" formControlName="doa" />
+                                <mat-datepicker-toggle matSuffix [for]="pickers"></mat-datepicker-toggle>
+                                <mat-datepicker #pickers></mat-datepicker>
+                                <mat-error
+                                  *ngIf="studentForm.get('doa')?.hasError('required') && studentForm.get('doa')?.touched">
+                                  Date of Admission is required
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Class According to First Admission </mat-label>
+                                <mat-select matInput formControlName="admissionClass">
+                                  <div *ngFor="let classInfo of classInfo">
+                                    <mat-option value="{{classInfo.class}}">{{classInfo.class | classSuffix}}</mat-option>
+                                  </div>
+                                </mat-select>
+                                <mat-error
+                                  *ngIf="studentForm.get('admissionClass')?.hasError('required') && studentForm.get('admissionClass')?.touched">
+                                  First admission class is required
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="studentForm.get('admissionClass')?.hasError('pattern') && studentForm.get('admissionClass')?.touched">
+                                  Please enter a valid class (numeric characters only)
+                                </mat-error>
+                              </mat-form-field>
+                              
+                            </div>
                             <ng-container>
                               <h3>Student Info</h3>
                             </ng-container>
@@ -1127,9 +1158,9 @@
                                   <p>9. Date of first admission in the school with class</p>
                                 </div>
                                 <div class="col-6">
-                                  <p><span class="text-bold">: &nbsp;&nbsp; 01-07-2020 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentTCInfo.doa}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       Class :
-                                      6th</span></p>
+                                      {{singleStudentTCInfo.admissionClass | classSuffix}}</span></p>
                                 </div>
                               </div>
                               <div class="row">
@@ -1210,7 +1241,7 @@
                                   <p>16. Date of issue of Certificate</p>
                                 </div>
                                 <div class="col-6">
-                                  <p><span class="text-bold">: &nbsp;&nbsp; 01-07-2024</span></p>
+                                  <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentTCInfo.isDate}}</span></p>
                                 </div>
                               </div>
                               <div class="row">

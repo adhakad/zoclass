@@ -17,11 +17,11 @@ const StudentModel = mongoose.model('student', {
         required: true,
         trim: true
     },
-    // admissionClass:{
-    //     type: Number,
-    //     required: true,
-    //     trim: true
-    // },
+    admissionClass:{
+        type: Number,
+        required: true,
+        trim: true
+    },
     admissionNo: {
         type: Number,
         required: true,

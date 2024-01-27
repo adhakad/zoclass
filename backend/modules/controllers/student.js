@@ -90,6 +90,8 @@ let GetStudentAdmissionEnquiryPagination = async (req, res, next) => {
 }
 
 let GetStudentPaginationByClass = async (req, res, next) => {
+    const currentDateIst = DateTime.now().setZone('Asia/Kolkata');
+    let isDate = currentDateIst.toFormat('dd-MM-yyyy');
     let searchText = req.body.filters.searchText;
     let className = req.body.class;
     let searchObj = {};
@@ -116,6 +118,7 @@ let GetStudentPaginationByClass = async (req, res, next) => {
         studentData.studentList = studentList;
         studentData.countStudent = countStudent;
         studentData.serialNo = serialNo;
+        studentData.isDate = isDate;
         return res.json(studentData);
     } catch (error) {
         return res.status(500).json('Internal Server Error !');
@@ -124,7 +127,7 @@ let GetStudentPaginationByClass = async (req, res, next) => {
 
 let GetAllStudentByClass = async (req, res, next) => {
     try {
-        const singleStudent = await StudentModel.find({ class: req.params.class }, '-_id -otp -status -__v').sort({ _id: -1 });
+        let singleStudent = await StudentModel.find({ class: req.params.class }, '-otp -status -__v').sort({ _id: -1 });
         return res.status(200).json(singleStudent);
     } catch (error) {
         return res.status(500).json('Internal Server Error !');
@@ -145,8 +148,7 @@ let CreateStudent = async (req, res, next) => {
     let receiptNo = Math.floor(Math.random() * 899999 + 100000);
     const currentDateIst = DateTime.now().setZone('Asia/Kolkata');
     const istDateTimeString = currentDateIst.toFormat('dd-MM-yyyy hh:mm:ss a');
-    const doa = currentDateIst.toFormat('dd-MM-yyyy');
-    let { name, rollNumber, aadharNumber, samagraId, session, admissionFees, admissionFeesPaymentType, admissionType, stream, admissionNo, dob, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome, createdBy } = req.body;
+    let { name, rollNumber, admissionClass, aadharNumber, samagraId, session, admissionFees, admissionFeesPaymentType, admissionType, stream, admissionNo, dob, doa, gender, category, religion, nationality, contact, address, lastSchool, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome, createdBy } = req.body;
     let className = req.body.class;
     let onlineAdmissionStatus = req.body.status;
     let onlineAdmObjId = req.body._id;
@@ -161,12 +163,21 @@ let CreateStudent = async (req, res, next) => {
     if (stream === "stream") {
         stream = "N/A";
     }
+    if (admissionType == 'New') {
+        doa = currentDateIst.toFormat('dd-MM-yyyy');
+        admissionClass = className;
+    }else{
+        const parsedDate = DateTime.fromFormat(doa, 'dd-MM-yyyy');
+        if (!parsedDate.isValid) {
+            doa = DateTime.fromISO(doa).toFormat("dd-MM-yyyy");
+        }
+    }
     const parsedDate = DateTime.fromFormat(dob, 'dd-MM-yyyy');
     if (!parsedDate.isValid) {
         dob = DateTime.fromISO(dob).toFormat("dd-MM-yyyy");
     }
     const studentData = {
-        name, rollNumber, aadharNumber, samagraId, otp, session, admissionType, stream, admissionNo, class: className, dob: dob, doa: doa, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome, createdBy
+        name, rollNumber, aadharNumber, samagraId, otp, session, admissionType, stream, admissionNo, class: className, admissionClass, dob: dob, doa: doa, gender, category, religion, nationality, contact, address, lastSchool, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome, createdBy
     }
     try {
         const checkFeesStr = await FeesStructureModel.findOne({ class: className });

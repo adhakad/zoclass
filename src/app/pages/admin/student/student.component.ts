@@ -67,6 +67,7 @@ export class StudentComponent implements OnInit {
   singleStudentTCInfo: any
   classSubject: any[] = [];
   serialNo!: number;
+  isDate:string = '';
   readyTC: Boolean = false;
   baseURL!: string;
   constructor(private fb: FormBuilder, public activatedRoute: ActivatedRoute, private printPdfService: PrintPdfService, private schoolService: SchoolService, public ete: ExcelService, private issuedTransferCertificate: IssuedTransferCertificateService, private classService: ClassService, private classSubjectService: ClassSubjectService, private studentService: StudentService) {
@@ -76,10 +77,12 @@ export class StudentComponent implements OnInit {
       admissionNo: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       admissionType: ['', Validators.required],
       class: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      admissionClass: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       stream: ['', Validators.required],
       rollNumber: ['', [Validators.required, Validators.maxLength(8), Validators.pattern('^[0-9]+$')]],
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
       dob: ['', Validators.required],
+      doa: ['', Validators.required],
       aadharNumber: ['', [Validators.required, Validators.pattern('^\\d{12}$')]],
       samagraId: ['', [Validators.required, Validators.pattern('^\\d{9}$')]],
       gender: ['', Validators.required],
@@ -336,6 +339,7 @@ export class StudentComponent implements OnInit {
         if (res) {
           this.studentInfo = res.studentList;
           this.serialNo = res.serialNo;
+          this.isDate = res.isDate;
           this.number = params.page;
           this.paginationValues.next({ type: 'page-init', page: params.page, totalTableRecords: res.countStudent });
           return resolve(true);
@@ -346,6 +350,7 @@ export class StudentComponent implements OnInit {
 
   studentAddUpdate() {
     if (this.studentForm.valid) {
+      console.log(this.studentForm.value)
       if (this.updateMode) {
         this.studentService.updateStudent(this.studentForm.value).subscribe((res: any) => {
           if (res) {
@@ -600,6 +605,7 @@ export class StudentComponent implements OnInit {
   }
   getTC() {
     if (this.tcForm.valid && this.singleStudentInfo) {
+      this.singleStudentInfo.isDate = this.isDate;
       if (!this.tcForm.value.anyOtherRemarks) {
         this.tcForm.value.anyOtherRemarks = 'Nil';
       }
