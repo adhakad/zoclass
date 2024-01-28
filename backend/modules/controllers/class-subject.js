@@ -52,7 +52,6 @@ let GetSingleClassSubjectByStream = async (req, res, next) => {
         if(!classSubjectList){
             return res.status(404).json( 'This class and subject group not found. !' );
         }
-        console.log(classSubjectList)
         return res.status(200).json(classSubjectList);
     } catch (error) {
         return res.status(500).json( 'Internal Server Error !' );

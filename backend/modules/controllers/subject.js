@@ -39,7 +39,7 @@ let GetAllSubject = async (req, res, next) => {
         const subjectList = await SubjectModel.find({})
         return res.status(200).json(subjectList);
     } catch (error) {
-        console.log(error)
+        return res.status(500).json('Internal Server Error !');
     }
 }
 let GetSingleSubject = async (req, res, next) => {

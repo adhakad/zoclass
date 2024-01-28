@@ -40,7 +40,7 @@ let GetAllTeacher = async (req, res, next) => {
         const teacherList = await TeacherModel.find({}).sort({ _id: -1 });
         return res.status(200).json(teacherList);
     } catch (error) {
-        console.log(error)
+        return res.status(500).json('Internal Server Error !');
     }
 }
 let GetSingleTeacher = async (req, res, next) => {
@@ -117,12 +117,6 @@ let TeacherPermission = async (req, res, next) => {
                 feeCollectionClass.push(className);
             }
         }
-
-        // console.log('resultClass:' + resultClass)
-        // console.log('admitCardClass:' + admitCardClass)
-        // console.log('studentClass:' + studentClass)
-        // console.log('admissionClass:' + admissionClass)
-        // console.log('feeCollectionClass:' + feeCollectionClass)
 
         const teacherData = {
             resultPermission: {

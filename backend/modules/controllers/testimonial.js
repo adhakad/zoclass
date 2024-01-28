@@ -39,7 +39,7 @@ let GetAllTestimonial = async(req,res,next) => {
         const testimonialList = await TestimonialModel.find({});
         return res.status(200).json(testimonialList);
     }catch(error){
-        console.log(error)
+        return res.status(500).json('Internal Server Error !');
     }  
 }
 let GetSingleTestimonial = async(req,res,next) => {

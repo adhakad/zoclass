@@ -39,7 +39,7 @@ let GetAllNotification = async (req, res, next) => {
         const notificationList = await NotificationModel.find({ class: req.params.id }).sort({ _id: -1 });
         return res.status(200).json(notificationList);
     } catch (error) {
-        console.log(error)
+        return res.status(500).json('Internal Server Error !');
     }
 }
 let GetSingleNotification = async (req, res, next) => {

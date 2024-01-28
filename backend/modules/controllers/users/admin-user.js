@@ -115,7 +115,6 @@ let VarifyForgotAdmin = async (req, res, next) => {
         }
         return res.status(404).json({ errorMsg: "Application access permissions denied, please contact app development company !" });
     } catch (error) {
-        console.log(error);
         return res.status(500).json('Internal Server Error !');
     }
 }

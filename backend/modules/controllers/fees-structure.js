@@ -124,7 +124,6 @@ let DeleteFeesStructure = async (req, res, next) => {
             return res.status(500).json('Failed to delete Fees structure.');
         }
     } catch (error) {
-        console.error(error);
         return res.status(500).json('Internal Server Error!');
     }
 }

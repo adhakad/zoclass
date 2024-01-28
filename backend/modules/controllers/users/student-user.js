@@ -35,7 +35,6 @@ let SignupStudent = async (req, res, next) => {
             return res.status(200).json('Student register successfully.');
         }
     } catch (error) {
-        console.log(error);
         return res.status(500).json('Internal Server Error !');
     }
 }
@@ -112,7 +111,6 @@ let VarifyForgotStudent = async (req, res, next) => {
         }
 
     } catch (error) {
-        console.log(error);
         return res.status(500).json('Internal Server Error !');
     }
 }
@@ -139,7 +137,6 @@ let VarifyForgotOtp = async (req, res, next) => {
         }
 
     } catch (error) {
-        console.log(error);
         return res.status(500).json('Internal Server Error !');
     }
 }

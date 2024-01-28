@@ -39,7 +39,7 @@ let GetAllTopper = async(req,res,next) => {
         const topperList = await TopperModel.find({});
         return res.status(200).json(topperList);
     }catch(error){
-        console.log(error)
+        return res.status(500).json('Internal Server Error !');
     }  
 }
 let GetSingleTopper = async(req,res,next) => {
