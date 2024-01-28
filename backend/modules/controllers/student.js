@@ -285,14 +285,14 @@ let CreateStudent = async (req, res, next) => {
 let CreateStudentAdmissionEnquiry = async (req, res, next) => {
     const currentDateIst = DateTime.now().setZone('Asia/Kolkata');
     const doae = currentDateIst.toFormat('dd-MM-yyyy');
-    let { name, session, stream, dob, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome } = req.body;
+    let { name, session, stream, dob, gender, category, religion, nationality, contact, address,lastSchool, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome } = req.body;
     let className = req.body.class;
     if (stream === "stream") {
         stream = "N/A";
     }
     dob = DateTime.fromISO(dob).toFormat("dd-MM-yyyy");
     const studentData = {
-        name, session, stream, class: className, dob: dob, doae: doae, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome
+        name, session, stream, class: className, dob: dob, doae: doae, gender, category, religion, nationality, contact, address,lastSchool, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome
     }
     try {
         const checkContact = await AdmissionEnquiryModel.findOne({ name: name, contact: contact });
