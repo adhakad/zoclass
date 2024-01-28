@@ -286,6 +286,7 @@ export class StudentComponent implements OnInit {
     this.classSubjectService.getSingleClassSubjectByStream(params).subscribe((res: any) => {
       if (res) {
         this.classSubject = res.subject;
+        console.log(this.classSubject)
       }
       if (!res) {
         this.classSubject = [];

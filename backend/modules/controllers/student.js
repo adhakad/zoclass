@@ -6,6 +6,7 @@ const FeesStructureModel = require('../models/fees-structure');
 const FeesCollectionModel = require('../models/fees-collection');
 const AdmitCardModel = require('../models/admit-card');
 const ExamResultModel = require('../models/exam-result');
+const ClassSubjectModal = require('../models/class-subject');
 const IssuedTransferCertificateModel = require('../models/issued-transfer-certificate');
 const { DateTime } = require('luxon');
 
@@ -183,6 +184,10 @@ let CreateStudent = async (req, res, next) => {
         const checkFeesStr = await FeesStructureModel.findOne({ class: className });
         if (!checkFeesStr) {
             return res.status(404).json(`Please create fees structure for this class !`);
+        }
+        const checkClassSubject = await ClassSubjectModal.findOne({ class: className,stream:stream });
+        if (!checkClassSubject) {
+            return res.status(404).json(`Please group subjects according to class and stream !`);
         }
         const checkAadharNumber = await StudentModel.findOne({ aadharNumber: aadharNumber });
         if (checkAadharNumber) {
