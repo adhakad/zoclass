@@ -22,8 +22,8 @@ let GetSingleSchool = async (req, res, next) => {
     }
 }
 let CreateSchool = async (req, res, next) => {
-    let { schoolName, affiliationNumber, schoolCode, foundedYear, board, medium, street, city, state, country, pinCode, phoneOne, phoneSecond, email, facebookLink, linkedinLink, instagramLink, youtubeLink } = req.body;
-    const schoolData = { schoolName, affiliationNumber, schoolCode, foundedYear, board, medium, street, city, state, country, pinCode, phoneOne, phoneSecond, email, facebookLink, linkedinLink, instagramLink, youtubeLink };
+    let { schoolName, affiliationNumber, schoolCode, foundedYear, board, medium, street, city, district, state, country, pinCode, phoneOne, phoneSecond, email, facebookLink, linkedinLink, instagramLink, youtubeLink } = req.body;
+    const schoolData = { schoolName, affiliationNumber, schoolCode, foundedYear, board, medium, street, city, district, state, country, pinCode, phoneOne, phoneSecond, email, facebookLink, linkedinLink, instagramLink, youtubeLink };
     try {
         let countSchool = await SchoolModel.count();
         if (countSchool > 0) {

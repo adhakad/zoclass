@@ -30,6 +30,7 @@ export class SchoolComponent implements OnInit {
       medium: ['', [Validators.required, Validators.maxLength(50)]],
       street: ['', [Validators.required, Validators.maxLength(100)]],
       city: ['', [Validators.required, Validators.maxLength(50)]],
+      district: ['', [Validators.required, Validators.maxLength(50)]],
       state: ['', [Validators.required, Validators.maxLength(50)]],
       pinCode: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
       phoneOne: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^\d+$/)]],
