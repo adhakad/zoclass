@@ -17,6 +17,7 @@ export class AdmissionComponent implements OnInit {
   @ViewChild('receipt') receipt!: ElementRef;
   studentForm: FormGroup;
   showModal: boolean = false;
+  showAdmissionPrintModal:boolean = false;
   updateMode: boolean = false;
   deleteMode: boolean = false;
   deleteById: String = '';
@@ -45,7 +46,9 @@ export class AdmissionComponent implements OnInit {
   clsFeesStructure: any;
   schoolInfo: any;
   admissionrReceiptInfo: any;
+  singleStudentInfo:any;
   receiptMode: boolean = false;
+  baseURL!: string;
   loader: Boolean = true;
   constructor(private fb: FormBuilder, private schoolService: SchoolService, private printPdfService: PrintPdfService, private classService: ClassService, private studentService: StudentService, private feesStructureService: FeesStructureService) {
     this.studentForm = this.fb.group({
@@ -94,17 +97,82 @@ export class AdmissionComponent implements OnInit {
         this.loader = false;
       }, 1000);
     }
+    var currentURL = window.location.href;
+    this.baseURL = new URL(currentURL).origin;
   }
   printReceipt() {
     this.printPdfService.printElement(this.receipt.nativeElement);
     this.closeModal();
   }
+  printStudentData() {
+    const printContent = this.getPrintContent();
+    this.printPdfService.printContent(printContent);
+    this.closeModal();
+  }
+  private getPrintContent(): string {
+    let schoolName = this.schoolInfo.schoolName;
+    let city = this.schoolInfo.city;
+    let printHtml = '<html>';
+    printHtml += '<head>';
+    printHtml += '<style>';
+    printHtml += 'body { margin: 0; padding: 0; }';
+    printHtml += 'div { margin: 0; padding: 0;}';
+    printHtml += '.custom-container {font-family: Arial, sans-serif;overflow: auto;}';
+    printHtml += '.table-container {background-color: #fff;border: none;}';
+    printHtml += '.school-name {display: flex; align-items: center; justify-content: center; text-align: center; }';
+    printHtml += '.address{margin-left:100px;margin-top: -65px;}';
+    printHtml += '.address p{margin-top: -5px !important;}';
+    printHtml += '.logo { height: 100px; }';
+    printHtml += '.school-name h3 { color: #2e2d6a !important; font-size: 20px !important; margin-left: 15px;margin-top:-65px !important; margin-bottom: 0 !important; }';
+    // printHtml += '.info-table {width:100%;color: #2e2d6a !important;border: none;font-size: 12px;letter-spacing: .25px;margin-top: 5vh;margin-bottom: 5vh;display: inline-table;}';
+    // printHtml += '.info-table th{border:1px solid #2e2d6a;}';
+    // printHtml += '.info-table tr{height:38px;}';
+    // printHtml += '.info-table {border:1px solid #2e2d6a;}';
+    printHtml += '.table-container .info-table th, .table-container .info-table td{color: #2e2d6a !important;text-align:center}';
+    printHtml += '.title-lable {max-height: 45px;text-align: center;margin-bottom: 15px;border:1px solid #2e2d6a;border-radius: 5px;margin-top: 25px;}';
+    printHtml += '.title-lable p {color: #2e2d6a !important;font-size: 15px;font-weight: 500;letter-spacing: 1px;}';
+    printHtml += '.custom-table {width: 100%;margin-top:30px;color: #2e2d6a !important;border-collapse:collapse;font-size: 12px;letter-spacing: .25px;margin-bottom: 20px;display: inline-table;border-radius:5px}';
+    printHtml += '.custom-table th{border:1px solid #2e2d6a;}';
+    printHtml += '.custom-table tr{height:35px;}';
+    printHtml += '.custom-table td {padding-left:25px;border:1px solid #2e2d6a;}';
+    printHtml += '.text-bold { font-weight: bold;}';
+    printHtml += 'p {color: #2e2d6a !important;font-size:12px;}'
+    printHtml += 'h4 {color: #2e2d6a !important;}'
+    printHtml += '@media print {';
+    printHtml += '  body::after {';
+    printHtml += `    content: "${schoolName}, ${city}";`;
+    printHtml += '    position: fixed;';
+    printHtml += '    top: 45%;';
+    printHtml += '    left:10%;';
+    // printHtml += '    transform: translate(-50%, -50%);';
+    printHtml += '    font-size: 20px;';
+    printHtml += '    font-weight: bold;';
+    printHtml += '    font-family: Arial, sans-serif;';
+    printHtml += '    color: rgba(0, 0, 0, 0.1);';
+    printHtml += '    pointer-events: none;';
+    printHtml += '  }';
+    printHtml += '}';
+    printHtml += '</style>';
+    printHtml += '</head>';
+    printHtml += '<body>';
+      const studentElement = document.getElementById(`student`);
+      if (studentElement) {
+        printHtml += studentElement.outerHTML;
+      }
+    printHtml += '</body></html>';
+    return printHtml;
+  }
+
   getSchool() {
     this.schoolService.getSchool().subscribe((res: any) => {
       if (res) {
         this.schoolInfo = res;
       }
     })
+  }
+  addPrintModal(student:any){
+    this.singleStudentInfo = student;
+    this.showAdmissionPrintModal = true;
   }
   chooseClass(event: any) {
     this.errorCheck = false;
@@ -178,6 +246,7 @@ export class AdmissionComponent implements OnInit {
 
   closeModal() {
     this.showModal = false;
+    this.showAdmissionPrintModal = false;
     this.updateMode = false;
     this.deleteMode = false;
     this.errorMsg = '';
