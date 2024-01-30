@@ -454,95 +454,58 @@ let CreateBulkStudentRecord = async (req, res, next) => {
             });
         });
 
-
-        //     const createStudent = await StudentModel.create(studentData);
-
-        //     let admissionFees = checkFeesStr.admissionFees;
-        //     let totalFees = checkFeesStr.totalFees;
-        //     let studentFeesData = [];
-        //     for (let i = 0; i < createStudent.length; i++) {
-        //         let student = createStudent[i];
-        //         let feesObject = {
-        //             studentId: student._id,
-        //             class: student.class,
-        //             admissionFeesPayable: false,
-        //             admissionFees: 0,
-        //             totalFees: totalFees,
-        //             paidFees: 0,
-        //             dueFees: totalFees,
-        //             receipt: installment,
-        //             installment: installment,
-        //             paymentDate: installment,
-        //             createdBy: installment,
-        //         };
-        //         if (student.admissionType === 'New') {
-        //             feesObject.admissionFeesPayable = true;
-        //             feesObject.totalFees += admissionFees;
-        //             feesObject.dueFees += admissionFees;
-        //         }
-        //         studentFeesData.push(feesObject);
-        //     }
-        //     if (createStudent && studentFeesData.length > 0) {
-        //         const createStudentFeesData = await FeesCollectionModel.create(studentFeesData);
-        //         if (createStudentFeesData) {
-        //             return res.status(200).json('Student created successfully.');
-        //         }
-        //     }
-        // } catch (error) {
-        //     return res.status(500).json('Internal Server Error !');
-        // }
         const createStudent = await StudentModel.create(studentData, { session });
 
-    let admissionFees = checkFeesStr.admissionFees;
-    let totalFees = checkFeesStr.totalFees;
-    let studentFeesData = [];
+        let admissionFees = checkFeesStr.admissionFees;
+        let totalFees = checkFeesStr.totalFees;
+        let studentFeesData = [];
 
-    for (let i = 0; i < createStudent.length; i++) {
-        let student = createStudent[i];
-        let feesObject = {
-            studentId: student._id,
-            class: student.class,
-            admissionFeesPayable: false,
-            admissionFees: 0,
-            totalFees: totalFees,
-            paidFees: 0,
-            dueFees: totalFees,
-            receipt: installment,
-            installment: installment,
-            paymentDate: installment,
-            createdBy: installment,
-        };
+        for (let i = 0; i < createStudent.length; i++) {
+            let student = createStudent[i];
+            let feesObject = {
+                studentId: student._id,
+                class: student.class,
+                admissionFeesPayable: false,
+                admissionFees: 0,
+                totalFees: totalFees,
+                paidFees: 0,
+                dueFees: totalFees,
+                receipt: installment,
+                installment: installment,
+                paymentDate: installment,
+                createdBy: installment,
+            };
 
-        if (student.admissionType === 'New') {
-            feesObject.admissionFeesPayable = true;
-            feesObject.totalFees += admissionFees;
-            feesObject.dueFees += admissionFees;
+            if (student.admissionType === 'New') {
+                feesObject.admissionFeesPayable = true;
+                feesObject.totalFees += admissionFees;
+                feesObject.dueFees += admissionFees;
+            }
+
+            studentFeesData.push(feesObject);
         }
 
-        studentFeesData.push(feesObject);
-    }
+        if (createStudent && studentFeesData.length > 0) {
+            const createStudentFeesData = await FeesCollectionModel.create(studentFeesData, { session });
 
-    if (createStudent && studentFeesData.length > 0) {
-        const createStudentFeesData = await FeesCollectionModel.create(studentFeesData, { session });
-
-        if (createStudentFeesData) {
-            await session.commitTransaction();
-            session.endSession();
-            return res.status(200).json('Student created successfully.');
+            if (createStudentFeesData) {
+                await session.commitTransaction();
+                session.endSession();
+                return res.status(200).json('Student created successfully.');
+            }
         }
-    }
 
-    // If anything goes wrong, roll back the transaction
-    await session.abortTransaction();
-    session.endSession();
-    return res.status(500).json('Error creating student and fees data.');
-} catch (error) {
-    // Handle any errors that occurred during the transaction
-    await session.abortTransaction();
-    session.endSession();
-    console.error(error);
-    return res.status(500).json('Internal Server Error!');
-}      
+        // If anything goes wrong, roll back the transaction
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(500).json('Error creating student and fees data.');
+    } catch (error) {
+        // Handle any errors that occurred during the transaction
+        await session.abortTransaction();
+        session.endSession();
+        console.error(error);
+        return res.status(500).json('Internal Server Error!');
+    }
 }
 
 let UpdateStudent = async (req, res, next) => {
