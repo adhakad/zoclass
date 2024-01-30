@@ -318,6 +318,7 @@ export class StudentComponent implements OnInit {
         }
         this.studentInfoByClass.forEach((student) => {
           student.class = classMappings[student.class] || "Unknown";
+          student.admissionClass = classMappings[student.admissionClass] || "Unknown";
         });
       }
     })
@@ -529,6 +530,7 @@ export class StudentComponent implements OnInit {
       'doa',
       'session',
       'admissionType',
+      'admissionClass',
       'gender',
       'category',
       'religion',

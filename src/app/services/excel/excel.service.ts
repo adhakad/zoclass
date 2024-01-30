@@ -9,7 +9,8 @@ export class ExcelService {
 
   constructor() { }
   exportExcel(excelData: { title: any; data: any; headers: any ,fileName:any}) {
-    console.log(excelData.title);
+    let currentURL = window.location.href;
+    let baseURL = new URL(currentURL).origin;
     //Title, Header & Data
     const title = excelData.title;
     const header = excelData.headers;
@@ -103,7 +104,7 @@ export class ExcelService {
     }
     worksheet.addRow([]);
     let footerRow = worksheet.addRow([
-      'Students Record Generated from zoclass.in at ' + date,
+      `Students Record Generated from ${baseURL} at ${date}`,
     ]);
     footerRow.getCell(1).fill = {
       type: 'pattern',

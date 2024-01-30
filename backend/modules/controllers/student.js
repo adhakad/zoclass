@@ -167,7 +167,7 @@ let CreateStudent = async (req, res, next) => {
     if (admissionType == 'New') {
         doa = currentDateIst.toFormat('dd-MM-yyyy');
         admissionClass = className;
-    }else{
+    } else {
         const parsedDate = DateTime.fromFormat(doa, 'dd-MM-yyyy');
         if (!parsedDate.isValid) {
             doa = DateTime.fromISO(doa).toFormat("dd-MM-yyyy");
@@ -185,7 +185,7 @@ let CreateStudent = async (req, res, next) => {
         if (!checkFeesStr) {
             return res.status(404).json(`Please create fees structure for this class !`);
         }
-        const checkClassSubject = await ClassSubjectModal.findOne({ class: className,stream:stream });
+        const checkClassSubject = await ClassSubjectModal.findOne({ class: className, stream: stream });
         if (!checkClassSubject) {
             return res.status(404).json(`Please group subjects according to class and stream !`);
         }
@@ -290,14 +290,14 @@ let CreateStudent = async (req, res, next) => {
 let CreateStudentAdmissionEnquiry = async (req, res, next) => {
     const currentDateIst = DateTime.now().setZone('Asia/Kolkata');
     const doae = currentDateIst.toFormat('dd-MM-yyyy');
-    let { name, session, stream, dob, gender, category, religion, nationality, contact, address,lastSchool, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome } = req.body;
+    let { name, session, stream, dob, gender, category, religion, nationality, contact, address, lastSchool, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome } = req.body;
     let className = req.body.class;
     if (stream === "stream") {
         stream = "N/A";
     }
     dob = DateTime.fromISO(dob).toFormat("dd-MM-yyyy");
     const studentData = {
-        name, session, stream, class: className, dob: dob, doae: doae, gender, category, religion, nationality, contact, address,lastSchool, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome
+        name, session, stream, class: className, dob: dob, doae: doae, gender, category, religion, nationality, contact, address, lastSchool, fatherName, fatherQualification, fatherOccupation, fatherContact, fatherAnnualIncome, motherName, motherQualification, motherOccupation, motherContact, motherAnnualIncome
     }
     try {
         const checkContact = await AdmissionEnquiryModel.findOne({ name: name, contact: contact });
@@ -336,7 +336,8 @@ let CreateBulkStudentRecord = async (req, res, next) => {
         "12th": 12,
     };
     bulkStudentRecord.forEach((student) => {
-        student.class = classMappings[student.class] || "Unknown";
+        student.class = parseInt(classMappings[student.class] || "Unknown");
+        student.admissionClass = parseInt(classMappings[student.admissionClass] || "Unknown");
     });
     let studentData = [];
     for (const student of bulkStudentRecord) {
@@ -352,6 +353,7 @@ let CreateBulkStudentRecord = async (req, res, next) => {
             stream: student.stream,
             admissionNo: student.admissionNo,
             class: student.class,
+            admissionClass: student.admissionClass,
             dob: student.dob,
             doa: student.doa,
             gender: student.gender,
@@ -370,9 +372,11 @@ let CreateBulkStudentRecord = async (req, res, next) => {
             motherOccupation: student.motherOccupation,
             motherContact: student.motherContact,
             motherAnnualIncome: student.motherAnnualIncome,
-            collectedBy: createdBy,
+            createdBy: createdBy,
         });
     }
+    const session = await StudentModel.startSession();
+    session.startTransaction();
     try {
 
         if (studentData.length > 100) {
@@ -449,41 +453,96 @@ let CreateBulkStudentRecord = async (req, res, next) => {
                 item[key] = 0;
             });
         });
-        const createStudent = await StudentModel.create(studentData);
-        let admissionFees = checkFeesStr.admissionFees;
-        let totalFees = checkFeesStr.totalFees;
-        let studentFeesData = [];
-        for (let i = 0; i < createStudent.length; i++) {
-            let student = createStudent[i];
-            let feesObject = {
-                studentId: student._id,
-                class: student.class,
-                admissionFeesPayable: false,
-                admissionFees: 0,
-                totalFees: totalFees,
-                paidFees: 0,
-                dueFees: totalFees,
-                receipt: installment,
-                installment: installment,
-                paymentDate: installment,
-                createdBy: installment,
-            };
-            if (student.admissionType === 'New') {
-                feesObject.admissionFeesPayable = true;
-                feesObject.totalFees += admissionFees;
-                feesObject.dueFees += admissionFees;
-            }
-            studentFeesData.push(feesObject);
+
+
+        //     const createStudent = await StudentModel.create(studentData);
+
+        //     let admissionFees = checkFeesStr.admissionFees;
+        //     let totalFees = checkFeesStr.totalFees;
+        //     let studentFeesData = [];
+        //     for (let i = 0; i < createStudent.length; i++) {
+        //         let student = createStudent[i];
+        //         let feesObject = {
+        //             studentId: student._id,
+        //             class: student.class,
+        //             admissionFeesPayable: false,
+        //             admissionFees: 0,
+        //             totalFees: totalFees,
+        //             paidFees: 0,
+        //             dueFees: totalFees,
+        //             receipt: installment,
+        //             installment: installment,
+        //             paymentDate: installment,
+        //             createdBy: installment,
+        //         };
+        //         if (student.admissionType === 'New') {
+        //             feesObject.admissionFeesPayable = true;
+        //             feesObject.totalFees += admissionFees;
+        //             feesObject.dueFees += admissionFees;
+        //         }
+        //         studentFeesData.push(feesObject);
+        //     }
+        //     if (createStudent && studentFeesData.length > 0) {
+        //         const createStudentFeesData = await FeesCollectionModel.create(studentFeesData);
+        //         if (createStudentFeesData) {
+        //             return res.status(200).json('Student created successfully.');
+        //         }
+        //     }
+        // } catch (error) {
+        //     return res.status(500).json('Internal Server Error !');
+        // }
+        const createStudent = await StudentModel.create(studentData, { session });
+
+    let admissionFees = checkFeesStr.admissionFees;
+    let totalFees = checkFeesStr.totalFees;
+    let studentFeesData = [];
+
+    for (let i = 0; i < createStudent.length; i++) {
+        let student = createStudent[i];
+        let feesObject = {
+            studentId: student._id,
+            class: student.class,
+            admissionFeesPayable: false,
+            admissionFees: 0,
+            totalFees: totalFees,
+            paidFees: 0,
+            dueFees: totalFees,
+            receipt: installment,
+            installment: installment,
+            paymentDate: installment,
+            createdBy: installment,
+        };
+
+        if (student.admissionType === 'New') {
+            feesObject.admissionFeesPayable = true;
+            feesObject.totalFees += admissionFees;
+            feesObject.dueFees += admissionFees;
         }
-        if (createStudent && studentFeesData.length > 0) {
-            const createStudentFeesData = await FeesCollectionModel.create(studentFeesData);
-            if (createStudentFeesData) {
-                return res.status(200).json('Student created successfully.');
-            }
-        }
-    } catch (error) {
-        return res.status(500).json('Internal Server Error !');
+
+        studentFeesData.push(feesObject);
     }
+
+    if (createStudent && studentFeesData.length > 0) {
+        const createStudentFeesData = await FeesCollectionModel.create(studentFeesData, { session });
+
+        if (createStudentFeesData) {
+            await session.commitTransaction();
+            session.endSession();
+            return res.status(200).json('Student created successfully.');
+        }
+    }
+
+    // If anything goes wrong, roll back the transaction
+    await session.abortTransaction();
+    session.endSession();
+    return res.status(500).json('Error creating student and fees data.');
+} catch (error) {
+    // Handle any errors that occurred during the transaction
+    await session.abortTransaction();
+    session.endSession();
+    console.error(error);
+    return res.status(500).json('Internal Server Error!');
+}      
 }
 
 let UpdateStudent = async (req, res, next) => {
