@@ -29,10 +29,14 @@ Header section
     0 0 0 1px #4d5c7615,
     0 0 4px 0 #64748d15;
 }
-
+.header .logo {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .header .logo img {
-  height: 40px;
-  margin-top: -8px;
+  height: 50px;
+  /* margin-top: -8px; */
+  margin-left: 0px;
 }
 
 .header .logo span {
@@ -456,8 +460,8 @@ Header section
 
   .header .logo img {
     height: 48px;
-    margin-top: -8px;
-    margin-right: 10px;
+    /* margin-top: -8px; */
+    margin-left: 50px;
   }
 
   .header .logo span {
