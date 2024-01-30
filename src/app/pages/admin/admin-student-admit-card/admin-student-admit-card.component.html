@@ -50,7 +50,7 @@
                       <p class="mb-0">{{students.class | classSuffix}}</p>
                     </td>
                     <td>
-                      <p class="mb-0">{{students.stream | uppercase}}</p>
+                      <p class="mb-0">{{students.stream | titlecase}}</p>
                     </td>
                     <td>
                       <p class="mb-0">{{students.examType | titlecase}}</p>
@@ -116,17 +116,14 @@
                                     <p>{{student?.examType | uppercase}} EXAM ADMIT CARD</p>
                                   </div>
                                 </div>
-                                <div class="row codes" style="display: flex;">
-                                  <div class="col-6 school-code">
-                                    <p style="text-align: left;">School Code <span class="text-bold">:
-                                        {{schoolInfo?.schoolCode}}</span></p>
-                                  </div>
-                                  <div class="col-6 school-aff">
-                                    <p style="text-align: right;">Affiliation No.<span class="text-bold">:
-                                        {{schoolInfo?.affiliationNumber}}</span>
-                                    </p>
-                                  </div>
-                                </div>
+                                <table class="custom-table" style="margin-top: -10px;margin-bottom:10px;border: none;">
+                                  <tr>
+                                    <td style="width:10%;padding: 0;text-align: left;border: none;">School Code<span
+                                        class="text-bold">: {{schoolInfo?.schoolCode}}</span></td>
+                                    <td style="width:40%;padding: 0;text-align: right;border: none;">Affiliation
+                                      No.<span class="text-bold">: {{schoolInfo?.affiliationNumber}}</span></td>
+                                  </tr>
+                                </table>
                                 <table class="info-table">
                                   <tr>
                                     <th>Admission No. :</th>

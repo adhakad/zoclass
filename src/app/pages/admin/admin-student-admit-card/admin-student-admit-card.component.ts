@@ -83,6 +83,7 @@ export class AdminStudentAdmitCardComponent implements OnInit {
   }
   private getPrintContent(): string {
     let schoolName = this.schoolInfo.schoolName;
+    let city = this.schoolInfo.city;
     let printHtml = '<html>';
     printHtml += '<head>';
     printHtml += '<style>';
@@ -109,7 +110,7 @@ export class AdminStudentAdmitCardComponent implements OnInit {
     printHtml += 'h4 {color: #2e2d6a !important;}'
     printHtml += '@media print {';
     printHtml += '  body::after {';
-    printHtml += `    content: "${schoolName}";`;
+    printHtml += `    content: "${schoolName}, ${city}";`;
     printHtml += '    position: fixed;';
     printHtml += '    top: 45%;';
     printHtml += '    left:10%;';
