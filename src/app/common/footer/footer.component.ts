@@ -15,7 +15,7 @@ export class FooterComponent implements OnInit {
   linkedin!:string;
   instagram!:string;
   youtube!:string;
-  softwareCompanyLink:string='https://www.linkedin.com/in/abhishek-dhakad-53360216b/';
+  softwareCompanyLink:string='https://schooliya.in';
   constructor(private schoolService:SchoolService) { }
 
   ngOnInit(): void {

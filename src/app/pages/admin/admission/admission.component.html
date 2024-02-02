@@ -11,12 +11,12 @@
             <div class="main-card">
               <div class="row mt-4 mb-2">
                 <div class="col-8 col-lg-5">
-                  <input type="text" class="form-control" placeholder="Student Search..." id="searchText"
+                  <input type="text" class="form-control" placeholder="New Admission Search..." id="searchText"
                     name="searchText" #searchText="ngModel" [(ngModel)]="filters.searchText"
                     (keyup)="getStudentsByAdmission({page : 1, limit : 0})">
                 </div>
                 <div class="col-4 col-lg-2 offset-lg-5">
-                  <button class="submit-button" mat-raised-button
+                  <button class="submit-button print-pdf" mat-raised-button
                     (click)="addStudentModel()"><mat-icon>add</mat-icon>Create</button>
                 </div>
               </div>
@@ -32,7 +32,7 @@
                     <th>Otp</th>
                     <th>Session</th>
                     <th>Admission By</th>
-                    <th>Admission</th>
+                    <th>Print</th>
                   </tr>
                 </thead>
                 <tbody *ngIf="studentInfo && studentInfo.length>0">
@@ -66,7 +66,7 @@
                     </td>
                     <td>
                       <button style="background-color: transparent;color: #8d6dff;border: 1px solid #8d6dff;"
-                        class="submit-button" mat-raised-button (click)="addPrintModal(students)"><mat-icon
+                        class="submit-button print-pdf" mat-raised-button (click)="addPrintModal(students)"><mat-icon
                           style="font-size: 20px;color: #8d6dff;">print</mat-icon> Print</button>
                     </td>
                   </tr>

@@ -46,7 +46,7 @@ export class AdminStudentAdmitCardComponent implements OnInit {
     this.processedData = [];
   }
   bulkPrint() {
-    if (this.cls <= 10) {
+    if (this.cls <= 10 || this.cls == 200 || this.cls==201 || this.cls == 202) {
       this.selectedStream = 'N/A';
       this.admitCardStrInfoByStream = this.admitCardStrInfo.filter((item: any) => item.stream === 'N/A');
       this.processData(this.selectedStream);

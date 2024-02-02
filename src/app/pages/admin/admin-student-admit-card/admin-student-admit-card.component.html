@@ -15,7 +15,7 @@
                       {{cls | classSuffix}}</span></h3>
                 </div>
                 <div class="col-4 col-lg-2 offset-lg-5">
-                  <button class="submit-button" mat-raised-button (click)="bulkPrint()"><mat-icon
+                  <button class="submit-button print-pdf" mat-raised-button (click)="bulkPrint()"><mat-icon
                       style="font-size: 20px;">print</mat-icon> Bulk Print</button>
                 </div>
               </div>
@@ -90,8 +90,8 @@
                       </ng-container>
 
                       <ng-container *ngIf="selectedStream">
-                        <ng-container *ngFor="let student of allAdmitCardsByStream">
-                          <div id="student-{{student.studentId}}">
+                        <ng-container *ngFor="let student of allAdmitCardsByStream,let i = index;">
+                          <p>{{i+1}}.</p><div id="student-{{student.studentId}}">
                             <div class="col-lg-10 offset-lg-1 custom-container">
                               <div class="table-container">
                                 <div class="row text-center">
