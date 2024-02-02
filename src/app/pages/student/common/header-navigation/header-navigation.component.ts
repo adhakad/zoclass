@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { StudentAuthService } from 'src/app/services/auth/student-auth.service';
+import { TeacherAuthService } from 'src/app/services/auth/teacher-auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,9 +12,20 @@ import { environment } from 'src/environments/environment';
 export class HeaderNavigationComponent implements OnInit {
   public schoolName = environment.SCHOOL_NAME;
   nav:boolean = false;
-  constructor() {}
+  token: string = '';
+  isStudentAuthenticated = false;
+  private authListenerSubs: Subscription | undefined;
+
+  constructor(private studentAuthService: StudentAuthService) {}
 
   ngOnInit(): void {
+    this.studentAuthService.autoAuthStudent();
+    this.isStudentAuthenticated = this.studentAuthService.getIsAuth();
+    this.authListenerSubs = this.studentAuthService
+      .getAuthStatusListener()
+      .subscribe(isStudentAuthenticated => {
+        this.isStudentAuthenticated = isStudentAuthenticated;
+      });
   }
 
   hamburgerMenu(val:boolean){
@@ -20,5 +34,13 @@ export class HeaderNavigationComponent implements OnInit {
     }else if(val==false){
       this.nav = false;
     }
+  }
+  onLogout(user: string) {
+    if (user === 'student') {
+      this.studentAuthService.logout();
+    }
+  }
+  ngOnDestroy() {
+    this.authListenerSubs?.unsubscribe();
   }
 }

@@ -15,7 +15,12 @@
       </svg>
     </button>
   </div>
-  <div class="col-lg-6"></div>
+  <div class="main-menu col-lg-6" style="text-align: right;padding-right: 25px;">
+    <button mat-button *ngIf="isStudentAuthenticated" (click)="onLogout('student')">
+      <mat-icon>logout</mat-icon>
+      <span>&nbsp;Logout</span>
+    </button>
+  </div>
 </mat-toolbar>
 <div [ngClass]="{'top-hamburger-menu' : false==nav}">
   <mat-toolbar class="hamburger-menu">
@@ -35,6 +40,10 @@
       <button mat-menu-item class="menu-button" [routerLink]="['/student/result']" routerLinkActive="active-link">
         <mat-icon>content_paste_search</mat-icon>
         <span>Exam Result</span>
+      </button>
+      <button mat-menu-item class="menu-button" *ngIf="isStudentAuthenticated" (click)="onLogout('student')">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
       </button>
   </mat-toolbar>
 </div>

@@ -92,18 +92,18 @@
     <mat-icon>dashboard</mat-icon>
     <span>Student Dashboard</span>
   </button>
-  <button mat-menu-item *ngIf="isAdminAuthenticated" (click)="onLogout('admin')">
+  <!-- <button mat-menu-item *ngIf="isAdminAuthenticated" (click)="onLogout('admin')">
     <mat-icon>logout</mat-icon>
     <span>Logout</span>
-  </button>
-  <button mat-menu-item *ngIf="isTeacherAuthenticated" (click)="onLogout('teacher')">
+  </button> -->
+  <!-- <button mat-menu-item *ngIf="isTeacherAuthenticated" (click)="onLogout('teacher')">
     <mat-icon>logout</mat-icon>
     <span>Logout</span>
   </button>
   <button mat-menu-item *ngIf="isStudentAuthenticated" (click)="onLogout('student')">
     <mat-icon>logout</mat-icon>
     <span>Logout</span>
-  </button>
+  </button> -->
 </mat-menu>
 
 
@@ -167,18 +167,18 @@
       <mat-icon>dashboard</mat-icon>
       <span>Student Dashboard</span>
     </button>
-    <button mat-menu-item *ngIf="isAdminAuthenticated" (click)="onLogout('admin')">
+    <!-- <button mat-menu-item *ngIf="isAdminAuthenticated" (click)="onLogout('admin')">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
-    </button>
-    <button mat-menu-item *ngIf="isTeacherAuthenticated" (click)="onLogout('teacher')">
+    </button> -->
+    <!-- <button mat-menu-item *ngIf="isTeacherAuthenticated" (click)="onLogout('teacher')">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>
     <button mat-menu-item *ngIf="isStudentAuthenticated" (click)="onLogout('student')">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
-    </button>
+    </button> -->
   </mat-toolbar>
 </div>
 
@@ -205,7 +205,7 @@
 
     <div class="modal-content" *ngIf="!successMsg">
       <div class="modal-header">
-        <h5 class="modal-title">New Admission</h5>
+        <h5 class="modal-title">Online Admission Form</h5>
         <mat-icon matRipple (click)="closeModal()">close</mat-icon>
       </div>
 

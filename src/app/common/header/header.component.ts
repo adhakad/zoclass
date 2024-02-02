@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showModal: boolean = false;
   studentForm: FormGroup;
   public schoolName = environment.SCHOOL_NAME;
-  nav:boolean = false;
-  panelOpenState:boolean = false
+  nav: boolean = false;
+  panelOpenState: boolean = false
 
   token: string = '';
   isAdminAuthenticated = false;
@@ -53,38 +53,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
   streamMainSubject: any[] = ['Mathematics(Science)', 'Biology(Science)', 'History(Arts)', 'Sociology(Arts)', 'Political Science(Arts)', 'Accountancy(Commerce)', 'Economics(Commerce)', 'Agriculture', 'Home Science'];
   cls: number = 0;
 
-  ModulesList: any = [{
-    label: 'User',
-    children: [{
-      label: 'User 1',
-    }, {
-      label: 'User 2',
-    }, {
-      label: 'User 3'
-    }, {
-      label: 'User 4'
-    }]
-  }, {
-    label: 'Management',
-    children: [{
-      label: 'Management 1',
-    }]
-  }, {
-    label: 'Admin',
-    children: [{
-      label: 'Admin 1'
-    }, {
-      label: 'Admin 2'
-    }, {
-      label: 'Admin 3'
-    }, {
-      label: 'Admin 4'
-    }]
-  }];
+  // ModulesList: any = [{
+  //   label: 'User',
+  //   children: [{
+  //     label: 'User 1',
+  //   }, {
+  //     label: 'User 2',
+  //   }, {
+  //     label: 'User 3'
+  //   }, {
+  //     label: 'User 4'
+  //   }]
+  // }, {
+  //   label: 'Management',
+  //   children: [{
+  //     label: 'Management 1',
+  //   }]
+  // }, {
+  //   label: 'Admin',
+  //   children: [{
+  //     label: 'Admin 1'
+  //   }, {
+  //     label: 'Admin 2'
+  //   }, {
+  //     label: 'Admin 3'
+  //   }, {
+  //     label: 'Admin 4'
+  //   }]
+  // }];
 
 
-  constructor(private fb: FormBuilder,private notificationService: NotificationService, private cookieService: CookieService,private classService: ClassService, private adminAuthService: AdminAuthService, private teacherAuthService: TeacherAuthService, private studentAuthService: StudentAuthService,private studentService: StudentService,) {
-    this.modulesList = this.ModulesList;
+  constructor(private fb: FormBuilder, private notificationService: NotificationService, private cookieService: CookieService, private classService: ClassService, private adminAuthService: AdminAuthService, private teacherAuthService: TeacherAuthService, private studentAuthService: StudentAuthService, private studentService: StudentService,) {
+    // this.modulesList = this.ModulesList;
     this.studentForm = this.fb.group({
       _id: [''],
       session: ['', Validators.required],
@@ -143,27 +143,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isStudentAuthenticated = isStudentAuthenticated;
       });
 
-      this.getNotification();
-      this.getClass();
+    this.getNotification();
+    this.getClass();
     this.allOptions();
   }
-  hamburgerMenu(val:boolean){
-    if(val==true){
+  hamburgerMenu(val: boolean) {
+    if (val == true) {
       this.nav = true;
-    }else if(val==false){
+    } else if (val == false) {
       this.nav = false;
     }
   }
 
-  onLogout(user: string) {
-    if (user === 'admin') {
-      this.adminAuthService.logout();
-    } else if (user === 'teacher') {
-      this.teacherAuthService.logout();
-    } else {
-      this.studentAuthService.logout();
-    }
-  }
+  // onLogout(user: string) {
+  //   if (user === 'admin') {
+  //     this.adminAuthService.logout();
+  //   } else if (user === 'teacher') {
+  //     this.teacherAuthService.logout();
+  //   } else {
+  //     this.studentAuthService.logout();
+  //   }
+  // }
   getNotification() {
     this.notificationService.getNotificationList().subscribe((res: any) => {
       if (res) {
@@ -243,7 +243,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   allOptions() {
     this.sessions = [{ year: '2023-24' }, { year: '2024-25' }, { year: '2025-26' }, { year: '2026-27' }, { year: '2027-28' }, { year: '2028-29' }, { year: '2029-30' }]
     this.categorys = [{ category: 'General' }, { category: 'OBC' }, { category: 'SC' }, { category: 'ST' }, { category: 'Other' }]
-    this.religions = [{ religion: 'Hinduism' }, { religion: 'Buddhism' }, { religion: 'Christanity' }, { religion: 'Jainism' }, { religion: 'Sikhism' },{ religion: 'Muslim' }, { religion: 'Other' }]
+    this.religions = [{ religion: 'Hinduism' }, { religion: 'Buddhism' }, { religion: 'Christanity' }, { religion: 'Jainism' }, { religion: 'Sikhism' }, { religion: 'Muslim' }, { religion: 'Other' }]
     this.qualifications = [{ qualification: 'Doctoral Degree' }, { qualification: 'Masters Degree' }, { qualification: 'Graduate Diploma' }, { qualification: 'Graduate Certificate' }, { qualification: 'Graduate Certificate' }, { qualification: 'Bachelor Degree' }, { qualification: 'Advanced Diploma' }, { qualification: 'Primary School' }, { qualification: 'High School' }, { qualification: 'Higher Secondary School' }, { qualification: 'Illiterate' }, { qualification: 'Other' }]
     this.occupations = [{ occupation: 'Agriculture(Farmer)' }, { occupation: 'Laborer' }, { occupation: 'Self Employed' }, { occupation: 'Private Job' }, { occupation: 'State Govt. Employee' }, { occupation: 'Central Govt. Employee' }, { occupation: 'Military Job' }, { occupation: 'Para-Military Job' }, { occupation: 'PSU Employee' }, { occupation: 'Other' }]
   }
@@ -255,10 +255,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   studentAddUpdate() {
     if (this.studentForm.valid) {
-      
+
       this.studentService.addOnlineAdmission(this.studentForm.value).subscribe((res: any) => {
         if (res) {
-          
+
           if (res) {
             this.successDone();
             this.successMsg = res.successMsg;
