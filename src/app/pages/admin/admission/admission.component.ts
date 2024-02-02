@@ -249,12 +249,13 @@ export class AdmissionComponent implements OnInit {
     this.showAdmissionPrintModal = false;
     this.updateMode = false;
     this.deleteMode = false;
+    this.successMsg = '';
     this.errorMsg = '';
     this.stream = '';
     this.cls = 0;
     this.rollNumberType = '';
     this.receiptMode = false;
-    this.admissionrReceiptInfo;
+    this.admissionrReceiptInfo=null;
     this.studentForm.reset();
   }
   addStudentModel() {
