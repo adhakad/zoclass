@@ -120,8 +120,8 @@ const AdmissionEnquiryModel = mongoose.model('admission-enquiry', {
         type: String,
         required: true,
         trim: true,
-        enum: ['Panding', 'Complete'],
-        default: 'Panding',
+        enum: ['Pending', 'Complete'],
+        default: 'Pending',
     },
 });
 module.exports = AdmissionEnquiryModel;

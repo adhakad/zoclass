@@ -109,6 +109,7 @@ export class AdmissionComponent implements OnInit {
     this.printPdfService.printContent(printContent);
     this.closeModal();
   }
+  
   private getPrintContent(): string {
     let schoolName = this.schoolInfo.schoolName;
     let city = this.schoolInfo.city;
@@ -139,16 +140,15 @@ export class AdmissionComponent implements OnInit {
     printHtml += 'p {color: #2e2d6a !important;font-size:12px;}'
     printHtml += 'h4 {color: #2e2d6a !important;}'
     printHtml += '@media print {';
-    printHtml += '  body::after {';
+    printHtml += '  body::before {';
     printHtml += `    content: "${schoolName}, ${city}";`;
     printHtml += '    position: fixed;';
     printHtml += '    top: 45%;';
     printHtml += '    left:10%;';
-    // printHtml += '    transform: translate(-50%, -50%);';
     printHtml += '    font-size: 20px;';
     printHtml += '    font-weight: bold;';
     printHtml += '    font-family: Arial, sans-serif;';
-    printHtml += '    color: rgba(0, 0, 0, 0.1);';
+    printHtml += '    color: rgba(0, 0, 0, 0.08);';
     printHtml += '    pointer-events: none;';
     printHtml += '  }';
     printHtml += '}';

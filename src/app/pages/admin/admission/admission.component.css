@@ -1,5 +1,6 @@
 @import'../../../../styles.css';
 @import'../admin-student-fees/admin-student-fees.component.css';
+/* @import'../../../../assets/logo.png'; */
 .custom-container {
   font-family: Arial, sans-serif;
   overflow: auto;

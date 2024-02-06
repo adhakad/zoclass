@@ -45,13 +45,13 @@
                                         <td>
                                             <a class="mb-0 status-active" *ngIf="admissionEnquiry.status=='Complete'"
                                                 href="javascript:void(0)">{{admissionEnquiry.status}}</a>
-                                            <a class="mb-0 status-inactive" *ngIf="admissionEnquiry.status=='Panding'"
+                                            <a class="mb-0 status-inactive" *ngIf="admissionEnquiry.status=='Pending'"
                                                 href="javascript:void(0)">{{admissionEnquiry.status}}</a>
                                         </td>
                                         <td class="mb-0">
                                             <button
                                                 style="background-color: transparent;color: #8d6dff;border: 1px solid #8d6dff;"
-                                                class="submit-button" *ngIf="admissionEnquiry.status=='Panding'"
+                                                class="submit-button" *ngIf="admissionEnquiry.status=='Pending'"
                                                 mat-raised-button
                                                 (click)="updateAdmissionEnquiryModel(admissionEnquiry)">Form
                                                 Open</button>

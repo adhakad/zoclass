@@ -1051,13 +1051,13 @@
                             <div class="row text-center">
                               <div class="col-12 tc-school-name">
                                 <img class="tc-logo" src="../../../../assets/logo.png" alt="">
-                                <h3 class="text-bold">{{schoolInfo?.schoolName}}, {{schoolInfo?.city}}</h3>
-                                <p>({{schoolInfo?.board}}, Affiliation No.- {{schoolInfo?.affiliationNumber}})</p>
-                                <p class="school-address"><span>{{schoolInfo?.street}},{{schoolInfo?.city}},
+                                <h3 class="text-bold">{{schoolInfo?.schoolName | uppercase}}, {{schoolInfo?.city | uppercase}}</h3>
+                                <p  style="text-align: center;">({{schoolInfo?.board}}, Affiliation No.- {{schoolInfo?.affiliationNumber}})</p>
+                                <p><span>{{schoolInfo?.street}},{{schoolInfo?.city}},
                                     {{schoolInfo?.state}}-{{schoolInfo?.pinCode}}</span></p>
-                                <p class="school-address"><span>Contact - {{schoolInfo?.phoneOne}} &nbsp; Email -
+                                <p><span>Contact - {{schoolInfo?.phoneOne}} &nbsp; Email -
                                     {{schoolInfo?.email}}</span></p>
-                                    <p class="school-address"><span>Website - {{baseURL}}</span></p>
+                                    <p><span>Website - {{baseURL}}</span></p>
                               </div>
                             </div>
                             <div class="row">

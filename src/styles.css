@@ -39,9 +39,8 @@ Header section
   margin-left: 0px;
 }
 
-.header .logo span {
+.header span {
   color: #8d6dff;
-  margin-left: 5px;
   font: 1em sans-serif;
   letter-spacing: .5px;
 }
@@ -457,16 +456,20 @@ Header section
   /* .dashbord-logo-margin {
     margin-left: 10px;
   } */
-
   .header .logo img {
-    height: 48px;
+    height: 55px;
     /* margin-top: -8px; */
     margin-left: 50px;
   }
 
-  .header .logo span {
-    font: 1.20em sans-serif;
+  .header span {
+    font: 1.1em sans-serif;
     letter-spacing: .5px;
+
+  }
+  .header .main-menu  span {
+    font: 1em sans-serif;
+    letter-spacing: .4px;
   }
 
   .header .main-menu {

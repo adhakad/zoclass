@@ -23,8 +23,8 @@ export class SchoolComponent implements OnInit {
     this.schoolForm = this.fb.group({
       _id: [''],
       schoolName: ['', [Validators.required, Validators.maxLength(50)]],
-      affiliationNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-      schoolCode: ['', [Validators.required, Validators.maxLength(10)]],
+      affiliationNumber: ['', [Validators.required, Validators.maxLength(15)]],
+      schoolCode: ['', [Validators.required, Validators.maxLength(15)]],
       foundedYear: ['', [Validators.required, Validators.pattern(/^(19|20)\d{2}$/)]],
       board: ['', [Validators.required, Validators.maxLength(50)]],
       medium: ['', [Validators.required, Validators.maxLength(50)]],
@@ -76,9 +76,9 @@ export class SchoolComponent implements OnInit {
   }
   successDone() {
     setTimeout(() => {
+      this.getSchool();
       this.closeModal();
       this.successMsg = '';
-      this.getSchool();
     }, 1500)
   }
 
@@ -119,6 +119,7 @@ export class SchoolComponent implements OnInit {
     this.schoolService.deleteSchool(id).subscribe((res: any) => {
       if (res) {
         this.successDone();
+        this.schoolInfo = '';
         this.successMsg = res;
         this.deleteById = '';
       }

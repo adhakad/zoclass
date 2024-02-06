@@ -36,6 +36,7 @@
                     <th>Medium</th>
                     <th>Street</th>
                     <th>City/Town</th>
+                    <th>District</th>
                     <th>State</th>
                     <th>Country</th>
                     <th>Pin Code</th>
@@ -73,6 +74,9 @@
                     </td>
                     <td>
                       <p class="mb-0">{{schoolInfo?.city}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{schoolInfo?.district}}</p>
                     </td>
                     <td>
                       <p class="mb-0">{{schoolInfo?.state}}</p>
@@ -154,7 +158,7 @@
                                   Affiliation number is required
                                 </mat-error>
                                 <mat-error *ngIf="schoolForm.get('affiliationNumber')?.hasError('pattern')">
-                                  Affiliation number must contain digits only
+                                  Maximum 15 characters allowed for affiliation number
                                 </mat-error>
                               </mat-form-field>
                             </div>
@@ -166,7 +170,7 @@
                                   School code is required
                                 </mat-error>
                                 <mat-error *ngIf="schoolForm.get('schoolCode')?.hasError('maxlength')">
-                                  Maximum 10 characters allowed for School Code
+                                  Maximum 15 characters allowed for School Code
                                 </mat-error>
                               </mat-form-field>
                             </div>

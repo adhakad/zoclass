@@ -8,13 +8,13 @@ const schoolSchema = new mongoose.Schema({
     trim: true,
   },
   affiliationNumber: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
     trim: true,
   },
   schoolCode: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
     trim: true,
