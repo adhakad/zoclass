@@ -13,7 +13,7 @@
                 <input matInput type="text" formControlName="productKey">
                 <mat-hint
                   *ngIf="varifyForm.get('productKey')?.hasError('required') && varifyForm.get('productKey')?.touched"
-                  class="form-text text-danger">Roll number is required.</mat-hint>
+                  class="form-text text-danger">Product key is required.</mat-hint>
                   <mat-hint *ngIf="varifyForm.get('productKey')?.hasError('maxlength')" class="form-text text-danger">
                     Product key can't be more than 40 characters long.
                   </mat-hint>
