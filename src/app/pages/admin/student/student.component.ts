@@ -524,6 +524,7 @@ export class StudentComponent implements OnInit {
       'rollNumber',
       'class',
       'stream',
+      'udiseNumber',
       'aadharNumber',
       'samagraId',
       'dob',
@@ -537,11 +538,14 @@ export class StudentComponent implements OnInit {
       'nationality',
       'contact',
       'address',
+      'bankAccountNo',
+      'bankIfscCode',
       'fatherQualification',
       'motherQualification',
       'parentsOccupation',
       'parentsContact',
       'parentsAnnualIncome',
+      'lastSchool',
     ];
 
     function orderObjectsByHeaders(studentInfoByClass: any, header: any) {

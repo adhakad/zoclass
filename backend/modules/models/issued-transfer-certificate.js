@@ -97,12 +97,10 @@ const IssuedTransferCertificateModel = mongoose.model('issued-transfer-certifica
     },
     bankAccountNo:{
         type: Number,
-        required: true,
         trim: true  
     },
     bankIfscCode:{
         type:String,
-        required: true,
         trim: true  
     },
     contact: {

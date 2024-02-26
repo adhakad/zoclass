@@ -367,11 +367,11 @@ let CreateBulkStudentRecord = async (req, res, next) => {
             address: student.address,
             fatherName: student.fatherName,
             fatherQualification: student.fatherQualification,
+            motherName: student.motherName,
+            motherQualification: student.motherQualification,
             parentsOccupation: student.parentsOccupation,
             parentsContact: student.parentsContact,
             parentsAnnualIncome: student.parentsAnnualIncome,
-            motherName: student.motherName,
-            motherQualification: student.motherQualification,
             createdBy: createdBy,
         });
     }

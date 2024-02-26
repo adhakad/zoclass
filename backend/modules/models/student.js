@@ -96,13 +96,11 @@ const StudentModel = mongoose.model('student', {
     },
     bankAccountNo:{
         type: Number,
-        required: true,
-        trim: true  
+        trim: true,
     },
     bankIfscCode:{
         type:String,
-        required: true,
-        trim: true  
+        trim: true,
     },
     contact: {
         type: Number,

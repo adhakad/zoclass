@@ -138,6 +138,15 @@
                                             <div class="col-12 col-lg-6">
                                               <p>Address - {{singleStudentInfo.address | titlecase}}</p>
                                             </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Bank Account Number - {{singleStudentInfo.bankAccountNo}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>Bank IFSC Code - {{singleStudentInfo.bankIfscCode}}</p>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                              <p>UDISE Number - {{singleStudentInfo.udiseNumber}}</p>
+                                            </div>
                                             <ng-container>
                                               <h3 style="color: #8d6dff;">Parent's Info</h3>
                                             </ng-container>
@@ -145,7 +154,7 @@
                                               <p>Father Name - {{singleStudentInfo.fatherName | titlecase}}</p>
                                               <p>Father Qualification - {{singleStudentInfo.fatherQualification | titlecase}}</p>
                                               <p>Parents Occupation - {{singleStudentInfo.parentsOccupation | titlecase}}</p>
-                                              <p>Parents AnnualIncome - {{singleStudentInfo.parentsAnnualIncome}}</p>
+                                              <p>Parents Annual Income - &#8377; {{singleStudentInfo.parentsAnnualIncome}}</p>
                                             </div>
                                             <div class="col-12 col-lg-6">
                                               <p>Mother Name - {{singleStudentInfo.motherName | titlecase}}</p>

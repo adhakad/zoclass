@@ -40,7 +40,7 @@ let GetIssuedTransferCertificatePagination = async (req, res, next) => {
 }
 
 let CreateIssuedTransferCertificate = async (req, res, next) => {
-    let {serialNo,name, rollNumber, aadharNumber, samagraId,udiseNumber, session, stream, admissionNo, dob,doa, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, parentsOccupation, parentsContact, parentsAnnualIncome, motherName, motherQualification } = req.body;
+    let {serialNo,name, rollNumber, aadharNumber, samagraId,udiseNumber, session, stream, admissionNo, dob,doa, gender, category, religion, nationality, contact, address,bankAccountNo,bankIfscCode, fatherName, fatherQualification, parentsOccupation, parentsContact, parentsAnnualIncome, motherName, motherQualification } = req.body;
     let id = req.body._id;
     let className = req.body.class;
     
@@ -49,7 +49,7 @@ let CreateIssuedTransferCertificate = async (req, res, next) => {
     }
 
     const studentData = {
-        serialNo:serialNo,name, rollNumber, aadharNumber, samagraId,udiseNumber,class:className, session, stream, admissionNo, dob,doa, gender, category, religion, nationality, contact, address, fatherName, fatherQualification, parentsOccupation, parentsContact, parentsAnnualIncome, motherName, motherQualification,
+        serialNo:serialNo,name, rollNumber, aadharNumber, samagraId,udiseNumber,class:className, session, stream, admissionNo, dob,doa, gender, category, religion, nationality, contact, address,bankAccountNo,bankIfscCode, fatherName, fatherQualification, parentsOccupation, parentsContact, parentsAnnualIncome, motherName, motherQualification,
     }
     try {
         const deleteStudent = await StudentModel.findByIdAndRemove(id);

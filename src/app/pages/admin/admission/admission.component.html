@@ -542,7 +542,7 @@
                               </mat-form-field>
 
                               <mat-form-field appearance="outline">
-                                <mat-label>Parents Annual Income</mat-label>
+                                <mat-label>Parents Annual Income (&#8377;)</mat-label>
                                 <input matInput type="number" formControlName="parentsAnnualIncome">
                                 <mat-error
                                   *ngIf="studentForm.get('parentsAnnualIncome')?.hasError('required') && studentForm.get('parentsAnnualIncome')?.touched">
@@ -818,10 +818,10 @@
                                     <td class="text-bold">Contact :</td>
                                     <td colspan="3">{{singleStudentInfo?.contact}}</td>
                                   </tr>
-                                  <!-- <tr>
+                                  <tr>
                                     <td class="text-bold">Last School :</td>
                                     <td colspan="3">{{singleStudentInfo?.lastSchool | titlecase}}</td>
-                                  </tr> -->
+                                  </tr>
                                   <tr>
                                     <td class="text-bold">Address :</td>
                                     <td colspan="3">{{singleStudentInfo?.address | titlecase}}</td>
@@ -834,12 +834,13 @@
                                   </tr>
                                   <tr>
                                     <td class="text-bold">Bank A/C No. :</td>
-                                    <td>232323232543634</td>
+                                    <td>{{singleStudentInfo?.bankAccountNo}}</td>
                                     <td class="text-bold">Bank IFSC Code :</td>
-                                    <td>SBIN0343543</td>
+                                    <td>{{singleStudentInfo?.bankIfscCode}}</td>
                                   </tr>
                                   <tr>
-                                    <td colspan="4"></td>
+                                    <td class="text-bold">UDISE Number :</td>
+                                    <td colspan="3">{{singleStudentInfo?.udiseNumber}}</td>
                                   </tr>
                                   <tr>
                                     <td class="text-bold">Father Name :</td>
@@ -862,6 +863,8 @@
                                   <tr>
                                     <td class="text-bold">Parents Annual Income :</td>
                                     <td>{{singleStudentInfo?.parentsContact}}</td>
+                                    <td class="text-bold"></td>
+                                    <td></td>
                                   </tr>
                                 </table>
 
