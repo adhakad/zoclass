@@ -454,40 +454,27 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                  <mat-label>Father Occupation</mat-label>
-                  <mat-select type="text" matInput formControlName="fatherOccupation">
+                  <mat-label>Parents Occupation</mat-label>
+                  <mat-select type="text" matInput formControlName="parentsOccupation">
                     <div *ngFor="let occupation of occupations">
                       <mat-option value="{{occupation.occupation}}">{{occupation.occupation}}</mat-option>
                     </div>
                   </mat-select>
                   <mat-error
-                    *ngIf="studentForm.get('fatherOccupation')?.hasError('required') && studentForm.get('fatherOccupation')?.touched">
-                    Father occupation is required
+                    *ngIf="studentForm.get('parentsOccupation')?.hasError('required') && studentForm.get('parentsOccupation')?.touched">
+                    Parents occupation is required
                   </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                  <mat-label>Father Contact</mat-label>
-                  <input matInput type="number" formControlName="fatherContact">
+                  <mat-label>Parents Annual Income</mat-label>
+                  <input matInput type="number" formControlName="parentsAnnualIncome">
                   <mat-error
-                    *ngIf="studentForm.get('fatherContact')?.hasError('required') && studentForm.get('fatherContact')?.touched">
-                    Father contact is required
+                    *ngIf="studentForm.get('parentsAnnualIncome')?.hasError('required') && studentForm.get('parentsAnnualIncome')?.touched">
+                    Parents annual income is required
                   </mat-error>
                   <mat-error
-                    *ngIf="studentForm.get('fatherContact')?.hasError('pattern') && studentForm.get('fatherContact')?.touched">
-                    Please enter a valid Contact (10-digit phone number starting with 6, 7, 8, or 9)
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                  <mat-label>Father Annual Income</mat-label>
-                  <input matInput type="number" formControlName="fatherAnnualIncome">
-                  <mat-error
-                    *ngIf="studentForm.get('fatherAnnualIncome')?.hasError('required') && studentForm.get('fatherAnnualIncome')?.touched">
-                    Father annual income is required
-                  </mat-error>
-                  <mat-error
-                    *ngIf="studentForm.get('fatherAnnualIncome')?.hasError('pattern') && studentForm.get('fatherAnnualIncome')?.touched">
+                    *ngIf="studentForm.get('parentsAnnualIncome')?.hasError('pattern') && studentForm.get('parentsAnnualIncome')?.touched">
                     Please enter a valid Annual Income (numeric characters only)
                   </mat-error>
                 </mat-form-field>
@@ -521,43 +508,18 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                  <mat-label>Mother Occupation</mat-label>
-                  <mat-select type="text" matInput formControlName="motherOccupation">
-                    <div *ngFor="let occupation of occupations">
-                      <mat-option value="{{occupation.occupation}}">{{occupation.occupation}}</mat-option>
-                    </div>
-                  </mat-select>
+                  <mat-label>Parents Contact</mat-label>
+                  <input matInput type="number" formControlName="parentsContact">
                   <mat-error
-                    *ngIf="studentForm.get('motherOccupation')?.hasError('required') && studentForm.get('motherOccupation')?.touched">
-                    Mother occupation is required
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                  <mat-label>Mother Contact</mat-label>
-                  <input matInput type="number" formControlName="motherContact">
-                  <mat-error
-                    *ngIf="studentForm.get('motherContact')?.hasError('required') && studentForm.get('motherContact')?.touched">
-                    Mother contact is required
+                    *ngIf="studentForm.get('parentsContact')?.hasError('required') && studentForm.get('parentsContact')?.touched">
+                    Parents contact is required
                   </mat-error>
                   <mat-error
-                    *ngIf="studentForm.get('motherContact')?.hasError('pattern') && studentForm.get('motherContact')?.touched">
+                    *ngIf="studentForm.get('parentsContact')?.hasError('pattern') && studentForm.get('parentsContact')?.touched">
                     Please enter a valid Contact (10-digit phone number starting with 6, 7, 8, or 9)
                   </mat-error>
                 </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                  <mat-label>Mother Annual Income</mat-label>
-                  <input matInput type="number" formControlName="motherAnnualIncome">
-                  <mat-error
-                    *ngIf="studentForm.get('motherAnnualIncome')?.hasError('required') && studentForm.get('motherAnnualIncome')?.touched">
-                    Mother annual income is required
-                  </mat-error>
-                  <mat-error
-                    *ngIf="studentForm.get('motherAnnualIncome')?.hasError('pattern') && studentForm.get('motherAnnualIncome')?.touched">
-                    Please enter a valid Annual Income (numeric characters only)
-                  </mat-error>
-                </mat-form-field>
+                
               </div>
             </div>
           </div>

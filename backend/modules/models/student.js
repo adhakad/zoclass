@@ -74,6 +74,12 @@ const StudentModel = mongoose.model('student', {
         required: true,
         trim: true
     },
+    udiseNumber: {
+        type: Number,
+        trim: true,
+        unique:true,
+
+    },
     aadharNumber: {
         type: Number,
         trim: true,
@@ -87,6 +93,16 @@ const StudentModel = mongoose.model('student', {
         required:true,
         unique:true,
 
+    },
+    bankAccountNo:{
+        type: Number,
+        required: true,
+        trim: true  
+    },
+    bankIfscCode:{
+        type:String,
+        required: true,
+        trim: true  
     },
     contact: {
         type: Number,
@@ -112,21 +128,6 @@ const StudentModel = mongoose.model('student', {
         required: true,
         trim: true
     },
-    fatherOccupation: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    fatherContact: {
-        type: Number,
-        required: true,
-        trim: true
-    },
-    fatherAnnualIncome: {
-        type: String,
-        required: true,
-        trim: true
-    },
     motherName: {
         type: String,
         required: true,
@@ -137,17 +138,17 @@ const StudentModel = mongoose.model('student', {
         required: true,
         trim: true
     },
-    motherOccupation: {
+    parentsOccupation: {
         type: String,
         required: true,
         trim: true
     },
-    motherContact: {
+    parentsContact: {
         type: Number,
         required: true,
         trim: true
     },
-    motherAnnualIncome: {
+    parentsAnnualIncome: {
         type: String,
         required: true,
         trim: true

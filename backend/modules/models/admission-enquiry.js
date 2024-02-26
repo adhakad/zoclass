@@ -76,21 +76,6 @@ const AdmissionEnquiryModel = mongoose.model('admission-enquiry', {
         required: true,
         trim: true,
     },
-    fatherOccupation: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    fatherContact: {
-        type: Number,
-        required: true,
-        trim: true,
-    },
-    fatherAnnualIncome: {
-        type: String,
-        required: true,
-        trim: true,
-    },
     motherName: {
         type: String,
         required: true,
@@ -101,20 +86,20 @@ const AdmissionEnquiryModel = mongoose.model('admission-enquiry', {
         required: true,
         trim: true,
     },
-    motherOccupation: {
+    parentsOccupation: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
-    motherContact: {
+    parentsContact: {
         type: Number,
         required: true,
-        trim: true,
+        trim: true
     },
-    motherAnnualIncome: {
+    parentsAnnualIncome: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     status: {
         type: String,

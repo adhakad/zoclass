@@ -142,34 +142,6 @@
                                                                 </mat-error>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-12 col-lg-6">
-                                                            <mat-form-field appearance="outline">
-                                                              <mat-label>Aadhar Card Number</mat-label>
-                                                              <input matInput type="number" formControlName="aadharNumber">
-                                                              <mat-error
-                                                                *ngIf="admissionEnquiryForm.get('aadharNumber')?.hasError('required') && admissionEnquiryForm.get('aadharNumber')?.touched">
-                                                                Aadhar card number is required
-                                                              </mat-error>
-                                                              <mat-error
-                                                                *ngIf="admissionEnquiryForm.get('aadharNumber')?.hasError('pattern') && admissionEnquiryForm.get('aadharNumber')?.touched">
-                                                                Aadhar number must be a 12-digit number
-                                                              </mat-error>
-                                                            </mat-form-field>
-                                                          </div>
-                                                          <div class="col-12 col-lg-6">
-                                                            <mat-form-field appearance="outline">
-                                                              <mat-label>Samagra Id</mat-label>
-                                                              <input matInput type="number" formControlName="samagraId">
-                                                              <mat-error
-                                                                *ngIf="admissionEnquiryForm.get('samagraId')?.hasError('required') && admissionEnquiryForm.get('samagraId')?.touched">
-                                                                Samagra id is required
-                                                              </mat-error>
-                                                              <mat-error
-                                                                *ngIf="admissionEnquiryForm.get('samagraId')?.hasError('pattern') && admissionEnquiryForm.get('samagraId')?.touched">
-                                                                Samagra id must be a 9-digit number
-                                                              </mat-error>
-                                                            </mat-form-field>
-                                                          </div>
                                                         <div class="col-12 col-lg-6"
                                                             *ngIf="rollNumberType=='manualFill'">
                                                             <mat-form-field appearance="outline">
@@ -179,6 +151,88 @@
                                                                 <mat-error
                                                                     *ngIf="admissionEnquiryForm.get('rollNumber')?.hasError('required') && admissionEnquiryForm.get('rollNumber')?.touched">
                                                                     Roll number is required
+                                                                </mat-error>
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('rollNumber')?.hasError('maxlength') && admissionEnquiryForm.get('rollNumber')?.touched">
+                                                                    Maximum length exceeded (maximum 8 characters
+                                                                    allowed)
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12 col-lg-6">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Aadhar Card Number</mat-label>
+                                                                <input matInput type="number"
+                                                                    formControlName="aadharNumber">
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('aadharNumber')?.hasError('required') && admissionEnquiryForm.get('aadharNumber')?.touched">
+                                                                    Aadhar card number is required
+                                                                </mat-error>
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('aadharNumber')?.hasError('pattern') && admissionEnquiryForm.get('aadharNumber')?.touched">
+                                                                    Aadhar number must be a 12-digit number
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12 col-lg-6">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Samagra Id</mat-label>
+                                                                <input matInput type="number"
+                                                                    formControlName="samagraId">
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('samagraId')?.hasError('required') && admissionEnquiryForm.get('samagraId')?.touched">
+                                                                    Samagra id is required
+                                                                </mat-error>
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('samagraId')?.hasError('pattern') && admissionEnquiryForm.get('samagraId')?.touched">
+                                                                    Samagra id must be a 9-digit number
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12 col-lg-6">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>UDISE Number (Optional)</mat-label>
+                                                                <input matInput type="number"
+                                                                    formControlName="udiseNumber">
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('udiseNumber')?.hasError('pattern') && admissionEnquiryForm.get('udiseNumber')?.touched">
+                                                                    UDISE Number must be a 11-digit number
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12 col-lg-6">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Bank A/C Number (Optional)</mat-label>
+                                                                <input matInput type="number"
+                                                                    formControlName="bankAccountNo">
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('bankAccountNo')?.hasError('pattern') && admissionEnquiryForm.get('bankAccountNo')?.touched">
+                                                                    Please enter a valid Bank Account Number (numeric
+                                                                    characters only)
+                                                                </mat-error>
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('bankAccountNo')?.hasError('minlength') && admissionEnquiryForm.get('bankAccountNo')?.touched">
+                                                                    Minimum length is 9 digits
+                                                                </mat-error>
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('bankAccountNo')?.hasError('maxlength') && admissionEnquiryForm.get('bankAccountNo')?.touched">
+                                                                    Maximum length exceeded (maximum 18 characters
+                                                                    allowed)
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-12 col-lg-6">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Bank IFSC Code (Optional)</mat-label>
+                                                                <input matInput type="text"
+                                                                    formControlName="bankIfscCode">
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('bankIfscCode')?.hasError('minlength') && admissionEnquiryForm.get('bankIfscCode')?.touched">
+                                                                    Minimum length is 11 digits
+                                                                </mat-error>
+                                                                <mat-error
+                                                                    *ngIf="admissionEnquiryForm.get('bankIfscCode')?.hasError('maxlength') && admissionEnquiryForm.get('bankIfscCode')?.touched">
+                                                                    Maximum length exceeded (maximum 11 digits allowed)
                                                                 </mat-error>
                                                             </mat-form-field>
                                                         </div>
@@ -306,19 +360,14 @@
                                                                     formControlName="fatherQualification">
                                                             </mat-form-field>
                                                             <mat-form-field appearance="outline">
-                                                                <mat-label>Father Occupation</mat-label>
+                                                                <mat-label>Parents Occupation</mat-label>
                                                                 <input matInput type="text"
-                                                                    formControlName="fatherOccupation" readonly>
+                                                                    formControlName="parentsOccupation" readonly>
                                                             </mat-form-field>
                                                             <mat-form-field appearance="outline">
-                                                                <mat-label>Father Contact</mat-label>
+                                                                <mat-label>Parents Annual Income</mat-label>
                                                                 <input matInput type="number"
-                                                                    formControlName="fatherContact" readonly>
-                                                            </mat-form-field>
-                                                            <mat-form-field appearance="outline">
-                                                                <mat-label>Father Annual Income</mat-label>
-                                                                <input matInput type="number"
-                                                                    formControlName="fatherAnnualIncome" readonly>
+                                                                    formControlName="parentsAnnualIncome" readonly>
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="co-12 col-lg-6">
@@ -333,19 +382,9 @@
                                                                     formControlName="motherQualification" readonly>
                                                             </mat-form-field>
                                                             <mat-form-field appearance="outline">
-                                                                <mat-label>Mother Occupation</mat-label>
-                                                                <input matInput type="text"
-                                                                    formControlName="motherOccupation" readonly>
-                                                            </mat-form-field>
-                                                            <mat-form-field appearance="outline">
-                                                                <mat-label>Mother Contact</mat-label>
+                                                                <mat-label>Parents Contact</mat-label>
                                                                 <input matInput type="number"
-                                                                    formControlName="motherContact" readonly>
-                                                            </mat-form-field>
-                                                            <mat-form-field appearance="outline">
-                                                                <mat-label>Mother Annual Income</mat-label>
-                                                                <input matInput type="number"
-                                                                    formControlName="motherAnnualIncome" readonly>
+                                                                    formControlName="parentsContact" readonly>
                                                             </mat-form-field>
                                                         </div>
                                                     </div>

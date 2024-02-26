@@ -101,14 +101,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       lastSchool: ['', [Validators.pattern('^[a-zA-Z\\s]+$'), Validators.maxLength(50)]],
       fatherName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
       fatherQualification: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
-      fatherOccupation: ['', Validators.required],
-      fatherContact: ['', [Validators.required, Validators.pattern('^[6789]\\d{9}$')]],
-      fatherAnnualIncome: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       motherName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
       motherQualification: ['', Validators.required],
-      motherOccupation: ['', Validators.required],
-      motherContact: ['', [Validators.required, Validators.pattern('^[6789]\\d{9}$')]],
-      motherAnnualIncome: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      parentsOccupation: ['', Validators.required],
+      parentsContact: ['', [Validators.required, Validators.pattern('^[6789]\\d{9}$')]],
+      parentsAnnualIncome: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     })
   }
 

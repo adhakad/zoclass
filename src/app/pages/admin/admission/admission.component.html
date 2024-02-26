@@ -443,7 +443,49 @@
                             </div>
                             <div class="col-12 col-lg-6">
                               <mat-form-field appearance="outline">
-                                <mat-label>Last School Optional</mat-label>
+                                <mat-label>UDISE Number (Optional)</mat-label>
+                                <input matInput type="number" formControlName="udiseNumber">
+                                <mat-error
+                                  *ngIf="studentForm.get('udiseNumber')?.hasError('pattern') && studentForm.get('udiseNumber')?.touched">
+                                  UDISE Number must be a 11-digit number
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Bank A/C Number (Optional)</mat-label>
+                                <input matInput type="number" formControlName="bankAccountNo">
+                                <mat-error
+                                  *ngIf="studentForm.get('bankAccountNo')?.hasError('pattern') && studentForm.get('bankAccountNo')?.touched">
+                                  Please enter a valid Bank Account Number (numeric characters only)
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="studentForm.get('bankAccountNo')?.hasError('minlength') && studentForm.get('bankAccountNo')?.touched">
+                                  Minimum length is 9 digits
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="studentForm.get('bankAccountNo')?.hasError('maxlength') && studentForm.get('bankAccountNo')?.touched">
+                                  Maximum length exceeded (maximum 18 characters allowed)
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Bank IFSC Code (Optional)</mat-label>
+                                <input matInput type="text" formControlName="bankIfscCode">
+                                <mat-error
+                                  *ngIf="studentForm.get('bankIfscCode')?.hasError('minlength') && studentForm.get('bankIfscCode')?.touched">
+                                  Minimum length is 11 digits
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="studentForm.get('bankIfscCode')?.hasError('maxlength') && studentForm.get('bankIfscCode')?.touched">
+                                  Maximum length exceeded (maximum 11 digits allowed)
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Last School (Optional)</mat-label>
                                 <input matInput type="text" formControlName="lastSchool">
                                 <mat-error
                                   *ngIf="studentForm.get('lastSchool')?.hasError('pattern') && studentForm.get('lastSchool')?.touched">
@@ -487,40 +529,27 @@
                               </mat-form-field>
 
                               <mat-form-field appearance="outline">
-                                <mat-label>Father Occupation</mat-label>
-                                <mat-select type="text" matInput formControlName="fatherOccupation">
+                                <mat-label>Parents Occupation</mat-label>
+                                <mat-select type="text" matInput formControlName="parentsOccupation">
                                   <div *ngFor="let occupation of occupations">
                                     <mat-option value="{{occupation.occupation}}">{{occupation.occupation}}</mat-option>
                                   </div>
                                 </mat-select>
                                 <mat-error
-                                  *ngIf="studentForm.get('fatherOccupation')?.hasError('required') && studentForm.get('fatherOccupation')?.touched">
-                                  Father occupation is required
+                                  *ngIf="studentForm.get('parentsOccupation')?.hasError('required') && studentForm.get('parentsOccupation')?.touched">
+                                  Parents occupation is required
                                 </mat-error>
                               </mat-form-field>
 
                               <mat-form-field appearance="outline">
-                                <mat-label>Father Contact</mat-label>
-                                <input matInput type="number" formControlName="fatherContact">
+                                <mat-label>Parents Annual Income</mat-label>
+                                <input matInput type="number" formControlName="parentsAnnualIncome">
                                 <mat-error
-                                  *ngIf="studentForm.get('fatherContact')?.hasError('required') && studentForm.get('fatherContact')?.touched">
-                                  Father contact is required
+                                  *ngIf="studentForm.get('parentsAnnualIncome')?.hasError('required') && studentForm.get('parentsAnnualIncome')?.touched">
+                                  Parents annual income is required
                                 </mat-error>
                                 <mat-error
-                                  *ngIf="studentForm.get('fatherContact')?.hasError('pattern') && studentForm.get('fatherContact')?.touched">
-                                  Please enter a valid Contact (10-digit phone number starting with 6, 7, 8, or 9)
-                                </mat-error>
-                              </mat-form-field>
-
-                              <mat-form-field appearance="outline">
-                                <mat-label>Father Annual Income</mat-label>
-                                <input matInput type="number" formControlName="fatherAnnualIncome">
-                                <mat-error
-                                  *ngIf="studentForm.get('fatherAnnualIncome')?.hasError('required') && studentForm.get('fatherAnnualIncome')?.touched">
-                                  Father annual income is required
-                                </mat-error>
-                                <mat-error
-                                  *ngIf="studentForm.get('fatherAnnualIncome')?.hasError('pattern') && studentForm.get('fatherAnnualIncome')?.touched">
+                                  *ngIf="studentForm.get('parentsAnnualIncome')?.hasError('pattern') && studentForm.get('parentsAnnualIncome')?.touched">
                                   Please enter a valid Annual Income (numeric characters only)
                                 </mat-error>
                               </mat-form-field>
@@ -554,41 +583,15 @@
                               </mat-form-field>
 
                               <mat-form-field appearance="outline">
-                                <mat-label>Mother Occupation</mat-label>
-                                <mat-select type="text" matInput formControlName="motherOccupation">
-                                  <div *ngFor="let occupation of occupations">
-                                    <mat-option value="{{occupation.occupation}}">{{occupation.occupation}}</mat-option>
-                                  </div>
-                                </mat-select>
+                                <mat-label>Parents Contact</mat-label>
+                                <input matInput type="number" formControlName="parentsContact">
                                 <mat-error
-                                  *ngIf="studentForm.get('motherOccupation')?.hasError('required') && studentForm.get('motherOccupation')?.touched">
-                                  Mother occupation is required
-                                </mat-error>
-                              </mat-form-field>
-
-                              <mat-form-field appearance="outline">
-                                <mat-label>Mother Contact</mat-label>
-                                <input matInput type="number" formControlName="motherContact">
-                                <mat-error
-                                  *ngIf="studentForm.get('motherContact')?.hasError('required') && studentForm.get('motherContact')?.touched">
-                                  Mother contact is required
+                                  *ngIf="studentForm.get('parentsContact')?.hasError('required') && studentForm.get('parentsContact')?.touched">
+                                  Parents contact is required
                                 </mat-error>
                                 <mat-error
-                                  *ngIf="studentForm.get('motherContact')?.hasError('pattern') && studentForm.get('motherContact')?.touched">
+                                  *ngIf="studentForm.get('parentsContact')?.hasError('pattern') && studentForm.get('parentsContact')?.touched">
                                   Please enter a valid Contact (10-digit phone number starting with 6, 7, 8, or 9)
-                                </mat-error>
-                              </mat-form-field>
-
-                              <mat-form-field appearance="outline">
-                                <mat-label>Mother Annual Income</mat-label>
-                                <input matInput type="number" formControlName="motherAnnualIncome">
-                                <mat-error
-                                  *ngIf="studentForm.get('motherAnnualIncome')?.hasError('required') && studentForm.get('motherAnnualIncome')?.touched">
-                                  Mother annual income is required
-                                </mat-error>
-                                <mat-error
-                                  *ngIf="studentForm.get('motherAnnualIncome')?.hasError('pattern') && studentForm.get('motherAnnualIncome')?.touched">
-                                  Please enter a valid Annual Income (numeric characters only)
                                 </mat-error>
                               </mat-form-field>
                             </div>
@@ -796,14 +799,6 @@
                                     <td colspan="3">{{singleStudentInfo?.dob}}</td>
                                   </tr>
                                   <tr>
-                                    <td class="text-bold">Aadhar Number :</td>
-                                    <td colspan="3">{{singleStudentInfo?.aadharNumber}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="text-bold">Samagra Id :</td>
-                                    <td colspan="3">{{singleStudentInfo?.samagraId}}</td>
-                                  </tr>
-                                  <tr>
                                     <td class="text-bold">Gender :</td>
                                     <td colspan="3">{{singleStudentInfo?.gender | titlecase}}</td>
                                   </tr>
@@ -823,13 +818,28 @@
                                     <td class="text-bold">Contact :</td>
                                     <td colspan="3">{{singleStudentInfo?.contact}}</td>
                                   </tr>
-                                  <tr>
+                                  <!-- <tr>
                                     <td class="text-bold">Last School :</td>
                                     <td colspan="3">{{singleStudentInfo?.lastSchool | titlecase}}</td>
-                                  </tr>
+                                  </tr> -->
                                   <tr>
                                     <td class="text-bold">Address :</td>
                                     <td colspan="3">{{singleStudentInfo?.address | titlecase}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-bold">Aadhar Number :</td>
+                                    <td>{{singleStudentInfo?.aadharNumber}}</td>
+                                    <td class="text-bold">Samagra Id :</td>
+                                    <td>{{singleStudentInfo?.samagraId}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-bold">Bank A/C No. :</td>
+                                    <td>232323232543634</td>
+                                    <td class="text-bold">Bank IFSC Code :</td>
+                                    <td>SBIN0343543</td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="4"></td>
                                   </tr>
                                   <tr>
                                     <td class="text-bold">Father Name :</td>
@@ -844,22 +854,14 @@
                                     <td>{{singleStudentInfo?.motherQualification | titlecase}}</td>
                                   </tr>
                                   <tr>
-                                    <td class="text-bold">Father Occupation :</td>
-                                    <td>{{singleStudentInfo?.fatherOccupation | titlecase}}</td>
-                                    <td class="text-bold">Mother Occupation :</td>
-                                    <td>{{singleStudentInfo?.motherOccupation | titlecase}}</td>
+                                    <td class="text-bold">Parents Occupation :</td>
+                                    <td>{{singleStudentInfo?.parentsOccupation | titlecase}}</td>
+                                    <td class="text-bold">Parents Contact :</td>
+                                    <td>{{singleStudentInfo?.parentsContact}}</td>
                                   </tr>
                                   <tr>
-                                    <td class="text-bold">Father Contact :</td>
-                                    <td>{{singleStudentInfo?.fatherContact}}</td>
-                                    <td class="text-bold">Mother Contact :</td>
-                                    <td>{{singleStudentInfo?.motherContact}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="text-bold">Father Annual Income :</td>
-                                    <td>{{singleStudentInfo?.fatherContact}}</td>
-                                    <td class="text-bold">Mother Annual Income :</td>
-                                    <td>{{singleStudentInfo?.motherAnnualIncome}}</td>
+                                    <td class="text-bold">Parents Annual Income :</td>
+                                    <td>{{singleStudentInfo?.parentsContact}}</td>
                                   </tr>
                                 </table>
 
