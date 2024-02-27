@@ -121,9 +121,9 @@ export class AdmissionComponent implements OnInit {
     printHtml += '.custom-container {font-family: Arial, sans-serif;overflow: auto;}';
     printHtml += '.table-container {background-color: #fff;border: none;}';
     printHtml += '.school-name {display: flex; align-items: center; justify-content: center; text-align: center; }';
-    printHtml += '.address{margin-left:100px;margin-top: -65px;}';
+    printHtml += '.address{margin-left:130px;margin-top: -65px;}';
     printHtml += '.address p{margin-top: -5px !important;}';
-    printHtml += '.logo { height: 100px; }';
+    printHtml += '.logo { height: 100px;margin-right:10px; }';
     printHtml += '.school-name h3 { color: #2e2d6a !important; font-size: 20px !important; margin-left: 15px;margin-top:-65px !important; margin-bottom: 0 !important; }';
     // printHtml += '.info-table {width:100%;color: #2e2d6a !important;border: none;font-size: 12px;letter-spacing: .25px;margin-top: 5vh;margin-bottom: 5vh;display: inline-table;}';
     // printHtml += '.info-table th{border:1px solid #2e2d6a;}';

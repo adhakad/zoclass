@@ -78,6 +78,10 @@ const schoolSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  schoolTrust:{
+    type:String,
+    trim:true,
+  },
   facebookLink:{
     type: String,
     trim: true,

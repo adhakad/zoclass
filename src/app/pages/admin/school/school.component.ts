@@ -36,6 +36,7 @@ export class SchoolComponent implements OnInit {
       phoneOne: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^\d+$/)]],
       phoneSecond: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^\d+$/)]],
       email: ['', [Validators.required, Validators.email]],
+      schoolTrust:['',  Validators.maxLength(50)],
       facebookLink: ['', [Validators.pattern(/^(https?:\/\/)?(www\.)?facebook.com\/[a-zA-Z0-9(\.\?)?]/)]],
       linkedinLink: ['', [Validators.pattern(/^(https?:\/\/)?(www\.)?linkedin.com\/[a-zA-Z0-9(\.\?)?]/)]],
       instagramLink: ['', [Validators.pattern(/^(https?:\/\/)?(www\.)?instagram.com\/[a-zA-Z0-9(\.\?)?]/)]],
