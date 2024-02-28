@@ -1060,16 +1060,25 @@
                       <div class="row">
                         <div #content class="custom-container">
                           <div class="table-container" style="margin-top: -25px !important;">
-                            <div class="row text-center">
-                              <div class="col-12 tc-school-name">
-                                <img class="tc-logo" src="../../../../assets/logo.png" alt="">
-                                <h3 class="text-bold">{{schoolInfo?.schoolName | uppercase}}, {{schoolInfo?.city | uppercase}}</h3>
-                                <p  style="text-align: center;">({{schoolInfo?.board}}, Affiliation No.- {{schoolInfo?.affiliationNumber}})</p>
-                                <p><span>{{schoolInfo?.street}},{{schoolInfo?.city}},
-                                    {{schoolInfo?.state}}-{{schoolInfo?.pinCode}}</span></p>
-                                <p><span>Contact - {{schoolInfo?.phoneOne}} &nbsp; Email -
+                            <div class="row" style="padding-top: 30px;">
+                              <div class="col-2">
+                                <img class="logo" src="../../../../assets/logo.png" alt="">
+                              </div>
+                              <div class="col-10" style="text-align: center;">
+                                <div class="school-name"> 
+                                  <h3 class="text-bold">{{schoolInfo?.schoolName | uppercase}}, {{schoolInfo?.city | uppercase}}</h3>
+                                 </div>
+                                <div class="address" style="text-align: center;">
+                                  <p>( {{schoolInfo?.board}} Affiliation No.- {{schoolInfo?.affiliationNumber}},
+                                    School Code - {{schoolInfo?.schoolCode}} )
+                                  </p>
+                                  <p><span>Contact - {{schoolInfo?.phoneOne}} &nbsp; Email -
                                     {{schoolInfo?.email}}</span></p>
-                                    <p><span>Website - {{baseURL}}</span></p>
+                                  <p><span>{{schoolInfo?.street}},{{schoolInfo?.city}},District-
+                                      {{schoolInfo?.district}},
+                                      {{schoolInfo?.state}}</span></p>
+                                  <p><span>Website - {{baseURL}}</span></p>
+                                </div>
                               </div>
                             </div>
                             <div class="row">
@@ -1250,7 +1259,40 @@
                               </div>
                               <div class="row">
                                 <div class="col-6">
-                                  <p>16. Date of issue of Certificate</p>
+                                  <p>16. UDISE Number</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>
+                                    <span *ngIf="singleStudentTCInfo.udiseNumber" class="text-bold">: &nbsp;&nbsp; {{singleStudentTCInfo.udiseNumber}}</span>
+                                    <span *ngIf="!singleStudentTCInfo.udiseNumber || singleStudentTCInfo.udiseNumber==''" class="text-bold">: &nbsp;&nbsp; Nil</span>
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>17. Bank A/C Number</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>
+                                    <span *ngIf="singleStudentTCInfo.bankAccountNo" class="text-bold">: &nbsp;&nbsp; {{singleStudentTCInfo.bankAccountNo}}</span>
+                                    <span *ngIf="!singleStudentTCInfo.bankAccountNo || singleStudentTCInfo.bankAccountNo==''" class="text-bold">: &nbsp;&nbsp; Nil</span>
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>18. Bank IFSC Code</p>
+                                </div>
+                                <div class="col-6">
+                                  <p>
+                                    <span *ngIf="singleStudentTCInfo.bankIfscCode" class="text-bold">: &nbsp;&nbsp; {{singleStudentTCInfo.bankIfscCode}}</span>
+                                    <span *ngIf="!singleStudentTCInfo.bankIfscCode || singleStudentTCInfo.bankIfscCode==''" class="text-bold">: &nbsp;&nbsp; Nil</span>
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>19. Date of issue of Certificate</p>
                                 </div>
                                 <div class="col-6">
                                   <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentTCInfo.isDate}}</span></p>
@@ -1258,7 +1300,7 @@
                               </div>
                               <div class="row">
                                 <div class="col-6">
-                                  <p>17. Reasion for leaving the school</p>
+                                  <p>20. Reasion for leaving the school</p>
                                 </div>
                                 <div class="col-6">
                                   <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentTCInfo.reasonForLeaving |
@@ -1267,7 +1309,7 @@
                               </div>
                               <div class="row">
                                 <div class="col-6">
-                                  <p>18. General conduct</p>
+                                  <p>21. General conduct</p>
                                 </div>
                                 <div class="col-6">
                                   <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentTCInfo.generalConduct |
@@ -1276,14 +1318,14 @@
                               </div>
                               <div class="row">
                                 <div class="col-6">
-                                  <p>19. Any other remarks</p>
+                                  <p>22. Any other remarks</p>
                                 </div>
                                 <div class="col-6">
                                   <p><span class="text-bold">: &nbsp;&nbsp; {{singleStudentTCInfo.anyOtherRemarks |
                                       uppercase}}</span></p>
-                                </div>
+                                  </div>
                               </div>
-                              <div class="row" style="margin-top: 40px;">
+                              <div class="row" style="margin-top: 50px;">
                                 <div class="col-4 text-center">
                                   <p class="text-bold">Class Teacher</p>
                                   <p>(Signature)</p>
