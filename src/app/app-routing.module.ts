@@ -5,8 +5,8 @@ import { TeacherAuthGuard } from './guards/teacher-auth.guard';
 import { StudentAuthGuard } from './guards/student-auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('src/app/pages/main/home/home.module').then((module) => module.HomeModule) },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '/', loadChildren: () => import('src/app/pages/main/home/home.module').then((module) => module.HomeModule) },
   { path: 'notice', loadChildren: () => import('src/app/pages/main/notice/notice.module').then((module) => module.NoticeModule) },
   { path: 'admit-card', loadChildren: () => import('src/app/pages/main/admit-card/admit-card.module').then((module) => module.AdmitCardModule) },
   { path: 'result', loadChildren: () => import('src/app/pages/main/result/result.module').then((module) => module.ResultModule) },
@@ -15,7 +15,6 @@ const routes: Routes = [
   { path: 'refund-cancellation-policy', loadChildren: () => import('src/app/pages/main/refund-cancellation-policy/refund-cancellation-policy.module').then((module) => module.RefundCancellationPolicyModule) },
   { path: 'about', loadChildren: () => import('src/app/pages/main/about/about.module').then((module) => module.AboutModule) },
   { path: 'contact', loadChildren: () => import('src/app/pages/main/contact/contact.module').then((module) => module.ContactModule) },
-
 
   //  Student Routing Section
   { path: 'student/signup', loadChildren: () => import('src/app/pages/auth/student-auth/student-signup/student-signup.module').then((module) => module.StudentSignupModule) },

@@ -32,13 +32,12 @@ const IssuedTransferCertificateModel = mongoose.model('issued-transfer-certifica
         type: Number,
         required: true,
         trim: true,
-        unique: true,
+        unique:true
     },
     rollNumber: {
         type: Number,
         required: true,
         trim: true,
-        unique: true,
     },
     stream: {
         type: String,

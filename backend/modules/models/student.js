@@ -32,7 +32,6 @@ const StudentModel = mongoose.model('student', {
         type: Number,
         required: true,
         trim: true,
-        unique:true,
     },
     admissionType: {
         type: String,

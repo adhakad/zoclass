@@ -52,6 +52,24 @@ let CreateIssuedTransferCertificate = async (req, res, next) => {
         serialNo:serialNo,name, rollNumber, aadharNumber, samagraId,udiseNumber,class:className, session, stream, admissionNo, dob,doa, gender, category, religion, nationality, contact, address,bankAccountNo,bankIfscCode, fatherName, fatherQualification, parentsOccupation, parentsContact, parentsAnnualIncome, motherName, motherQualification,
     }
     try {
+        const checkAadharNumber = await IssuedTransferCertificateModel.findOne({ aadharNumber: aadharNumber });
+        if (checkAadharNumber) {
+            return res.status(400).json(`This aadhar card number holder student TC already issued !`);
+        }
+        const checkSamagraId = await IssuedTransferCertificateModel.findOne({ samagraId: samagraId });
+        if (checkSamagraId) {
+            return res.status(400).json(`This samagra id holder student TC already issued !`);
+        }
+        const checkAdmissionNo = await IssuedTransferCertificateModel.findOne({ admissionNo:admissionNo });
+        if (checkAdmissionNo) {
+            return res.status(400).json(`This admission number student TC already issued !`);
+        }
+        if(udiseNumber){
+            const checkUdiseNumber = await IssuedTransferCertificateModel.findOne({ udiseNumber: udiseNumber });
+        if (checkUdiseNumber) {
+            return res.status(400).json(`This udise number holder student TC already issued !`);
+        }
+        }
         const deleteStudent = await StudentModel.findByIdAndRemove(id);
         if (deleteStudent) {
             const [deleteStudentUser, deleteAdmitCard, deleteExamResult, deleteFeesCollection] = await Promise.all([

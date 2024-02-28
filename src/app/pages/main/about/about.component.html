@@ -13,8 +13,10 @@
               {{schoolInfo?.foundedYear}}. Our journey in education is guided by a steadfast commitment to providing an
               exceptional
               learning environment where every student is empowered to thrive academically, socially, and morally.</p>
-              <h3>Schooling Medium - {{schoolInfo?.medium | titlecase}} Medium</h3>
-              <p>{{schoolInfo?.schoolName}} is proud to offer education in {{schoolInfo?.medium | titlecase}} medium, recognizing the diverse linguistic needs of our students. Our commitment to excellence extends to both sections, ensuring a comprehensive and inclusive learning experience for all.</p>
+            <h3>Schooling Medium - {{schoolInfo?.medium | titlecase}} Medium</h3>
+            <p>{{schoolInfo?.schoolName}} is proud to offer education in {{schoolInfo?.medium | titlecase}} medium,
+              recognizing the diverse linguistic needs of our students. Our commitment to excellence extends to both
+              sections, ensuring a comprehensive and inclusive learning experience for all.</p>
             <h3>Our Vision</h3>
             <p>Our vision at {{schoolInfo?.schoolName}} is deeply rooted in our aspiration to empower young minds and
               mold them into responsible global citizens. Drawing inspiration from various educational philosophies, we
@@ -42,6 +44,32 @@
               not merely an educational institution; it is a close-knit community of learners. Parents, teachers, and
               students collaborate harmoniously to create a supportive and nurturing environment.
             </p>
+            <ng-container *ngIf="schoolInfo?.schoolTrust">
+              <h3>Trustee Message</h3>
+              <p>A heartfelt welcome to {{schoolInfo?.schoolName}}, a beacon of educational excellence under the
+                guidance of the {{schoolInfo?.schoolTrust | titlecase}}. Our trust, comprised of dedicated trustees, is committed to
+                steering
+                this institution towards the pinnacle of academic achievement and holistic development. As the
+                custodians
+                of our school's values, {{schoolInfo?.schoolTrust | titlecase}} ensures a transparent, innovative, and inclusive
+                educational
+                environment.
+                Drawing from a rich tapestry of experience and expertise, the trustees at {{schoolInfo?.schoolTrust | titlecase}}
+                collaborate
+                harmoniously with educators, parents, and students. Together, we strive to nurture young minds,
+                instilling
+                a sense of responsibility and global citizenship.
+                At the heart of our trust's vision is the relentless pursuit of excellence, integrity, and respect for
+                diversity. {{schoolInfo?.schoolTrust | titlecase}} is not merely a governing body; it is a vital force propelling Shri
+                Banke
+                Bihari Convent School toward a future where every student is empowered to thrive academically, socially,
+                and morally.
+                Joining the {{schoolInfo?.schoolName}} family means becoming a part of the {{schoolInfo?.schoolTrust | titlecase}}'s
+                commitment to inspiring minds and shaping futures. We eagerly anticipate the privilege of providing your
+                child with a transformative and empowering education.
+                Thank you for considering {{schoolInfo?.schoolName}} and the {{schoolInfo?.schoolTrust | titlecase}} for your child's
+                educational journey. Together, let us embark on a path of learning, growth, and success.</p>
+            </ng-container>
             <h3>Join the {{schoolInfo?.schoolName}} Family</h3>
             <p>We cordially invite you and your child to become part of the {{schoolInfo?.schoolName}} family. Together,
               we embark on an enriching educational journey. Explore our website to delve deeper into our programs,
@@ -58,7 +86,6 @@
 <app-footer></app-footer>
 <div class="spinner-container" *ngIf="loader">
   <div class="spinner-overlay" *ngIf="loader">
-    <mat-progress-spinner *ngIf="loader" diameter="65" mode="indeterminate"
-      strokeWidth="3"></mat-progress-spinner>
+    <mat-progress-spinner *ngIf="loader" diameter="65" mode="indeterminate" strokeWidth="3"></mat-progress-spinner>
   </div>
 </div>

@@ -1058,6 +1058,9 @@
                     </form>
                     <div class="modal-body" *ngIf="readyTC && singleStudentTCInfo">
                       <div class="row">
+                        <div *ngIf="errorCheck">
+                          <p class="error-message">{{errorMsg}}</p>
+                        </div>
                         <div #content class="custom-container">
                           <div class="table-container" style="margin-top: -25px !important;">
                             <div class="row" style="padding-top: 30px;">
